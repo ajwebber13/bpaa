@@ -27,6 +27,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="about.html">Our History</a><a href="about.html#charter-members">Charter Members</a></div></div></li>
       <li><a href="leadership.html" class="active">Leadership</a></li>
+      <li><a href="legacy.html">Notable Brothers</a></li>
       <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -37,6 +38,7 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
     <a href="get-active.html">Get Active</a>
   </div>
 </nav>
@@ -55,7 +57,6 @@
   <div class="container">
     <div class="board-grid" id="boardGrid">
 
-      <!-- Board Chair -->
       <div class="board-member fade-up" data-member="ladd">
         <img src="images/Charles_Ladd.jpg" alt="Charles M. Ladd" class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -68,7 +69,6 @@
         </div>
       </div>
 
-      <!-- Board Treasurer -->
       <div class="board-member fade-up fade-up-delay-1" data-member="saloy">
         <img src="images/Saloy.jpg" alt="Kael Saloy" class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -81,7 +81,6 @@
         </div>
       </div>
 
-      <!-- Board Secretary -->
       <div class="board-member fade-up fade-up-delay-2" data-member="malik">
         <img src="images/Malik Headshot.jpeg" alt="Malik B. Bartholomew" class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -94,7 +93,6 @@
         </div>
       </div>
 
-      <!-- Board Member - Marion Bracy -->
       <div class="board-member fade-up" data-member="bracy">
         <img src="images/Bracy Headshot.jpg" alt="Marion B. Bracy" class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -107,7 +105,6 @@
         </div>
       </div>
 
-      <!-- Board Member - Dr. Jubert -->
       <div class="board-member fade-up fade-up-delay-1" data-member="jubert">
         <img src="images/Steven_Jubert.png" alt="Steven B. Jubert, Ed.D" class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -120,7 +117,6 @@
         </div>
       </div>
 
-      <!-- Board Member - Montae Richardson -->
       <div class="board-member fade-up fade-up-delay-2" data-member="montae">
         <img src="images/MontaeRichardson_Headshot.jpg" alt="Montae Richardson" class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -133,7 +129,6 @@
         </div>
       </div>
 
-      <!-- Board Member - Lester McKee -->
       <div class="board-member fade-up" data-member="mckee" style="grid-column: 2;">
         <img src="images/Lester_McKee.jpg" alt="Lester J. McKee, Jr." class="board-member-img"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -195,6 +190,7 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
         <a href="get-active.html">Get Active</a>
       </div>
       <div class="footer-col">
@@ -293,11 +289,9 @@
       const key = this.getAttribute('data-member');
       const data = memberData[key];
       if (!data) return;
-
       document.getElementById('bioModalRole').textContent = data.role;
       document.getElementById('bioModalName').textContent = data.name;
       document.getElementById('bioModalText').innerHTML = data.bio;
-
       const photoEl = document.getElementById('bioModalPhoto');
       photoEl.innerHTML = '';
       const img = document.createElement('img');
@@ -310,7 +304,6 @@
         photoEl.style.justifyContent = 'center';
       };
       photoEl.appendChild(img);
-
       document.getElementById('bioModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     });
@@ -320,7 +313,6 @@
     document.getElementById('bioModal').classList.remove('open');
     document.body.style.overflow = '';
   }
-
   document.getElementById('bioModalClose').addEventListener('click', closeModal);
   document.getElementById('bioModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
