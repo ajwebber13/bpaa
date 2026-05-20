@@ -33,6 +33,7 @@
         </div>
       </li>
       <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="legacy.html">Notable Brothers</a></li>
       <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -44,6 +45,7 @@
     <a href="about.html">About — History</a>
     <a href="about.html#charter-members">About — Charter Members</a>
     <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
     <a href="get-active.html">Get Active</a>
   </div>
 </nav>
@@ -316,6 +318,7 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
         <a href="get-active.html">Get Active</a>
       </div>
       <div class="footer-col">
@@ -428,7 +431,6 @@
       document.getElementById('charterModalRole').textContent = data.role;
       document.getElementById('charterModalName').textContent = data.name;
       document.getElementById('charterModalText').innerHTML = data.bio;
-
       const photoEl = document.getElementById('charterModalPhoto');
       if (data.img) {
         photoEl.innerHTML = '';
@@ -440,7 +442,6 @@
         };
         photoEl.appendChild(img);
       }
-
       document.getElementById('charterModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     });
