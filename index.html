@@ -30,6 +30,7 @@
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="about.html">Our History</a><a href="about.html#charter-members">Charter Members</a></div></div></li>
       <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="legacy.html">Notable Brothers</a></li>
       <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -40,6 +41,7 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
     <a href="get-active.html">Get Active</a>
   </div>
 </nav>
@@ -57,7 +59,7 @@
         <em>Legacy.</em>
       </h1>
       <p>
-        The Beta Phi Alumni Association unites brothers committed to leadership, mentorship, 
+        The Beta Phi Alumni Association unites brothers committed to leadership, mentorship,
         and the advancement of Dillard University and the communities we serve.
       </p>
       <div class="hero-btns">
@@ -103,16 +105,16 @@
         <h2>Built on a legacy of <span>excellence</span></h2>
         <div class="gold-divider gold-divider-left"></div>
         <p>
-          The Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc. was chartered on November 11, 1938 
+          The Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc. was chartered on November 11, 1938
           by eight courageous young men on the campus of Dillard University in New Orleans, Louisiana.
         </p>
         <p>
-          At the 85th anniversary, college and alumni brothers voted to create the Beta Phi Alumni 
-          Association — a formal body dedicated to continuing the chapter's legacy of scholarship, 
+          At the 85th anniversary, college and alumni brothers voted to create the Beta Phi Alumni
+          Association — a formal body dedicated to continuing the chapter's legacy of scholarship,
           service, and brotherhood.
         </p>
         <div class="about-quote">
-          "Brotherhood, scholarship, and love for all mankind."
+          "Manly Deeds, Scholarship, and Love for All Mankind."
         </div>
         <a href="about.html" class="btn-gold">Read Full History</a>
       </div>
@@ -163,7 +165,7 @@
         <div class="pillar-number">01</div>
         <h3>Brotherhood</h3>
         <p>
-          A lifelong bond among men who share a commitment to excellence, 
+          A lifelong bond among men who share a commitment to excellence,
           accountability, and supporting one another across every season of life.
         </p>
       </div>
@@ -171,7 +173,7 @@
         <div class="pillar-number">02</div>
         <h3>Leadership</h3>
         <p>
-          Developing leaders in business, government, education, and community — 
+          Developing leaders in business, government, education, and community —
           carrying the chapter's tradition of producing men who lead at every level.
         </p>
       </div>
@@ -179,7 +181,7 @@
         <div class="pillar-number">03</div>
         <h3>Service</h3>
         <p>
-          Giving back to Dillard University, the city of New Orleans, and beyond — 
+          Giving back to Dillard University, the city of New Orleans, and beyond —
           continuing a decades-long legacy of community engagement and impact.
         </p>
       </div>
@@ -205,7 +207,7 @@
       <div class="footer-brand">
         <h3>BPAA</h3>
         <p>
-          The Beta Phi Alumni Association — committed to brotherhood, leadership, 
+          The Beta Phi Alumni Association — committed to brotherhood, leadership,
           and service in support of Beta Phi Chapter and Dillard University.
         </p>
         <div class="footer-social">
@@ -218,6 +220,7 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
         <a href="get-active.html">Get Active</a>
       </div>
       <div class="footer-col">
@@ -242,12 +245,9 @@
 
 <script src="script.js"></script>
 <script>
-  // Mobile nav toggle
   document.getElementById('navToggle').addEventListener('click', function() {
     document.getElementById('navMobile').classList.toggle('open');
   });
-
-  // Fade-up scroll observer
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
