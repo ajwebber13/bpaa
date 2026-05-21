@@ -517,7 +517,6 @@
 <script>
   const VALID_USER = 'bpaa';
   const VALID_PASS = 'betaphi1938';
-  const SESSION_KEY = 'bpaa_auth';
 
   function attemptLogin() {
     const user = document.getElementById('username').value.trim().toLowerCase();
@@ -525,7 +524,6 @@
     const err  = document.getElementById('login-error');
 
     if (user === VALID_USER && pass === VALID_PASS) {
-      sessionStorage.setItem(SESSION_KEY, 'true');
       showMembers();
     } else {
       err.textContent = 'Incorrect username or password. Please try again.';
@@ -539,17 +537,11 @@
   }
 
   function logout() {
-    sessionStorage.removeItem(SESSION_KEY);
     document.getElementById('login-gate').style.display    = 'flex';
     document.getElementById('members-content').style.display = 'none';
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';
     document.getElementById('login-error').textContent = '';
-  }
-
-  // Check session on load
-  if (sessionStorage.getItem(SESSION_KEY) === 'true') {
-    showMembers();
   }
 
   // Allow Enter key to submit
