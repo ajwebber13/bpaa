@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Membership Directory Form | Beta Phi Alumni Association</title>
+<meta name="description" content="Submit your information to the Beta Phi Alumni Association Brotherhood Membership Directory." />
+<link rel="icon" type="image/png" href="images/bpaalogo.png">
+<link rel="apple-touch-icon" href="images/bpaalogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="main.css" />
+<style>
+
+.form-section {
+  background: var(--black, #0a0a0a);
+  padding: 4rem 0 6rem;
+}
+.form-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Group label */
+.form-group-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.5px solid rgba(184,135,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.form-group-label:first-of-type { margin-top: 0; }
+
+/* Grid layouts */
+.form-row {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-row.cols-2 { grid-template-columns: 1fr 1fr; }
+.form-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-row.cols-1 { grid-template-columns: 1fr; }
+
+@media (max-width: 600px) {
+  .form-row.cols-2,
+  .form-row.cols-3 { grid-template-columns: 1fr; }
+}
+
+/* Field */
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-field label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.form-field label .req {
+  color: var(--gold, #b48700);
+  margin-left: 2px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+}
+.form-field select option { background: #1a1a1a; color: #fff; }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: rgba(184,135,0,0.5);
+  background: rgba(255,255,255,0.06);
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+
+/* File upload */
+.file-upload-wrap {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px dashed rgba(184,135,0,0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  position: relative;
+}
+.file-upload-wrap:hover {
+  background: rgba(184,135,0,0.04);
+  border-color: rgba(184,135,0,0.5);
+}
+.file-upload-wrap input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.file-upload-icon {
+  font-size: 1.75rem;
+  color: rgba(184,135,0,0.5);
+  margin-bottom: 0.5rem;
+}
+.file-upload-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
+.file-upload-text strong { color: var(--gold, #b48700); }
+.file-name {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: var(--gold, #b48700);
+  margin-top: 6px;
+  display: none;
+}
+
+/* Required note */
+.required-note {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 2rem;
+}
+.required-note span { color: var(--gold, #b48700); }
+
+/* Submit */
+.form-submit-row {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-submit {
+  background: var(--gold, #b48700);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 3rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-submit:hover { opacity: 0.88; }
+.form-privacy {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  text-align: center;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: rgba(184,135,0,0.06);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+.form-success i {
+  font-size: 2.5rem;
+  color: var(--gold, #b48700);
+  margin-bottom: 1rem;
+}
+.form-success h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.form-success p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="siteNav">
+  <div class="container">
+    <a href="index.html" class="nav-brand" style="text-decoration:none;">
+      <div class="nav-brand-shield">ΑΦΑ</div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; letter-spacing:0.03em; line-height:1.2;">Beta Phi Alumni Association</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="about.html">About</a>
+        <div class="nav-dropdown">
+          <a href="about.html">Our History</a>
+          <a href="about.html#charter-members">Charter Members</a>
+        </div>
+      </li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li>
+        <a href="legacy.html">Notable Brothers</a>
+        <div class="nav-dropdown">
+          <a href="legacy.html">Notable Brothers</a>
+          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        </div>
+      </li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="about.html">About — History</a>
+    <a href="about.html#charter-members">About — Charter Members</a>
+    <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
+    <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+    <a href="members.html">Members</a>
+    <a href="get-active.html">Get Active</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-content">
+    <span class="section-label">Brotherhood Membership Directory</span>
+    <h1>Member <span>Registration</span></h1>
+    <p>Complete the form below to add your information to the Beta Phi Alumni Association Brotherhood Directory.</p>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section">
+  <div class="container">
+    <div class="form-wrap">
+
+      <div class="required-note"><span>*</span> Indicates a required field</div>
+
+      <!--
+        FORMSPREE SETUP INSTRUCTIONS:
+        1. Go to https://formspree.io and create a free account
+        2. Click "New Form" and name it "BPAA Membership Directory"
+        3. Copy your form ID (looks like: xyzabcde)
+        4. Replace YOUR_FORM_ID below with your actual form ID
+        Example: action="https://formspree.io/f/xyzabcde"
+      -->
+      <form
+        id="directoryForm"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate
+      >
+
+        <!-- PERSONAL INFORMATION -->
+        <div class="form-group-label">
+          <i class="fas fa-user"></i> Personal Information
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="first_name">First Name <span class="req">*</span></label>
+            <input type="text" id="first_name" name="first_name" placeholder="First name" required />
+          </div>
+          <div class="form-field">
+            <label for="last_name">Last Name <span class="req">*</span></label>
+            <input type="text" id="last_name" name="last_name" placeholder="Last name" required />
+          </div>
+        </div>
+
+        <div class="form-row cols-1">
+          <div class="form-field">
+            <label for="address">Home Address <span class="req">*</span></label>
+            <input type="text" id="address" name="address" placeholder="Street address" required />
+          </div>
+        </div>
+
+        <div class="form-row cols-3">
+          <div class="form-field">
+            <label for="city">City <span class="req">*</span></label>
+            <input type="text" id="city" name="city" placeholder="City" required />
+          </div>
+          <div class="form-field">
+            <label for="state">State <span class="req">*</span></label>
+            <select id="state" name="state" required>
+              <option value="" disabled selected>Select state</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+              <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+              <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+              <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+              <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+              <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+              <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+              <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+              <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+              <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+              <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+              <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+              <option>WI</option><option>WY</option><option>DC</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="zip">ZIP Code <span class="req">*</span></label>
+            <input type="text" id="zip" name="zip" placeholder="ZIP" maxlength="10" required />
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="phone">Telephone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(504) 000-0000" required />
+          </div>
+          <div class="form-field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="email@example.com" required />
+          </div>
+        </div>
+
+        <!-- ALPHA PHI ALPHA INFORMATION -->
+        <div class="form-group-label">
+          <i class="fas fa-shield-alt"></i> Alpha Phi Alpha — Beta Phi Chapter
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="initiation_date">Date of Initiation <span class="req">*</span></label>
+            <input type="date" id="initiation_date" name="initiation_date" required />
+          </div>
+          <div class="form-field">
+            <label for="initiation_year">Initiation Semester & Year</label>
+            <input type="text" id="initiation_year" name="initiation_year" placeholder="e.g. Fall 1998" />
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="line_number">Line Number <span class="req">*</span></label>
+            <input type="text" id="line_number" name="line_number" placeholder="e.g. 7" required />
+          </div>
+          <div class="form-field">
+            <label for="line_name">Line Name <span class="req">*</span></label>
+            <input type="text" id="line_name" name="line_name" placeholder="e.g. The Great Revolt" required />
+          </div>
+        </div>
+
+        <!-- DILLARD UNIVERSITY INFORMATION -->
+        <div class="form-group-label">
+          <i class="fas fa-graduation-cap"></i> Dillard University
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="dillard_major">Major at Dillard University <span class="req">*</span></label>
+            <input type="text" id="dillard_major" name="dillard_major" placeholder="e.g. Computer Science" required />
+          </div>
+          <div class="form-field">
+            <label for="dillard_grad_year">Year Graduated from Dillard</label>
+            <input type="text" id="dillard_grad_year" name="dillard_grad_year" placeholder="e.g. 2005" maxlength="4" />
+          </div>
+        </div>
+
+        <div class="form-row cols-1">
+          <div class="form-field">
+            <label for="grad_school">Graduate School (if applicable)</label>
+            <input type="text" id="grad_school" name="grad_school" placeholder="Institution name and degree" />
+          </div>
+        </div>
+
+        <!-- PHOTO UPLOAD -->
+        <div class="form-group-label">
+          <i class="fas fa-camera"></i> Photo / Headshot
+        </div>
+
+        <div class="form-field">
+          <label>Upload a Photo or Headshot</label>
+          <div class="file-upload-wrap" id="fileWrap">
+            <input
+              type="file"
+              id="headshot"
+              name="headshot"
+              accept="image/png, image/jpeg, image/jpg, image/webp"
+              onchange="showFileName(this)"
+            />
+            <div class="file-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="file-upload-text">
+              <strong>Click to upload</strong> or drag and drop<br>
+              PNG, JPG, JPEG or WEBP · Max 5MB
+            </div>
+            <div class="file-name" id="fileName"></div>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="form-submit-row">
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit to Directory
+          </button>
+          <p class="form-privacy">
+            Your information will be shared only with the Beta Phi Alumni Association board and stored in the private BPAA Brotherhood Directory. It will not be published publicly.
+          </p>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS MESSAGE (shown after submission) -->
+      <div class="form-success" id="formSuccess">
+        <i class="fas fa-check-circle"></i>
+        <h3>Submission Received</h3>
+        <p>Thank you, Brother. Your information has been submitted to the BPAA Brotherhood Directory. The board will follow up if needed.</p>
+        <a href="index.html" class="btn-gold" style="display:inline-block; margin-top:1.5rem;">Return Home</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Beta Phi Alumni Association</h3>
+        <p>The Beta Phi Alumni Association — committed to brotherhood, leadership, and service in support of Beta Phi Chapter and Dillard University.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61578446081453" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/bpaa_1938/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:betaphialumniassociation@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
+        <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        <a href="members.html">Members</a>
+        <a href="get-active.html">Get Active</a>
+      </div>
+      <div class="footer-col">
+        <h4>Membership</h4>
+        <a href="get-active.html#golden">Golden Brothers</a>
+        <a href="get-active.html#young">Young Brothers</a>
+        <a href="get-active.html#college">College Brothers</a>
+        <a href="get-active.html#forms">Member Forms</a>
+        <a href="directory-form.html">Directory Form</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Beta Phi Alumni Association, Inc. All rights reserved.</p>
+      <p>Alpha Phi Alpha Fraternity, Inc. — Beta Phi Chapter | Est. 1938</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav toggle
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navMobile').classList.toggle('open');
+  });
+
+  // Show selected filename
+  function showFileName(input) {
+    const label = document.getElementById('fileName');
+    if (input.files && input.files[0]) {
+      label.textContent = input.files[0].name;
+      label.style.display = 'block';
+    }
+  }
+
+  // Handle Formspree AJAX submission
+  const form = document.getElementById('directoryForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = form.querySelector('.btn-submit');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    btn.disabled = true;
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit to Directory';
+        btn.disabled = false;
+        alert('There was an issue submitting the form. Please try again or email us directly at betaphialumniassociation@gmail.com.');
+      }
+    } catch (err) {
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit to Directory';
+      btn.disabled = false;
+      alert('Network error. Please try again or email us directly.');
+    }
+  });
+
+  // Scroll fade
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
