@@ -68,6 +68,106 @@
     margin: 1.5rem auto;
   }
 
+  /* ── FEATURED: TILLMAN ── */
+  .featured-brother {
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+  }
+  .featured-backdrop {
+    position: absolute;
+    inset: 0;
+    background-image: url('bpaa/images/TillmanInaugaration.png');
+    background-size: cover;
+    background-position: center top;
+    filter: brightness(0.25);
+    transform: scale(1.05);
+    transition: transform 8s ease;
+  }
+  .featured-brother:hover .featured-backdrop {
+    transform: scale(1.0);
+  }
+  .featured-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0,0,0,0.92) 0%,
+      rgba(0,0,0,0.7) 50%,
+      rgba(0,0,0,0.1) 100%
+    );
+  }
+  .featured-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 80px 0;
+  }
+  .featured-headshot {
+    flex-shrink: 0;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    border: 4px solid #b59025;
+    box-shadow: 0 0 0 8px rgba(181,144,37,0.15), 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .featured-info {
+    max-width: 560px;
+  }
+  .featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(181,144,37,0.15);
+    border: 1px solid rgba(181,144,37,0.4);
+    color: #b59025;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+  .featured-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .featured-info .brother-title {
+    font-family: 'Nunito', sans-serif;
+    color: #b59025;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+  }
+  .featured-info p {
+    font-family: 'Nunito', sans-serif;
+    color: rgba(255,255,255,0.72);
+    font-size: 0.97rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .featured-info p:last-of-type {
+    margin-bottom: 0;
+  }
+  .featured-divider {
+    width: 48px;
+    height: 2px;
+    background: #b59025;
+    margin-bottom: 1.2rem;
+  }
+
   /* ── BROTHERS GRID ── */
   .brothers-section {
     background: #f8f6f0;
@@ -165,6 +265,150 @@
     line-height: 1.7;
   }
 
+  /* ── CARD CLICK PROMPT ── */
+  .brother-card { cursor: pointer; }
+  .read-bio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #b59025;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    transition: gap 0.2s ease;
+  }
+  .read-bio-btn:hover { gap: 0.7rem; }
+
+  /* ── BIO MODAL ── */
+  .bio-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.82);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+  .bio-modal-overlay.active { display: flex; }
+  .bio-modal {
+    background: #fff;
+    max-width: 760px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .bio-modal-header {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+  .bio-modal-header-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center top;
+    filter: brightness(0.3);
+  }
+  .bio-modal-header-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    height: 100%;
+  }
+  .bio-modal-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    border: 3px solid #b59025;
+    flex-shrink: 0;
+  }
+  .bio-modal-name h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+  }
+  .bio-modal-name .modal-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #b59025;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .bio-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .bio-modal-close:hover { background: rgba(255,255,255,0.2); }
+  .bio-modal-body {
+    padding: 2rem;
+    border-top: 3px solid #b59025;
+  }
+  .bio-modal-body p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+  }
+  .bio-modal-body p:last-child { margin-bottom: 0; }
+  .bio-modal-body .bio-highlight {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.2rem 0;
+  }
+  .bio-highlight-tag {
+    background: #f8f6f0;
+    border: 1px solid rgba(181,144,37,0.3);
+    color: #7a6010;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .featured-content {
@@ -248,6 +492,35 @@
   </div>
 </section>
 
+<!-- FEATURED: MARK S. TILLMAN -->
+<section class="featured-brother">
+  <div class="featured-backdrop"></div>
+  <div class="featured-overlay"></div>
+  <div class="container">
+    <div class="featured-content">
+      <div class="featured-info">
+        <div class="featured-badge">
+          <i class="fas fa-star"></i>
+          Featured Brother
+        </div>
+        <h2>Bro. Mark S. Tillman</h2>
+        <div class="brother-title">34th General President · Alpha Phi Alpha Fraternity, Inc.</div>
+        <div class="featured-divider"></div>
+        <p>
+          Bro. Mark S. Tillman is the 34th General President of Alpha Phi Alpha Fraternity, Inc.,
+          and holds the distinction of being the first person initiated through Beta Phi Chapter
+          to serve in that role.
+        </p>
+        <p>
+          His election to the fraternity's highest office stands as one of the most significant
+          achievements in Beta Phi's 88-year history — a testament to the chapter's legacy of
+          producing men who lead at every level.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- BROTHERS GRID -->
 <section class="brothers-section">
   <div class="container">
@@ -260,9 +533,9 @@
     <div class="brothers-grid">
 
       <!-- Mark S. Tillman -->
-      <div class="brother-card fade-up">
+      <div class="brother-card fade-up" onclick="openModal('tillman-modal')">
         <img
-          src="images/TillmanHeadshot.jpg"
+          src="bpaa/images/TillmanHeadshot.jpg"
           alt="Bro. Mark S. Tillman"
           class="brother-card-photo"
         />
@@ -273,23 +546,25 @@
             The first brother initiated through Beta Phi Chapter to serve as General President
             of Alpha Phi Alpha Fraternity, Inc. — a historic milestone for the chapter and Dillard University.
           </p>
+          <button class="read-bio-btn">Read Full Bio <i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
 
       <!-- Michael J. Price -->
-      <div class="brother-card fade-up fade-up-delay-1">
+      <div class="brother-card fade-up fade-up-delay-1" onclick="openModal('price-modal')">
         <img
-          src="images/Price Headshot.png"
+          src="bpaa/images/PriceHeadshot.jpg"
           alt="Bro. Michael J. Price"
           class="brother-card-photo"
         />
         <div class="brother-card-body">
           <h3>Michael J. Price</h3>
-          <div class="card-title">Notable Brother · Beta Phi Chapter</div>
+          <div class="card-title">Editor-in-Chief, The Sphinx · 1974–1990</div>
           <p>
-            A distinguished alumnus of Beta Phi Chapter, whose leadership and service
-            exemplify the ideals of Alpha Phi Alpha Fraternity, Inc.
+            A Dillard alumnus and longtime Alpha Phi Alpha national staff leader who served as
+            Editor-in-Chief of <em>The Sphinx</em> for 16 years. Entered Omega Chapter July 23, 1990.
           </p>
+          <button class="read-bio-btn">Read Full Bio <i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
 
@@ -350,6 +625,122 @@
   </div>
 </footer>
 
+<!-- MODAL: MARK S. TILLMAN -->
+<div class="bio-modal-overlay" id="tillman-modal">
+  <div class="bio-modal">
+    <div class="bio-modal-header">
+      <div class="bio-modal-header-bg" style="background-image: url('bpaa/images/TillmanInaugaration.png');"></div>
+      <button class="bio-modal-close" onclick="closeModal('tillman-modal')"><i class="fas fa-times"></i></button>
+      <div class="bio-modal-header-content">
+        <img src="bpaa/images/TillmanHeadshot.jpg" alt="Bro. Mark S. Tillman" class="bio-modal-photo" />
+        <div class="bio-modal-name">
+          <h2>Bro. Mark S. Tillman</h2>
+          <div class="modal-title">34th General President · Alpha Phi Alpha Fraternity, Inc.</div>
+        </div>
+      </div>
+    </div>
+    <div class="bio-modal-body">
+      <div class="bio-highlight">
+        <span class="bio-highlight-tag">Beta Phi Chapter</span>
+        <span class="bio-highlight-tag">Dillard University</span>
+        <span class="bio-highlight-tag">General President 2013–2016</span>
+        <span class="bio-highlight-tag">Alpha Award of Merit — 2023</span>
+      </div>
+      <p>
+        Bro. Mark S. Tillman is the 34th General President of Alpha Phi Alpha Fraternity, Inc.,
+        having served in that role from 2013 to 2016. He holds the historic distinction of being
+        the first brother initiated through Beta Phi Chapter at Dillard University to ascend to
+        the fraternity's highest office — a milestone that stands as one of the proudest chapters
+        in Beta Phi's legacy.
+      </p>
+      <p>
+        Bro. Tillman was initiated at Dillard University and later became an active member of
+        Gamma Lambda Chapter in Detroit, Michigan, where he served for more than 20 years as a
+        tireless contributor to chapter programs and service projects. His election as General
+        President also marked the first time in more than 30 years that a brother residing in
+        the Midwestern Region held the office.
+      </p>
+      <p>
+        During his tenure, Bro. Tillman championed Alpha Phi Alpha's national initiatives in
+        education, mentorship, and community service. He was a visible voice at the 50th
+        Anniversary of the March on Washington, speaking at the Let Freedom Ring Celebration
+        alongside Presidents Barack Obama, Bill Clinton, and Jimmy Carter — representing the
+        fraternity on one of the most significant civic stages in recent memory.
+      </p>
+      <p>
+        In recognition of his decades of service and dedication to the aims of the fraternity,
+        Bro. Tillman was awarded the Alpha Award of Merit at the 97th General Convention in
+        Dallas, Texas in 2023 — by tradition and practice, the greatest honor bestowed upon a
+        member of Alpha Phi Alpha.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: MICHAEL J. PRICE -->
+<div class="bio-modal-overlay" id="price-modal">
+  <div class="bio-modal">
+    <div class="bio-modal-header">
+      <div class="bio-modal-header-bg" style="background-image: url('bpaa/images/PriceHeadshot.jpg'); filter: brightness(0.2);"></div>
+      <button class="bio-modal-close" onclick="closeModal('price-modal')"><i class="fas fa-times"></i></button>
+      <div class="bio-modal-header-content">
+        <img src="bpaa/images/PriceHeadshot.jpg" alt="Bro. Michael J. Price" class="bio-modal-photo" />
+        <div class="bio-modal-name">
+          <h2>Bro. Michael J. Price</h2>
+          <div class="modal-title">Editor-in-Chief, The Sphinx · Beta Phi Chapter · In Memoriam</div>
+        </div>
+      </div>
+    </div>
+    <div class="bio-modal-body">
+      <div class="bio-highlight">
+        <span class="bio-highlight-tag">Beta Phi Chapter · Dillard University</span>
+        <span class="bio-highlight-tag">Editor-in-Chief, The Sphinx 1974–1990</span>
+        <span class="bio-highlight-tag">In Memoriam · 1950–1990</span>
+      </div>
+      <p>
+        Bro. Michael Jerome Price was born on November 28, 1950 in Yazoo City, Mississippi and
+        grew up in Indianola, Mississippi. He received his B.A. and M.A. degrees in Philosophy
+        from Dillard University in New Orleans in 1971 and from Purdue University in West
+        Lafayette, Indiana in 1973 respectively. He entered Omega Chapter on July 23, 1990.
+      </p>
+      <p>
+        If ever a brother personified the Alpha Phi Alpha theme of Leadership and Service, it was
+        dramatized in the life of Bro. Price. At Dillard, he served as Director of Communications
+        and Programs — the culminating position in his service on the General Office staff that
+        began in 1973. In 1974, he became Editor-in-Chief of <em>The Sphinx</em>, the nation's
+        second oldest continuous African American journal, a role he held with distinction for
+        sixteen years. As Alpha Phi Alpha's membership and structure grew, Bro. Price assumed
+        responsibility for the fraternity's entire communications program and, in 1986, took on
+        additional responsibility for providing oversight and support to the fraternity's national
+        community programs.
+      </p>
+      <p>
+        In his staff capacity, Bro. Price was also a tireless leader in charting the future course
+        of his beloved fraternity. He provided staff support to college and alumni chapters alike,
+        served as liaison to committees, commissions, and foundations, and supported both elected
+        and appointed fraternal officials — including five General Presidents. His thoughtful
+        recommendations and direction assisted in the implementation of innovative internal
+        policies and procedures as well as nationally recognized community service programs.
+      </p>
+      <p>
+        His legacy of leadership extended beyond the fraternity. He was a three-term President of
+        Iota Delta Lambda Chapter and held active membership on the Editorial Board of the
+        "Woodlawn Vision," the Black Independent Political Organization, and St. James United
+        Methodist Church. He is listed in <em>Who's Who Among Black Americans</em> and
+        <em>Outstanding Young Men of America</em>. He received the March of Dimes Birth Defects
+        Foundation's Outstanding Service Award in 1986 and the fraternity's Distinguished Service
+        Award in 1980, 1984, and 1988.
+      </p>
+      <p>
+        A national fraternity leader within the Black Greek-letter movement, Bro. Price faithfully
+        accepted the arduous task of continuing the fraternal movement initiated by our beloved
+        Jewels. The void left by his passing is immeasurable. His legacy stands as a reminder that
+        all we do as Alpha men must be done in the noblest traditions of Alpha Phi Alpha.
+      </p>
+    </div>
+  </div>
+</div>
+
 <script src="script.js"></script>
 <script>
   document.getElementById('navToggle').addEventListener('click', function() {
@@ -359,6 +750,27 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  // Close on overlay click
+  document.querySelectorAll('.bio-modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) closeModal(this.id);
+    });
+  });
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.bio-modal-overlay.active').forEach(m => closeModal(m.id));
+    }
+  });
 </script>
 </body>
 </html>
