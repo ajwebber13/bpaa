@@ -146,147 +146,10 @@
   line-height: 1.55;
 }
 .awards-list li::before {
-  content: '—';
+  content: '\2014';
   position: absolute;
   left: 0;
   color: var(--gold, #b48700);
-}
-
-/* ── Notable Brothers Cards ── */
-.notable-brothers-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin: 1.75rem 0 1rem;
-}
-
-/* Featured Tillman card — full width with inauguration backdrop */
-.notable-card-featured {
-  grid-column: 1 / -1;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 0.5px solid rgba(184,135,0,0.35);
-  min-height: 260px;
-  display: flex;
-  align-items: flex-end;
-}
-.notable-card-featured .notable-backdrop {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center top;
-  filter: brightness(0.28) saturate(0.6);
-  z-index: 0;
-}
-.notable-card-featured .notable-backdrop::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.5) 55%, rgba(10,10,10,0.15) 100%);
-}
-.notable-card-featured .notable-inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-end;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  width: 100%;
-}
-.notable-card-featured .notable-headshot {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center top;
-  border: 2px solid var(--gold, #b48700);
-  flex-shrink: 0;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-}
-.notable-card-featured .notable-text .notable-role {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold, #b48700);
-  opacity: 0.85;
-  margin-bottom: 3px;
-}
-.notable-card-featured .notable-text .notable-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1.2;
-  margin-bottom: 6px;
-}
-.notable-card-featured .notable-text .notable-desc {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.6;
-  max-width: 600px;
-}
-
-/* Standard notable cards (Price, Williams) */
-.notable-card {
-  background: rgba(255,255,255,0.03);
-  border: 0.5px solid rgba(184,135,0,0.2);
-  border-radius: 10px;
-  padding: 1.25rem;
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  transition: border-color 0.2s;
-}
-.notable-card:hover { border-color: rgba(184,135,0,0.45); }
-.notable-card .notable-headshot {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center top;
-  border: 1.5px solid rgba(184,135,0,0.45);
-  flex-shrink: 0;
-}
-.notable-card .notable-ph {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(184,135,0,0.08);
-  border: 1.5px solid rgba(184,135,0,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(184,135,0,0.4);
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-.notable-card .notable-role {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold, #b48700);
-  opacity: 0.8;
-  margin-bottom: 2px;
-}
-.notable-card .notable-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text, #f0ead6);
-  line-height: 1.3;
-  margin-bottom: 5px;
-}
-.notable-card .notable-desc {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.8rem;
-  color: var(--muted, rgba(255,255,255,0.6));
-  line-height: 1.6;
 }
 
 /* ── Mother of Beta Phi with headshot ── */
@@ -407,8 +270,6 @@
 }
 @media (max-width: 600px) {
   .journal-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
-  .notable-brothers-grid { grid-template-columns: 1fr; }
-  .notable-card-featured .notable-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   .porter-profile { flex-direction: column; align-items: center; text-align: center; }
 }
 
@@ -510,7 +371,7 @@
         Since the very inception of the chapter, the members have strived to maintain high scholastic marks while at the same time serving the local community both at Dillard University and the New Orleans community at large.
       </p>
 
-      <h2>Campus Leadership & Service</h2>
+      <h2>Campus Leadership &amp; Service</h2>
       <p>
         Beta Phi Brothers have served in several campus leadership positions over the decades — the SGA, NPHC, Class Councils, Dorm Councils, Pre Alumni Council, NAACP — and have served as Student Scholar Athletes, Melton Fellows, concert choir members, and in various honor societies and clubs. The chapter is also proud to have produced <strong>the first appointed Mister Dillard University, Montae Richardson</strong>, and <strong>the first elected Mister Dillard University, Kael Saloy</strong>.
       </p>
@@ -527,64 +388,6 @@
       <p>
         In <strong>1985</strong>, Beta Phi received the highest award in Alpha Phi Alpha by being named <strong>Chapter of the Year</strong> at the General Convention in Atlanta, Georgia. Brother William Washington was the Chapter President at that time.
       </p>
-
-      <h2>Notable Brothers</h2>
-      <p>
-        The Beta Phi Chapter has produced men who have served Alpha in distinguished positions:
-      </p>
-
-      <!-- Notable Brothers Visual Cards -->
-      <div class="notable-brothers-grid fade-up">
-
-        <!-- Mark S. Tillman — Featured Card with Inauguration Backdrop -->
-        <div class="notable-card-featured">
-          <div class="notable-backdrop" style="background-image: url('images/TillmanInaugaration.png');"></div>
-          <div class="notable-inner">
-            <img
-              src="images/TillmanHeadshot.jpg"
-              alt="Brother Mark S. Tillman"
-              class="notable-headshot"
-              onerror="this.style.display='none';"
-            />
-            <div class="notable-text">
-              <div class="notable-role">34th General President · Alpha Award of Merit · 2023</div>
-              <div class="notable-name">Brother Mark S. Tillman</div>
-              <div class="notable-desc">
-                Former Midwestern Regional Vice President and the first General President of Alpha Phi Alpha was initiated through Beta Phi. In 2023, Brother Tillman received <em>The Alpha Award of Merit</em> — the highest honor in Alpha Phi Alpha Fraternity, Inc.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Michael J. Price -->
-        <!-- NOTE: Update src to the correct Price headshot file when available -->
-        <div class="notable-card">
-          <img
-            src="images/Price Headshot.png"
-            alt="Brother Michael J. Price"
-            class="notable-headshot"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-          />
-          <div class="notable-ph" style="display:none;"><i class="fas fa-user"></i></div>
-          <div>
-            <div class="notable-role">Longest-Serving Sphinx Editor</div>
-            <div class="notable-name">Brother Michael J. Price</div>
-            <div class="notable-desc">The longest-serving Editor of the Sphinx — Alpha Phi Alpha's official national publication.</div>
-          </div>
-        </div>
-
-        <!-- Joshua Williams Jr. -->
-        <div class="notable-card">
-          <div class="notable-ph"><i class="fas fa-user"></i></div>
-          <div>
-            <div class="notable-role">National Convention Chair</div>
-            <div class="notable-name">Brother Joshua Williams, Jr.</div>
-            <div class="notable-desc">Past New Orleans National Convention Chair for Alpha Phi Alpha Fraternity, Inc.</div>
-          </div>
-        </div>
-
-      </div>
-      <!-- end notable-brothers-grid -->
 
       <h2>Era of Excellence (2011–Present)</h2>
       <p>
@@ -650,12 +453,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     TIMELINE — KEY MILESTONES
-══════════════════════════════════════════ -->
+<!-- TIMELINE -->
 <section class="timeline-section" id="timeline">
   <div class="container">
-
     <div style="text-align:center; margin-bottom:1rem;">
       <span class="section-label">Est. 1938 · Dillard University</span>
       <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
@@ -663,11 +463,8 @@
       </h2>
       <div class="gold-divider"></div>
     </div>
-
     <div class="tl-body">
       <div class="tl-spine"></div>
-
-      <!-- 1938 -->
       <div class="tl-item fade-up">
         <div class="tl-empty-l"></div>
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1938</div></div>
@@ -677,8 +474,6 @@
           <div><span class="tl-badge">Est. Nov. 11, 1938</span></div>
         </div>
       </div>
-
-      <!-- 1939-40 -->
       <div class="tl-item fade-up">
         <div class="tl-card tl-card-l">
           <div class="tl-cat">Academic Standard Set</div>
@@ -687,8 +482,6 @@
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1939–40</div></div>
         <div class="tl-empty-r"></div>
       </div>
-
-      <!-- 1985 -->
       <div class="tl-item fade-up">
         <div class="tl-empty-l"></div>
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1985</div></div>
@@ -703,8 +496,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 2003 -->
       <div class="tl-item fade-up">
         <div class="tl-card tl-card-l">
           <div class="tl-cat">Regional Excellence</div>
@@ -713,8 +504,6 @@
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2003</div></div>
         <div class="tl-empty-r"></div>
       </div>
-
-      <!-- 2011 -->
       <div class="tl-item fade-up">
         <div class="tl-empty-l"></div>
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2011</div></div>
@@ -724,8 +513,6 @@
           <div><span class="tl-badge">Era of Excellence Begins</span></div>
         </div>
       </div>
-
-      <!-- 2013 GP -->
       <div class="tl-item fade-up">
         <div class="tl-card tl-card-l">
           <div class="tl-cat">34th General President</div>
@@ -735,8 +522,6 @@
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2013</div></div>
         <div class="tl-empty-r"></div>
       </div>
-
-      <!-- 2013 Scholarship -->
       <div class="tl-item fade-up">
         <div class="tl-empty-l"></div>
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2013</div></div>
@@ -746,8 +531,6 @@
           <div><span class="tl-badge">First in BGLO History at Dillard</span></div>
         </div>
       </div>
-
-      <!-- 2017 -->
       <div class="tl-item fade-up">
         <div class="tl-card tl-card-l">
           <div class="tl-cat">National Recognition</div>
@@ -756,19 +539,15 @@
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2017</div></div>
         <div class="tl-empty-r"></div>
       </div>
-
-      <!-- 2021 -->
       <div class="tl-item fade-up">
         <div class="tl-empty-l"></div>
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2021</div></div>
         <div class="tl-card tl-card-r">
           <div class="tl-cat">National Highest GPA</div>
           <div class="tl-desc">Under Chapter President Rodney Perkins, Beta Phi wins National Chapter with the Highest GPA. Brother Chad Fuselier wins National Brother with the Highest GPA — going on to become a Valedictorian of the Dillard University Class of 2022.</div>
-          <div><span class="tl-badge">National & Southwestern Region</span></div>
+          <div><span class="tl-badge">National &amp; Southwestern Region</span></div>
         </div>
       </div>
-
-      <!-- 2023 -->
       <div class="tl-item fade-up">
         <div class="tl-card tl-card-l">
           <div class="tl-cat">BPAA Founded · Award of Merit</div>
@@ -778,29 +557,23 @@
         <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2023</div></div>
         <div class="tl-empty-r"></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     AWARDS & ACHIEVEMENTS — DETAILED RECORD
-══════════════════════════════════════════ -->
+<!-- AWARDS & ACHIEVEMENTS -->
 <section class="awards-era">
   <div class="container">
-
     <div style="text-align:center; padding: 4rem 0 3rem;">
       <span class="section-label">Complete Record</span>
       <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
-        Awards & <span style="color:var(--gold); font-style:italic;">Achievements</span>
+        Awards &amp; <span style="color:var(--gold); font-style:italic;">Achievements</span>
       </h2>
       <div class="gold-divider"></div>
       <p style="color:var(--muted); max-width:560px; margin:1rem auto 0; font-size:0.9rem;">
         A full record of Beta Phi's recognition at the Louisiana District, Southwestern Region, and National levels.
       </p>
     </div>
-
-    <!-- 2023 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2023</div>
       <ul class="awards-list">
@@ -812,8 +585,6 @@
         <li>Louisiana Scholars Bowl</li>
       </ul>
     </div>
-
-    <!-- 2022 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2022</div>
       <ul class="awards-list">
@@ -827,8 +598,6 @@
         <li>Louisiana Scholar's Bowl</li>
       </ul>
     </div>
-
-    <!-- 2021 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2021</div>
       <ul class="awards-list">
@@ -845,8 +614,6 @@
         <li>Louisiana Scholar's Bowl Winner</li>
       </ul>
     </div>
-
-    <!-- 2020 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2020</div>
       <ul class="awards-list">
@@ -862,8 +629,6 @@
         <li>Louisiana Most Registered Brothers</li>
       </ul>
     </div>
-
-    <!-- 2019 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2019</div>
       <ul class="awards-list">
@@ -876,8 +641,6 @@
         <li>Louisiana Brother of the Year (Bro. Joseph Caldwell)</li>
       </ul>
     </div>
-
-    <!-- 2018 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2018</div>
       <ul class="awards-list">
@@ -888,8 +651,6 @@
         <li>Louisiana College Chapter with Most Registered Brothers</li>
       </ul>
     </div>
-
-    <!-- 2017 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2017</div>
       <ul class="awards-list">
@@ -901,19 +662,15 @@
         <li>Louisiana College Brother with the Highest GPA</li>
       </ul>
     </div>
-
-    <!-- 2016 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2016</div>
       <ul class="awards-list">
         <li>Louisiana College Chapter of the Year</li>
         <li>Louisiana College Chapter with the Highest GPA</li>
-        <li>Hobart Jarrett Debate Contest Winner (Bro. Trevon Blair & Bro. Darren Scioneaux)</li>
+        <li>Hobart Jarrett Debate Contest Winner (Bro. Trevon Blair &amp; Bro. Darren Scioneaux)</li>
         <li>Louisiana College Chapter of the Year (Bro. Trevon Blair)</li>
       </ul>
     </div>
-
-    <!-- 2015 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2015</div>
       <ul class="awards-list">
@@ -923,8 +680,6 @@
         <li>Louisiana College Brother with the Highest GPA (Bro. Chad Hudson)</li>
       </ul>
     </div>
-
-    <!-- 2013 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2013</div>
       <ul class="awards-list">
@@ -936,16 +691,12 @@
         <li>Louisiana Collegiate Scholar Bowl Award</li>
       </ul>
     </div>
-
-    <!-- 2012 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2012</div>
       <ul class="awards-list">
         <li>Louisiana College Chapter with the Highest GPA</li>
       </ul>
     </div>
-
-    <!-- 2003 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">2003</div>
       <ul class="awards-list">
@@ -954,8 +705,6 @@
         <li>College Chapter with the Most Registered Brothers at General Convention in Detroit, MI</li>
       </ul>
     </div>
-
-    <!-- 1985 -->
     <div class="awards-year-block fade-up">
       <div class="awards-year-label">1985</div>
       <ul class="awards-list">
@@ -969,7 +718,6 @@
         </a>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -986,9 +734,7 @@
         The courageous men who built Beta Phi on November 11, 1938 — and changed the course of brotherhood at Dillard University forever.
       </p>
     </div>
-
     <div class="board-grid">
-
       <div class="board-member fade-up" data-charter="bonner">
         <img src="BP Charter Member Headshot/Bonner Headshot.JPEG" alt="Robert Alexander Bonner" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -999,7 +745,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up fade-up-delay-1" data-charter="dumas">
         <img src="BP Charter Member Headshot/Dumas Headshoot Charter Member.png" alt="Willard Loring Dumas" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1010,7 +755,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up fade-up-delay-2" data-charter="hall">
         <img src="BP Charter Member Headshot/Hall Headshot.png" alt="James Louis Hall" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1021,7 +765,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up" data-charter="howard">
         <img src="BP Charter Member Headshot/Howard Headshot.jpg" alt="Major Tillman James Howard" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1032,7 +775,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up fade-up-delay-1" data-charter="neustadter">
         <img src="BP Charter Member Headshot/Brother NeustadterJr.jpeg" alt="Marcus Neustadter Jr." class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1043,7 +785,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up fade-up-delay-2" data-charter="rhaney">
         <img src="BP Charter Member Headshot/Rhaney.png" alt="Mahlon Clifton Rhaney" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1054,7 +795,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up" data-charter="spellman">
         <img src="BP Charter Member Headshot/Spellman Headshot.png" alt="Mitchell Wright Spellman" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1065,7 +805,6 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
       <div class="board-member fade-up fade-up-delay-1" data-charter="winslow">
         <img src="BP Charter Member Headshot/Winslow Headshot.JPEG" alt="Vernon Lloyd Winslow" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
@@ -1076,14 +815,11 @@
           <span class="view-bio-btn">View Bio</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     85TH COMMEMORATIVE JOURNAL
-══════════════════════════════════════════ -->
+<!-- 85TH COMMEMORATIVE JOURNAL -->
 <section class="journal-section" id="commemorative-journal">
   <div class="container">
     <div class="journal-card fade-up">
@@ -1237,7 +973,7 @@
       bio: `<p>Brother Mahlon Clifton Rhaney was born on October 31, 1916, in Brunswick, Georgia. He enrolled at Dillard University in 1935 on a full scholarship as a Biology major and was initiated into Alpha Phi Alpha at the Beta Tau Chapter on February 6, 1937.</p>
             <p>He served as the first Secretary of Beta Phi and graduated first in his class from Dillard in 1939 with honors. While at Dillard, he served as Student Body President and Class President for all four years.</p>
             <p>In 1943, he returned to Dillard with an M.S. in Biology from the University of Michigan. He eventually earned his Ph.D. from Michigan and rose to become Chairman of the Division of Sciences at Dillard by 1948.</p>
-            <p>In 1949, he accepted a Dean position at Florida A&M University, where he served as Dean of Academic Affairs, Vice President for Academic Affairs, and Dean of the College of Arts and Sciences until his death on May 1, 1980.</p>`
+            <p>In 1949, he accepted a Dean position at Florida A&amp;M University, where he served as Dean of Academic Affairs, Vice President for Academic Affairs, and Dean of the College of Arts and Sciences until his death on May 1, 1980.</p>`
     },
     spellman: {
       role: "Charter Member · First Vice President",
