@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About | Beta Phi Alumni Association</title>
+<meta name="description" content="The history of the Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc. and the Beta Phi Alumni Association." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="main.css" />
+<style>
+/* ── Timeline styles ── */
+.timeline-section {
+  background: var(--black);
+  padding: 5rem 0 6rem;
+  border-top: 1px solid rgba(184,135,0,0.15);
+}
+.tl-body {
+  position: relative;
+  max-width: 860px;
+  margin: 3rem auto 0;
+}
+.tl-spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(184,135,0,0.2);
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: start;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.tl-item:last-child { margin-bottom: 0; }
+.tl-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+.tl-card-l { grid-column: 1; text-align: right; }
+.tl-card-r { grid-column: 3; }
+.tl-empty-l { grid-column: 1; }
+.tl-empty-r { grid-column: 3; }
+.tl-center {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 5px;
+}
+.tl-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold, #b48700);
+  flex-shrink: 0;
+  border: 2px solid var(--black, #0a0a0a);
+  outline: 1px solid var(--gold, #b48700);
+}
+.tl-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold, #b48700);
+  letter-spacing: 0.04em;
+}
+.tl-cat {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.tl-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: var(--muted, rgba(255,255,255,0.6));
+  line-height: 1.65;
+}
+.tl-badge {
+  display: inline-block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(184,135,0,0.1);
+  color: var(--gold, #b48700);
+  border: 0.5px solid rgba(184,135,0,0.3);
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* Awards grid */
+.awards-era {
+  background: var(--black);
+  padding: 0 0 5rem;
+  border-top: 1px solid rgba(184,135,0,0.1);
+}
+.awards-year-block {
+  margin-bottom: 2.5rem;
+}
+.awards-year-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold, #b48700);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.awards-year-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(184,135,0,0.2);
+}
+.awards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 6px 1.5rem;
+}
+.awards-list li {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted, rgba(255,255,255,0.6));
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.55;
+}
+.awards-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold, #b48700);
+}
+
+@media (max-width: 640px) {
+  .tl-item { grid-template-columns: 20px 1fr; }
+  .tl-spine { left: 10px; transform: none; }
+  .tl-card-l, .tl-card-r { grid-column: 2; text-align: left; }
+  .tl-empty-l, .tl-empty-r { display: none; }
+  .tl-center { grid-column: 1; padding-top: 1rem; }
+  .tl-year { font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="siteNav">
+  <div class="container">
+    <a href="index.html" class="nav-brand" style="text-decoration:none;">
+      <div class="nav-brand-shield">ΑΦΑ</div>
+      <div>
+        <div>BPAA</div>
+        <div class="nav-brand-sub">Beta Phi Alumni Assoc.</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="about.html" class="active">About</a>
+        <div class="nav-dropdown">
+          <a href="about.html">Our History</a>
+          <a href="about.html#charter-members">Charter Members</a>
+        </div>
+      </li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li>
+        <a href="legacy.html">Notable Brothers</a>
+        <div class="nav-dropdown">
+          <a href="legacy.html">Notable Brothers</a>
+          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        </div>
+      </li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="about.html">About — History</a>
+    <a href="about.html#charter-members">About — Charter Members</a>
+    <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
+    <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+    <a href="members.html">Members</a>
+    <a href="get-active.html">Get Active</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-content">
+    <span class="section-label">Our Story</span>
+    <h1>The History of <span>Beta Phi</span></h1>
+    <p>Eight men. One campus. A legacy that spans more than 88 years.</p>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="history-section">
+  <div class="container">
+    <div class="history-content">
+
+      <h2>The Founding</h2>
+      <p>
+        The Beta Phi Chapter of Alpha Phi Alpha Fraternity, Incorporated is an entity steeped in the rich traditions of brotherhood, scholarship, leadership, and service. The Beta Phi Chapter was chartered on an ice-cold Friday, <strong>November 11, 1938</strong>, by eight courageous, intelligent, tenacious, and hardworking young men on the campus of Dillard University in New Orleans, Louisiana.
+      </p>
+
+      <div class="founding-members fade-up">
+        <h3><i class="fas fa-shield-alt" style="color:var(--gold); margin-right:0.5rem;"></i>The Eight Charter Members — The 64th House of Alpha</h3>
+        <ul>
+          <li>Robert Bonner</li>
+          <li>Willard Dumas</li>
+          <li>James L. Hall</li>
+          <li>Major Tillman James Howard</li>
+          <li>Marcus Neusadter, Jr.</li>
+          <li>Mahloon Clifton Rhaney</li>
+          <li>Dr. Mitchell W. Spellman</li>
+          <li>Vernon L. Winslow</li>
+        </ul>
+      </div>
+
+      <p>
+        Since the very inception of the chapter, the members have strived to maintain high scholastic marks while at the same time serving the local community both at Dillard University and the New Orleans community at large.
+      </p>
+
+      <h2>Campus Leadership & Service</h2>
+      <p>
+        Beta Phi Brothers have served in several campus leadership positions over the decades — the SGA, NPHC, Class Councils, Dorm Councils, Pre Alumni Council, NAACP — and have served as Student Scholar Athletes, Melton Fellows, concert choir members, and in various honor societies and clubs. The chapter is also proud to have produced <strong>the first appointed Mister Dillard University, Montae Richardson</strong>, and <strong>the first elected Mister Dillard University, Kael Saloy</strong>.
+      </p>
+
+      <p>
+        The chapter has also produced officers of Alpha Phi Alpha on the national, regional, district, and local levels, and holds the honor of producing several assistant regional vice presidents including Brothers Marion Bracy, Marc Robertson, Kevin Speed, and Walter Tillman, Jr.
+      </p>
+
+      <h2>Convention Excellence</h2>
+      <p>
+        The Beta Phi Chapter has served as co-host to several General Conventions, Regional Conventions, District Conventions, and General President Inaugurations — including the inauguration of both past General President Ernest N. Morial and Dr. Charles C. Teamer, Sr.
+      </p>
+
+      <p>
+        In <strong>1985</strong>, Beta Phi received the highest award in Alpha Phi Alpha by being named <strong>Chapter of the Year</strong> at the General Convention in Atlanta, Georgia. Brother William Washington was the Chapter President at that time.
+      </p>
+
+      <h2>Notable Brothers</h2>
+      <p>
+        The Beta Phi Chapter has produced men who have served Alpha in distinguished positions:
+      </p>
+      <p>
+        <strong>Brother Michael J. Price</strong> — the longest-serving Editor of the Sphinx. <strong>Brother Joshua Williams, Jr.</strong> — a past New Orleans National Convention Chair. Most notably, <strong>Brother Mark S. Tillman</strong> — the former Midwestern Regional Vice President and the <strong>34th General President of Alpha Phi Alpha Fraternity, Inc.</strong> Brother Tillman is the first General President of Alpha initiated via Beta Phi. In 2023 at the General Convention, Brother Tillman was awarded <em>The Alpha Award of Merit</em> — the highest honor given in Alpha Phi Alpha.
+      </p>
+
+      <h2>Era of Excellence (2011–Present)</h2>
+      <p>
+        In 2003, the chapter was recognized as the Louisiana District Chapter of the Year and the 2003 Southwestern Region Chapter of the Year under Chapter President, Brother Kyle Jones, with the most registered brothers at the 2003 General Convention in Detroit.
+      </p>
+      <p>
+        Since 2011, with the emergence of the line "Dawn of a New Age" on Dillard's campus, the Beta Phi Chapter has won:
+      </p>
+      <ul style="list-style:none; margin: 1rem 0 1.5rem; display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+        <li style="color:var(--muted); font-size:0.9rem; padding-left:1rem; position:relative;"><span style="color:var(--gold); position:absolute; left:0;">—</span> Louisiana District Highest GPA (10x)</li>
+        <li style="color:var(--muted); font-size:0.9rem; padding-left:1rem; position:relative;"><span style="color:var(--gold); position:absolute; left:0;">—</span> Louisiana Chapter of the Year (6x)</li>
+        <li style="color:var(--muted); font-size:0.9rem; padding-left:1rem; position:relative;"><span style="color:var(--gold); position:absolute; left:0;">—</span> Louisiana College Brother of the Year (3x)</li>
+        <li style="color:var(--muted); font-size:0.9rem; padding-left:1rem; position:relative;"><span style="color:var(--gold); position:absolute; left:0;">—</span> Louisiana College Brother Highest GPA (5x)</li>
+        <li style="color:var(--muted); font-size:0.9rem; padding-left:1rem; position:relative;"><span style="color:var(--gold); position:absolute; left:0;">—</span> Louisiana Oratorical Contest Winner (2x)</li>
+        <li style="color:var(--muted); font-size:0.9rem; padding-left:1rem; position:relative;"><span style="color:var(--gold); position:absolute; left:0;">—</span> Louisiana Scholar Bowl Winner (2x)</li>
+      </ul>
+      <p>
+        In 2021, under Chapter President Rodney Perkins, Beta Phi was awarded <strong>National Chapter with the Highest GPA</strong>. Brother Chad Fuselier won National Brother with the Highest GPA — and went on to become one of the Valedictorians for the Dillard University Class of 2022.
+      </p>
+
+      <h2>The Beta Phi Endowed Scholarship</h2>
+      <p>
+        In 2013, at the Beta Phi 75th Anniversary under Brothers Darnell Prejean, Marion Bracey, and Jimmie Varnado, Beta Phi became <strong>the first BGLO chapter at Dillard University to establish an endowed scholarship</strong>, donating over $25,000.
+      </p>
+      <p>
+        The chapter donated again to the scholarship at the 80th Anniversary under Bro. Theo Moody ($38,000+), and again at the 85th Anniversary in 2023 under Chair Malik Bartholomew and Endowment Chairs Kyle Jones, Marion Bracy, and Victor Robinson.
+      </p>
+
+      <h2>The Mother of Beta Phi</h2>
+      <p>
+        The Beta Phi Chapter's official mother is <strong>Mrs. Shirley B. Porter</strong>. Mrs. Porter served as former bookstore director of Dillard University and was an active supporter of all chapter activities for over three decades. A life member of the NAACP and tireless community servant, she always had time for her "Beta Phi Boys." She remains in every Beta Phi brother's heart — a beautiful yellow rose of inspiration, missed by all of her sons.
+      </p>
+
+      <h2>The Birth of BPAA</h2>
+      <p>
+        At the <strong>85th Anniversary of the Beta Phi Chapter</strong>, during the brotherhood meeting, college and alumni brothers voted and confirmed to create the Beta Phi Alumni Association, Inc.
+      </p>
+
+      <div class="mission-box fade-up">
+        <h3>"Our Mission"</h3>
+        <p>
+          The mission of The Beta Phi Alumni Association, Inc. shall be to "encourage and promote the highest ideals of brotherhood, scholarship, and service, while providing support and advocacy to The Beta Phi Chapter, the brothers of this Association, and to our Alma Mater, Dillard University."
+        </p>
+      </div>
+
+      <p style="margin-top: 2rem;">
+        It is our wish and prayer that the future brothers of the Beta Phi Chapter continue the legacy of remaining a positive force on the Dillard University campus as they strive for excellence and heritage in brotherhood, service, scholarship, and leadership.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TIMELINE — KEY MILESTONES
+══════════════════════════════════════════ -->
+<section class="timeline-section" id="timeline">
+  <div class="container">
+
+    <div style="text-align:center; margin-bottom:1rem;">
+      <span class="section-label">Est. 1938 · Dillard University</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
+        88 Years of <span style="color:var(--gold); font-style:italic;">Beta Phi History</span>
+      </h2>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="tl-body">
+      <div class="tl-spine"></div>
+
+      <!-- 1938 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1938</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">The Founding</div>
+          <div class="tl-desc">Beta Phi Chapter chartered on November 11 by eight courageous men at Dillard University — the 64th House of Alpha Phi Alpha.</div>
+          <div><span class="tl-badge">Est. Nov. 11, 1938</span></div>
+        </div>
+      </div>
+
+      <!-- 1939-40 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">Academic Standard Set</div>
+          <div class="tl-desc">Mahlon Rhaney graduates first in his class; Mitchell Spellman graduates Magna Cum Laude — the first of many scholars Beta Phi would produce.</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1939–40</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 1985 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1985</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">National Chapter of the Year</div>
+          <div class="tl-desc">Beta Phi receives the highest award in Alpha Phi Alpha at the General Convention in Atlanta under Chapter President William Washington. Also recognized as Southwestern Region and Louisiana District Chapter of the Year.</div>
+          <div style="margin-top:8px;"><span class="tl-badge">Highest Fraternity Honor</span></div>
+          <div style="margin-top:8px;">
+            <a href="https://issuu.com/docs/67835bb97159469b81464bffd332ee5e" target="_blank" style="font-family:'Nunito',sans-serif; font-size:0.75rem; color:var(--gold); text-decoration:none; display:inline-flex; align-items:center; gap:5px; border:0.5px solid rgba(184,135,0,0.3); padding:4px 10px; border-radius:4px;">
+              <i class="fas fa-external-link-alt" style="font-size:0.65rem;"></i> The Sphinx — Fall 1985 (Vol. 71)
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2003 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">Regional Excellence</div>
+          <div class="tl-desc">Under Chapter President, Brother Kyle Jones, Beta Phi is named Southwestern Region College Chapter of the Year and Louisiana District Chapter of the Year — with the most registered brothers at the General Convention in Detroit.</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2003</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 2011 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2011</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">Dawn of a New Age</div>
+          <div class="tl-desc">A historic line emerges on campus and launches an unprecedented era of excellence — beginning a streak of national, regional, and state recognition that continues to this day.</div>
+          <div><span class="tl-badge">Era of Excellence Begins</span></div>
+        </div>
+      </div>
+
+      <!-- 2013 GP -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">34th General President</div>
+          <div class="tl-desc">Brother Mark S. Tillman is inaugurated as the 34th General President of Alpha Phi Alpha — the first General President initiated through Beta Phi Chapter, and the first from the Midwestern Region in over 30 years.</div>
+          <div><span class="tl-badge">First from Beta Phi</span></div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2013</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 2013 Scholarship -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2013</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">Endowed Scholarship</div>
+          <div class="tl-desc">At the 75th Anniversary, Beta Phi becomes the first BGLO chapter at Dillard University to establish an endowed scholarship, donating over $25,000. The fund continues to grow at each anniversary milestone.</div>
+          <div><span class="tl-badge">First in BGLO History at Dillard</span></div>
+        </div>
+      </div>
+
+      <!-- 2017 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">National Recognition</div>
+          <div class="tl-desc">Beta Phi wins the National College Chapter with the Highest GPA, Southwestern Region College Chapter with the Highest GPA, and the Southwestern Region Quiz Bowl Championship.</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2017</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2021</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">National Highest GPA</div>
+          <div class="tl-desc">Under Chapter President Rodney Perkins, Beta Phi wins National Chapter with the Highest GPA. Brother Chad Fuselier wins National Brother with the Highest GPA — going on to become a Valedictorian of the Dillard University Class of 2022.</div>
+          <div><span class="tl-badge">National & Southwestern Region</span></div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">BPAA Founded · Award of Merit</div>
+          <div class="tl-desc">At the 85th Anniversary, brothers vote to formally establish the Beta Phi Alumni Association, Inc. That same year, Brother Mark S. Tillman receives the Alpha Award of Merit — the highest honor bestowed upon a member of Alpha Phi Alpha.</div>
+          <div><span class="tl-badge">A New Chapter Begins</span></div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2023</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     AWARDS & ACHIEVEMENTS — DETAILED RECORD
+══════════════════════════════════════════ -->
+<section class="awards-era">
+  <div class="container">
+
+    <div style="text-align:center; padding: 4rem 0 3rem;">
+      <span class="section-label">Complete Record</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
+        Awards & <span style="color:var(--gold); font-style:italic;">Achievements</span>
+      </h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--muted); max-width:560px; margin:1rem auto 0; font-size:0.9rem;">
+        A full record of Beta Phi's recognition at the Louisiana District, Southwestern Region, and National levels.
+      </p>
+    </div>
+
+    <!-- 2023 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2023</div>
+      <ul class="awards-list">
+        <li>1st Place at the Dillard University Yard Runners Step Show</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother with the Highest GPA</li>
+        <li>Louisiana College Brother of the Year (Bro. Benjamin Todd)</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana Scholars Bowl</li>
+      </ul>
+    </div>
+
+    <!-- 2022 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2022</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Brother of the Year (Bro. President Chad Fuselier)</li>
+        <li>Southwestern Region College Brother of the Year (Bro. Chad Fuselier)</li>
+        <li>Louisiana Region Belford V. Lawson Oratorical Competition Winner (Bro. DeAndre Bell II)</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Southwestern College Brother with the Highest GPA</li>
+        <li>Louisiana Scholar's Bowl</li>
+      </ul>
+    </div>
+
+    <!-- 2021 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2021</div>
+      <ul class="awards-list">
+        <li>National Chapter with the Highest GPA</li>
+        <li>National College Brother with the Highest GPA (Bro. Chad Fuselier)</li>
+        <li>Southwestern Region College Chapter with the Highest GPA</li>
+        <li>Southwestern Region College Brother with the Highest GPA (Bro. Chad Fuselier)</li>
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Brother of the Year (Bro. Chad Fuselier)</li>
+        <li>Louisiana Belford V. Lawson Oratorical Winner (Bro. DeAndre Bell II)</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Chad Fuselier)</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana Scholar's Bowl Winner</li>
+      </ul>
+    </div>
+
+    <!-- 2020 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2020</div>
+      <ul class="awards-list">
+        <li>Southwestern Regional College Chapter of the Year</li>
+        <li>Southwestern Regional College Brother with the Highest GPA</li>
+        <li>Southwestern Regional Debate Champions</li>
+        <li>Louisiana Chapter of the Year</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Erienne Lewis)</li>
+        <li>Louisiana College Brother of the Year (Bro. Erienne Lewis)</li>
+        <li>Louisiana Collegiate Scholars Bowl</li>
+        <li>Louisiana Hobart–Jarrett Debate Contest</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana Most Registered Brothers</li>
+      </ul>
+    </div>
+
+    <!-- 2019 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2019</div>
+      <ul class="awards-list">
+        <li>Southwestern Region Chapter with the Highest GPA</li>
+        <li>Southwestern Region Outstanding Scrapbook Award</li>
+        <li>Louisiana Debate Champions</li>
+        <li>Louisiana Best Scrapbook</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana Brother of the Year (Bro. Joseph Caldwell)</li>
+      </ul>
+    </div>
+
+    <!-- 2018 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2018</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Erienne Lewis)</li>
+        <li>Louisiana College Brother of the Year (Bro. Ron Davalon)</li>
+        <li>Louisiana College Chapter with Most Registered Brothers</li>
+      </ul>
+    </div>
+
+    <!-- 2017 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2017</div>
+      <ul class="awards-list">
+        <li>National College Chapter with the Highest GPA</li>
+        <li>Southwestern Region College Chapter with the Highest GPA</li>
+        <li>Southwestern Region Quiz Bowl Champion</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana Collegiate Scholars Bowl</li>
+        <li>Louisiana College Brother with the Highest GPA</li>
+      </ul>
+    </div>
+
+    <!-- 2016 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2016</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Hobart Jarrett Debate Contest Winner (Bro. Trevon Blair & Bro. Darren Scioneaux)</li>
+        <li>Louisiana College Chapter of the Year (Bro. Trevon Blair)</li>
+      </ul>
+    </div>
+
+    <!-- 2015 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2015</div>
+      <ul class="awards-list">
+        <li>Louisiana Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother of the Year (Bro. Chad Hudson)</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Chad Hudson)</li>
+      </ul>
+    </div>
+
+    <!-- 2013 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2013</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother of the Year (Bro. Jerome Bailey, Jr.)</li>
+        <li>Louisiana Belford V. Lawson Oratorical (Bro. Jerome Bailey, Jr.)</li>
+        <li>Louisiana Charles H. Wesley Brotherhood Award</li>
+        <li>Louisiana Collegiate Scholar Bowl Award</li>
+      </ul>
+    </div>
+
+    <!-- 2012 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2012</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter with the Highest GPA</li>
+      </ul>
+    </div>
+
+    <!-- 2003 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2003</div>
+      <ul class="awards-list">
+        <li>Southwestern Region College Chapter of the Year</li>
+        <li>Louisiana College Chapter of the Year</li>
+        <li>College Chapter with the Most Registered Brothers at General Convention in Detroit, MI</li>
+      </ul>
+    </div>
+
+    <!-- 1985 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">1985</div>
+      <ul class="awards-list">
+        <li>National College Chapter of the Year</li>
+        <li>Southwestern Region Chapter of the Year</li>
+        <li>Louisiana District College Chapter of the Year</li>
+      </ul>
+      <div style="margin-top:10px;">
+        <a href="https://issuu.com/docs/67835bb97159469b81464bffd332ee5e" target="_blank" style="font-family:'Nunito',sans-serif; font-size:0.75rem; color:var(--gold); text-decoration:none; display:inline-flex; align-items:center; gap:5px; border:0.5px solid rgba(184,135,0,0.3); padding:4px 10px; border-radius:4px;">
+          <i class="fas fa-external-link-alt" style="font-size:0.65rem;"></i> The Sphinx — Fall 1985 (Vol. 71, No. 3)
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CHARTER MEMBERS -->
+<section class="leadership-section" id="charter-members" style="background: var(--black); border-top: 1px solid rgba(184,135,0,0.15);">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 3rem;" class="fade-up">
+      <span class="section-label">The 64th House of Alpha</span>
+      <h2 style="font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
+        The Eight <span style="color:var(--gold);">Charter Members</span>
+      </h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--muted); max-width:600px; margin:0 auto; font-size:0.95rem;">
+        The courageous men who built Beta Phi on November 11, 1938 — and changed the course of brotherhood at Dillard University forever.
+      </p>
+    </div>
+
+    <div class="board-grid">
+
+      <div class="board-member fade-up" data-charter="bonner">
+        <img src="BP Charter Member Headshot/Bonner Headshot.JPEG" alt="Robert Alexander Bonner" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · 1938</div>
+          <div class="board-member-name">Robert Alexander Bonner</div>
+          <div class="board-member-bio">Director of Public Relations at Dillard (1938–1942). Mathematics instructor and key organizer of the Beta Phi chartering.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up fade-up-delay-1" data-charter="dumas">
+        <img src="BP Charter Member Headshot/Dumas Headshoot Charter Member.png" alt="Willard Loring Dumas" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · First Treasurer</div>
+          <div class="board-member-name">Willard Loring Dumas</div>
+          <div class="board-member-bio">First Treasurer of Beta Phi (1938). WWII Navy veteran and editor of the student publication in 1939. Dillard Class of 1940.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up fade-up-delay-2" data-charter="hall">
+        <img src="BP Charter Member Headshot/Hall Headshot.png" alt="James Louis Hall" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · First President</div>
+          <div class="board-member-name">James Louis Hall</div>
+          <div class="board-member-bio">First President of Beta Phi. Graduated with honors in Biology from Dillard in 1939. Student leader throughout high school and college.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up" data-charter="howard">
+        <img src="BP Charter Member Headshot/Howard Headshot.jpg" alt="Major Tillman James Howard" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · 1938</div>
+          <div class="board-member-name">Major Tillman James Howard</div>
+          <div class="board-member-bio">4-year varsity football player at Dillard. Ordained United Methodist Minister and retired professor of Sociology at Southern University at New Orleans.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up fade-up-delay-1" data-charter="neustadter">
+        <img src="BP Charter Member Headshot/Brother NeustadterJr.jpeg" alt="Marcus Neustadter Jr." class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · First Chaplain</div>
+          <div class="board-member-name">Marcus Neustadter, Jr.</div>
+          <div class="board-member-bio">First Chaplain of Beta Phi. National Public Relations Director for Alpha Phi Alpha. Retired from Dillard University in 1987.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up fade-up-delay-2" data-charter="rhaney">
+        <img src="BP Charter Member Headshot/Rhaney.png" alt="Mahlon Clifton Rhaney" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · First Secretary</div>
+          <div class="board-member-name">Mahlon Clifton Rhaney, MD</div>
+          <div class="board-member-bio">First Secretary of Beta Phi. Graduated first in Dillard's Class of 1939. Became Chairman of Sciences at Dillard, then Dean at Florida A&M University.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up" data-charter="spellman">
+        <img src="BP Charter Member Headshot/Spellman Headshot.png" alt="Mitchell Wright Spellman" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · First Vice President</div>
+          <div class="board-member-name">Mitchell Wright Spellman, MD, PhD</div>
+          <div class="board-member-bio">First VP of Beta Phi. Magna Cum Laude, Dillard 1940. First Dean for Medical Services at Harvard Medical School. Pioneer in African American academic medicine.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+      <div class="board-member fade-up fade-up-delay-1" data-charter="winslow">
+        <img src="BP Charter Member Headshot/Winslow Headshot.JPEG" alt="Vernon Lloyd Winslow" class="board-member-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="board-member-img-placeholder" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="board-member-info">
+          <div class="board-member-role">Charter Member · First Sergeant-At-Arms</div>
+          <div class="board-member-name">Vernon Lloyd Winslow</div>
+          <div class="board-member-bio">First Sergeant-At-Arms. Head of Dillard's Arts Dept. Became New Orleans's first Black DJ as "Doctor Daddy-O" — one of the top ten DJs in the country.</div>
+          <span class="view-bio-btn">View Bio</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHARTER BIO MODAL -->
+<div class="bio-modal" id="charterModal" role="dialog" aria-modal="true">
+  <div class="bio-modal-inner" id="charterModalInner">
+    <button class="bio-modal-close" id="charterModalClose" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="bio-modal-photo" id="charterModalPhoto">
+      <i class="fas fa-user" style="font-size:4rem; color:var(--gold);"></i>
+    </div>
+    <div class="bio-modal-body">
+      <div class="bio-modal-role" id="charterModalRole"></div>
+      <div class="bio-modal-name" id="charterModalName"></div>
+      <div class="bio-modal-text" id="charterModalText"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div>
+      <h2>Be Part of the Legacy</h2>
+      <p>Get active today and support current Beta Phi brothers and Dillard University.</p>
+    </div>
+    <a href="get-active.html" class="btn-black">Get Active</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>BPAA</h3>
+        <p>The Beta Phi Alumni Association — committed to brotherhood, leadership, and service in support of Beta Phi Chapter and Dillard University.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/bpaa_1938/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
+        <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        <a href="members.html">Members</a>
+        <a href="get-active.html">Get Active</a>
+      </div>
+      <div class="footer-col">
+        <h4>Membership</h4>
+        <a href="get-active.html#golden">Golden Brothers</a>
+        <a href="get-active.html#young">Young Brothers</a>
+        <a href="get-active.html#college">College Brothers</a>
+        <a href="get-active.html#forms">Member Forms</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p><i class="fas fa-envelope" style="color:var(--gold); margin-right:6px;"></i><a href="mailto:betaphialumniassociation@gmail.com" style="display:inline;">betaphialumniassociation@gmail.com</a></p>
+        <p style="margin-top:0.5rem;"><i class="fab fa-instagram" style="color:var(--gold); margin-right:6px;"></i><a href="https://www.instagram.com/bpaa_1938/" target="_blank" style="display:inline;">@bpaa_1938</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Beta Phi Alumni Association, Inc. All rights reserved.</p>
+      <p>Alpha Phi Alpha Fraternity, Inc. — Beta Phi Chapter | Est. 1938</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navMobile').classList.toggle('open');
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  const charterData = {
+    bonner: {
+      role: "Charter Member · 1938",
+      name: "Robert Alexander Bonner",
+      img: "BP Charter Member Headshot/Bonner Headshot.JPEG",
+      bio: `<p>Brother Robert Alexander Bonner received his Bachelor of Arts from Clark College and his Master of Arts from Atlanta University. His Master's thesis, submitted in June 1936, was titled "The Lateral Area of an Oblique Cone with an Elliptical Base."</p>
+            <p>In 1938, he was appointed Director of Public Relations at Dillard University — a role he maintained until 1942. During his time at Dillard, he served on several standing committees, worked as a mathematics instructor, and served on the editorial board of "The Arts Quarterly."</p>
+            <p>He left Dillard in 1943 to pursue graduate studies at Columbia University. His most enduring legacy, however, was his pivotal role in chartering the Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc. on November 11, 1938.</p>`
+    },
+    dumas: {
+      role: "Charter Member · First Treasurer",
+      name: "Willard Loring Dumas",
+      img: "BP Charter Member Headshot/Dumas Headshoot Charter Member.png",
+      bio: `<p>Brother Willard Loring Dumas was born on November 16, 1914, in Natchez, Mississippi. He was the first treasurer of Beta Phi in 1938 and served as editor of the student publication in 1939. A member of the fifth graduation class at Dillard, he received his Bachelor of Arts in 1940.</p>
+            <p>A World War II Navy veteran, Brother Dumas returned to New Orleans after serving his country and spent the rest of his life there. He married Marjorie Morris, his wife of 54 years. They were parents of two children: Dr. Willard L. Dumas, Jr. and Dr. Deidre Dumas Labat.</p>
+            <p>Brother Dumas was a retired executive with Keystone Life Insurance Company, a member of St. Luke Episcopal Church for over 68 years, and a member of The Townsmen Club, Inc. and The Studs Club. In his later years, though unable to participate in Alpha activities, he always welcomed Beta Phi Brothers who visited him.</p>
+            <p>Brother Dumas departed this life on Monday, March 24, 2008, at the age of 93.</p>`
+    },
+    hall: {
+      role: "Charter Member · First President",
+      name: "James Louis Hall",
+      img: "BP Charter Member Headshot/Hall Headshot.png",
+      bio: `<p>Brother James Louis Hall was born on June 29, 1917, in Vicksburg, Mississippi. A natural leader from an early age, he was elected President of his Freshman, Junior, and Senior classes in high school, and participated in the dramatic club, school newspaper, and library committee.</p>
+            <p>He enrolled at Dillard University in 1935 and was initiated into Alpha Phi Alpha at the Beta Tau Chapter at Xavier University of Louisiana on February 6, 1937. Upon the chartering of Beta Phi at Dillard, he was elected its first President.</p>
+            <p>He graduated from Dillard University on June 7, 1939, with honors and a degree in Biology. He was an active member of the Dillard Dramatic Club and participated in several theater productions during his time on campus.</p>`
+    },
+    howard: {
+      role: "Charter Member · 1938",
+      name: "Major Tillman James Howard",
+      img: "BP Charter Member Headshot/Howard Headshot.jpg",
+      bio: `<p>Brother Major Tillman James Howard was born on November 14, 1919, in Brookhaven, Mississippi. He entered Dillard University as a chemistry major and was initiated as a Charter Member of Beta Phi on November 11, 1938.</p>
+            <p>He was a four-year varsity football player, serving as a right guard and fullback, and a member of the Track Team — proudly recalling running the 100-yard dash in 9.5 seconds. He roomed with fellow Charter Member Marcus Neustadter, Jr. in Hartzell Hall.</p>
+            <p>After graduating from Dillard in 1941, he became an ordained United Methodist Minister and a retired assistant professor of Sociology at Southern University at New Orleans. He also served as Executive Secretary of Education for the Mississippi Conference of United Methodist Churches.</p>
+            <p>When asked what he wanted brothers to remember most about him, he said simply: "That I was a good Alpha." Brother Howard departed this life on July 13, 2016, at age 97.</p>`
+    },
+    neustadter: {
+      role: "Charter Member · First Chaplain",
+      name: "Marcus Neustadter, Jr.",
+      img: "BP Charter Member Headshot/Brother NeustadterJr.jpeg",
+      bio: `<p>Brother Marcus Neustadter, Jr. was born in New Orleans, Louisiana on May 2, 1917. He earned a degree in Business Administration from Dillard University and served as the first Chaplain of the Beta Phi Chapter. He graduated from Dillard with honors.</p>
+            <p>He was the first appointed dental hygienist for Louisiana's "Free Clinic on Wheels" — an innovative socialized medicine program that provided free dental services to 776,000 Black residents in Louisiana.</p>
+            <p>Brother Neustadter served as National Public Relations Director for Alpha Phi Alpha Fraternity, Inc. and as International President of the Frontier's International service organization. He was a 33rd degree Mason and a senior deacon at Central Congregational United Church of Christ.</p>
+            <p>Professionally, he held roles at Keystone Life Insurance Company, the Times-Picayune, the Louisiana Coca-Cola Bottling Company, the Fairmont Hotel, and Dillard University — from which he retired in 1987. Brother Neustadter died on October 16, 1992, at the age of 75.</p>`
+    },
+    rhaney: {
+      role: "Charter Member · First Secretary",
+      name: "Mahlon Clifton Rhaney, MD",
+      img: "BP Charter Member Headshot/Rhaney.png",
+      bio: `<p>Brother Mahlon Clifton Rhaney was born on October 31, 1916, in Brunswick, Georgia. He enrolled at Dillard University in 1935 on a full scholarship as a Biology major and was initiated into Alpha Phi Alpha at the Beta Tau Chapter on February 6, 1937.</p>
+            <p>He served as the first Secretary of Beta Phi and graduated first in his class from Dillard in 1939 with honors. While at Dillard, he served as Student Body President and Class President for all four years.</p>
+            <p>In 1943, he returned to Dillard with an M.S. in Biology from the University of Michigan. He eventually earned his Ph.D. from Michigan and rose to become Chairman of the Division of Sciences at Dillard by 1948.</p>
+            <p>In 1949, he accepted a Dean position at Florida A&M University, where he served as Dean of Academic Affairs, Vice President for Academic Affairs, and Dean of the College of Arts and Sciences until his death on May 1, 1980.</p>`
+    },
+    spellman: {
+      role: "Charter Member · First Vice President",
+      name: "Mitchell Wright Spellman, MD, PhD",
+      img: "BP Charter Member Headshot/Spellman Headshot.png",
+      bio: `<p>Brother Mitchell Wright Spellman was born on December 1, 1919, in Alexandria, Louisiana. He graduated valedictorian from Gilbert Academy in 1936, then graduated Magna Cum Laude and valedictorian from Dillard University in 1940. He served as the first Vice President and later second President of Beta Phi.</p>
+            <p>In 1944, he graduated from Howard University College of Medicine ranked 2nd in his class. Mentored by the legendary Charles R. Drew, MD, he went on to earn his Ph.D. in Surgery from the University of Minnesota in 1955.</p>
+            <p>His distinguished career spanned Howard University, Charles R. Drew Postgraduate Medical School, UCLA, USC, and ultimately Harvard Medical School — where on January 1, 1978, he became the <strong>first Dean for Medical Services</strong>, serving until 2004. He also served as Executive Vice President of the Harvard Medical Center.</p>
+            <p>He received Honorary Doctorates from Georgetown University, the University of Florida, and Dillard University. In 2003, he traveled to New Orleans to be with the brothers of Beta Phi at their 65th Anniversary Celebration. He returned to Los Angeles after retiring from Harvard and passed away on November 11, 2013 — the 75th anniversary of Beta Phi's founding.</p>`
+    },
+    winslow: {
+      role: "Charter Member · First Sergeant-At-Arms",
+      name: "Vernon Lloyd Winslow",
+      img: "BP Charter Member Headshot/Winslow Headshot.JPEG",
+      bio: `<p>Brother Vernon Lloyd Winslow was a native of Dayton, Ohio, who moved to New Orleans and became one of the most influential cultural figures in the city's history. He earned a Bachelor's Degree in Fine Arts, later won an art fellowship at Rockefeller Center in New York, and earned a Master's degree in education from Tulane University.</p>
+            <p>He joined Dillard in the mid-1930s as the first full-time instructor in the Arts Department and soon became Department Head. In November 1938, he helped charter Beta Phi, serving as its first Sergeant-At-Arms.</p>
+            <p>In 1947, Brother Winslow started a radio show on WJMR highlighting Black music. After being fired for stepping to the mic when the regular DJ was a no-show, he joined WWEZ and became <strong>New Orleans's first Black DJ</strong> as "Doctor Daddy-O." Within a year, his show was the top radio program in New Orleans, and he became one of the top ten DJs in the country.</p>
+            <p>He was a former columnist for the Louisiana Weekly and continued broadcasting well into his 70s. Brother Winslow died on December 13, 1993, at age 82, and is buried in Lake Lawn Cemetery in Metairie, Louisiana.</p>`
+    }
+  };
+
+  document.querySelectorAll('[data-charter]').forEach(function(card) {
+    card.addEventListener('click', function() {
+      const key = this.getAttribute('data-charter');
+      const data = charterData[key];
+      if (!data) return;
+      document.getElementById('charterModalRole').textContent = data.role;
+      document.getElementById('charterModalName').textContent = data.name;
+      document.getElementById('charterModalText').innerHTML = data.bio;
+      const photoEl = document.getElementById('charterModalPhoto');
+      if (data.img) {
+        photoEl.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = data.img;
+        img.alt = data.name;
+        img.onerror = function() {
+          photoEl.innerHTML = '<i class="fas fa-user" style="font-size:4rem; color:var(--gold);"></i>';
+        };
+        photoEl.appendChild(img);
+      }
+      document.getElementById('charterModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeCharterModal() {
+    document.getElementById('charterModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('charterModalClose').addEventListener('click', closeCharterModal);
+  document.getElementById('charterModal').addEventListener('click', function(e) {
+    if (e.target === this) closeCharterModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCharterModal();
+  });
+</script>
+</body>
+</html>
