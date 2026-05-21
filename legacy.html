@@ -4,12 +4,287 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Notable Brothers | Beta Phi Alumni Association</title>
-<meta name="description" content="Honoring the brothers of Beta Phi Chapter whose service, leadership, and dedication have shaped Alpha Phi Alpha and the world." />
+<meta name="description" content="Honoring the distinguished men of Beta Phi Chapter, Alpha Phi Alpha Fraternity, Inc. — brothers who have led at the highest levels of service, scholarship, and leadership." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 <link rel="stylesheet" href="main.css" />
+
+<style>
+  /* ── PAGE HERO ── */
+  .legacy-hero {
+    background: #0a0a0a;
+    padding: 120px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .legacy-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(181,144,37,0.03) 40px,
+      rgba(181,144,37,0.03) 41px
+    );
+  }
+  .legacy-hero .section-label {
+    display: inline-block;
+    color: #b59025;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .legacy-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+  .legacy-hero h1 em {
+    font-style: italic;
+    color: #b59025;
+  }
+  .legacy-hero p {
+    font-family: 'Nunito', sans-serif;
+    color: rgba(255,255,255,0.65);
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+  .legacy-hero .gold-divider {
+    width: 60px;
+    height: 2px;
+    background: #b59025;
+    margin: 1.5rem auto;
+  }
+
+  /* ── FEATURED: TILLMAN ── */
+  .featured-brother {
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+  }
+  .featured-backdrop {
+    position: absolute;
+    inset: 0;
+    background-image: url('bpaa/images/TillmanInaugaration.png');
+    background-size: cover;
+    background-position: center top;
+    filter: brightness(0.25);
+    transform: scale(1.05);
+    transition: transform 8s ease;
+  }
+  .featured-brother:hover .featured-backdrop {
+    transform: scale(1.0);
+  }
+  .featured-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0,0,0,0.92) 0%,
+      rgba(0,0,0,0.7) 50%,
+      rgba(0,0,0,0.1) 100%
+    );
+  }
+  .featured-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 80px 0;
+  }
+  .featured-headshot {
+    flex-shrink: 0;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    border: 4px solid #b59025;
+    box-shadow: 0 0 0 8px rgba(181,144,37,0.15), 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .featured-info {
+    max-width: 560px;
+  }
+  .featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(181,144,37,0.15);
+    border: 1px solid rgba(181,144,37,0.4);
+    color: #b59025;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+  .featured-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .featured-info .brother-title {
+    font-family: 'Nunito', sans-serif;
+    color: #b59025;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+  }
+  .featured-info p {
+    font-family: 'Nunito', sans-serif;
+    color: rgba(255,255,255,0.72);
+    font-size: 0.97rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .featured-info p:last-of-type {
+    margin-bottom: 0;
+  }
+  .featured-divider {
+    width: 48px;
+    height: 2px;
+    background: #b59025;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── BROTHERS GRID ── */
+  .brothers-section {
+    background: #f8f6f0;
+    padding: 90px 0;
+  }
+  .brothers-section .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .brothers-section .section-label {
+    display: inline-block;
+    color: #b59025;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .brothers-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 600;
+    color: #0a0a0a;
+    line-height: 1.2;
+  }
+  .brothers-section h2 span {
+    color: #b59025;
+  }
+  .brothers-section .gold-divider {
+    width: 60px;
+    height: 2px;
+    background: #b59025;
+    margin: 1.2rem auto 0;
+  }
+
+  .brothers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .brother-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .brother-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  }
+  .brother-card-photo {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    background: #1a1a1a;
+  }
+  .brother-card-photo-placeholder {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.15);
+    font-size: 4rem;
+  }
+  .brother-card-body {
+    padding: 1.5rem;
+    border-top: 3px solid #b59025;
+  }
+  .brother-card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+  }
+  .brother-card-body .card-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #b59025;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+  .brother-card-body p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .featured-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 60px 0;
+      gap: 2rem;
+    }
+    .featured-headshot {
+      width: 160px;
+      height: 160px;
+    }
+    .featured-overlay {
+      background: rgba(0,0,0,0.75);
+    }
+    .brothers-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -21,15 +296,20 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li>
-        <a href="about.html">About</a>
-        <div class="nav-dropdown">
+      <li><a href="about.html">About</a>
+        <div class="nav-dropdown"><div class="nav-dropdown-inner">
           <a href="about.html">Our History</a>
           <a href="about.html#charter-members">Charter Members</a>
-        </div>
+        </div></div>
       </li>
       <li><a href="leadership.html">Leadership</a></li>
-      <li><a href="legacy.html" class="active">Notable Brothers</a></li>
+      <li>
+        <a href="legacy.html" class="active">Notable Brothers</a>
+        <div class="nav-dropdown">
+          <a href="legacy.html">Notable Brothers</a>
+          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        </div>
+      </li>
       <li>
         <a href="#">Events</a>
         <div class="nav-dropdown">
@@ -45,8 +325,7 @@
   </div>
   <div class="nav-mobile" id="navMobile">
     <a href="index.html">Home</a>
-    <a href="about.html">About — History</a>
-    <a href="about.html#charter-members">About — Charter Members</a>
+    <a href="about.html">About</a>
     <a href="leadership.html">Leadership</a>
     <a href="legacy.html">Notable Brothers</a>
     <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
@@ -56,125 +335,110 @@
   </div>
 </nav>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="container page-hero-content">
-    <span class="section-label">Beta Phi Chapter · Est. 1938</span>
-    <h1>Notable <span>Brothers</span></h1>
-    <p>From the highest office in Alpha Phi Alpha to the pages of its historic publication — Beta Phi has produced men who led at every level.</p>
+<!-- HERO -->
+<section class="legacy-hero">
+  <div class="container">
+    <span class="section-label">Beta Phi Chapter · Alpha Phi Alpha</span>
+    <h1>Notable <em>Brothers</em></h1>
+    <div class="gold-divider"></div>
+    <p>
+      Men initiated through Beta Phi Chapter who have gone on to lead at the highest levels —
+      in government, academia, business, and service to their communities.
+    </p>
   </div>
 </section>
 
-<!-- INTRO -->
-<section class="history-section" style="padding-bottom: 0;">
+<!-- FEATURED: MARK S. TILLMAN -->
+<section class="featured-brother">
+  <div class="featured-backdrop"></div>
+  <div class="featured-overlay"></div>
   <div class="container">
-    <div class="history-content">
-      <p>
-        Since its founding in 1938, the Beta Phi Chapter has been a source of distinguished leadership within Alpha Phi Alpha Fraternity, Inc. and the broader Black community. The brothers honored on this page have carried the standard of Beta Phi beyond Dillard University — to the highest national office and the pages of the fraternity's storied publication.
-      </p>
+    <div class="featured-content">
+      <img
+        src="bpaa/images/TillmanHeadshot.jpg"
+        alt="Bro. Mark S. Tillman"
+        class="featured-headshot"
+      />
+      <div class="featured-info">
+        <div class="featured-badge">
+          <i class="fas fa-star"></i>
+          Featured Brother
+        </div>
+        <h2>Bro. Mark S. Tillman</h2>
+        <div class="brother-title">34th General President · Alpha Phi Alpha Fraternity, Inc.</div>
+        <div class="featured-divider"></div>
+        <p>
+          Bro. Mark S. Tillman is the 34th General President of Alpha Phi Alpha Fraternity, Inc.,
+          and holds the distinction of being the first person initiated through Beta Phi Chapter
+          to serve in that role.
+        </p>
+        <p>
+          His election to the fraternity's highest office stands as one of the most significant
+          achievements in Beta Phi's 88-year history — a testament to the chapter's legacy of
+          producing men who lead at every level.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- NOTABLE BROTHERS GRID -->
-<section class="leadership-section" style="background: var(--black);">
+<!-- BROTHERS GRID -->
+<section class="brothers-section">
   <div class="container">
-
-    <div style="text-align:center; margin-bottom: 3rem;" class="fade-up">
-      <span class="section-label">Distinguished Members</span>
+    <div class="section-header">
+      <span class="section-label">Distinguished Men of Beta Phi</span>
+      <h2>Brothers Who <span>Made History</span></h2>
       <div class="gold-divider"></div>
-      <p style="color:var(--muted); max-width:600px; margin:1rem auto 0; font-size:0.95rem;">
-        These brothers represent Beta Phi's legacy of producing men who have served Alpha Phi Alpha and the world with distinction.
-      </p>
     </div>
 
-    <div class="board-grid">
+    <div class="brothers-grid">
 
-      <!-- TILLMAN -->
-      <div class="board-member fade-up" data-notable="tillman">
-        <div class="board-member-img-placeholder" style="display:flex;"><i class="fas fa-user"></i></div>
-        <div class="board-member-info">
-          <div class="board-member-role">34th General President · Alpha Phi Alpha</div>
-          <div class="board-member-name">Mark S. Tillman</div>
-          <div class="board-member-bio">The first General President of Alpha Phi Alpha initiated through Beta Phi Chapter. Served 2013–2016 and received the Alpha Award of Merit in 2023.</div>
-          <span class="view-bio-btn">View Profile</span>
+      <!-- Mark S. Tillman -->
+      <div class="brother-card fade-up">
+        <img
+          src="bpaa/images/TillmanHeadshot.jpg"
+          alt="Bro. Mark S. Tillman"
+          class="brother-card-photo"
+        />
+        <div class="brother-card-body">
+          <h3>Mark S. Tillman</h3>
+          <div class="card-title">34th General President, Alpha Phi Alpha</div>
+          <p>
+            The first brother initiated through Beta Phi Chapter to serve as General President
+            of Alpha Phi Alpha Fraternity, Inc. — a historic milestone for the chapter and Dillard University.
+          </p>
         </div>
       </div>
 
-      <!-- PRICE -->
-      <div class="board-member fade-up fade-up-delay-1" data-notable="price">
-        <div class="board-member-img-placeholder" style="display:flex;"><i class="fas fa-user"></i></div>
-        <div class="board-member-info">
-          <div class="board-member-role">Editor-in-Chief · The Sphinx Magazine</div>
-          <div class="board-member-name">Michael J. Price</div>
-          <div class="board-member-bio">The longest-serving Editor-in-Chief of The Sphinx — Alpha Phi Alpha's official publication — serving for 16 years from 1974 to 1990.</div>
-          <span class="view-bio-btn">View Profile</span>
+      <!-- Michael J. Price -->
+      <div class="brother-card fade-up fade-up-delay-1">
+        <img
+          src="bpaa/images/PriceHeadshot.jpg"
+          alt="Bro. Michael J. Price"
+          class="brother-card-photo"
+        />
+        <div class="brother-card-body">
+          <h3>Michael J. Price</h3>
+          <div class="card-title">Notable Brother · Beta Phi Chapter</div>
+          <p>
+            A distinguished alumnus of Beta Phi Chapter whose leadership and service
+            exemplify the ideals of Alpha Phi Alpha Fraternity, Inc.
+          </p>
         </div>
       </div>
 
     </div>
   </div>
 </section>
-
-<!-- ══════════════════════════════════════════
-     MRS. SHIRLEY B. PORTER — SPECIAL HONOR
-══════════════════════════════════════════ -->
-<section class="history-section" style="background: var(--black); border-top: 1px solid rgba(184,135,0,0.15); padding: 5rem 0;">
-  <div class="container">
-
-    <div style="text-align:center; margin-bottom: 3rem;" class="fade-up">
-      <span class="section-label">A Special Honor</span>
-      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
-        The Mother of <span style="color:var(--gold); font-style:italic;">Beta Phi</span>
-      </h2>
-      <div class="gold-divider"></div>
-      <p style="color:var(--muted); max-width:600px; margin:1rem auto 0; font-size:0.95rem;">
-        Not a member of Alpha Phi Alpha — but woven into the heart of every brother who ever called Dillard home.
-      </p>
-    </div>
-
-    <div style="max-width:720px; margin:0 auto;">
-      <div class="board-member fade-up" data-notable="porter" style="cursor:pointer;">
-        <div class="board-member-img-placeholder" style="display:flex;"><i class="fas fa-user"></i></div>
-        <div class="board-member-info">
-          <div class="board-member-role">Mother of Beta Phi Chapter · Dillard University</div>
-          <div class="board-member-name">Mrs. Shirley B. Porter</div>
-          <div class="board-member-bio">
-            For over three decades, Mrs. Porter was the heart behind Beta Phi. Former Bookstore Director of Dillard University, NAACP life member, and the woman who always had time for her "Beta Phi Boys." She is irreplaceable — a beautiful yellow rose of inspiration.
-          </div>
-          <span class="view-bio-btn">View Profile</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- NOTABLE BIO MODAL -->
-<div class="bio-modal" id="notableModal" role="dialog" aria-modal="true">
-  <div class="bio-modal-inner" id="notableModalInner">
-    <button class="bio-modal-close" id="notableModalClose" aria-label="Close">
-      <i class="fas fa-times"></i>
-    </button>
-    <div class="bio-modal-photo" id="notableModalPhoto">
-      <i class="fas fa-user" style="font-size:4rem; color:var(--gold);"></i>
-    </div>
-    <div class="bio-modal-body">
-      <div class="bio-modal-role" id="notableModalRole"></div>
-      <div class="bio-modal-name" id="notableModalName"></div>
-      <div class="bio-modal-text" id="notableModalText"></div>
-    </div>
-  </div>
-</div>
 
 <!-- CTA -->
 <section class="cta-section">
   <div class="container">
     <div>
       <h2>Know a Notable Brother?</h2>
-      <p>Help us preserve and grow this record of Beta Phi excellence.</p>
+      <p>Help us honor the men of Beta Phi who are making an impact.</p>
     </div>
-    <a href="mailto:betaphialumniassociation@gmail.com?subject=Notable Brother Submission" class="btn-black">Submit a Profile</a>
+    <a href="mailto:betaphialumniassociation@gmail.com" class="btn-black">Submit a Nomination</a>
   </div>
 </section>
 
@@ -184,7 +448,10 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>Beta Phi Alumni Association</h3>
-        <p>The Beta Phi Alumni Association — committed to brotherhood, leadership, and service in support of Beta Phi Chapter and Dillard University.</p>
+        <p>
+          The Beta Phi Alumni Association — committed to brotherhood, leadership,
+          and service in support of Beta Phi Chapter and Dillard University.
+        </p>
         <div class="footer-social">
           <a href="https://www.facebook.com/profile.php?id=61578446081453" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="https://www.instagram.com/bpaa_1938/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -217,99 +484,15 @@
   </div>
 </footer>
 
+<script src="script.js"></script>
 <script>
-  // Mobile nav toggle
   document.getElementById('navToggle').addEventListener('click', function() {
     document.getElementById('navMobile').classList.toggle('open');
   });
-
-  // Fade-up scroll observer
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.15 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Notable brother data
-  const notableData = {
-    tillman: {
-      role: "34th General President · Alpha Phi Alpha Fraternity, Inc.",
-      name: "Mark S. Tillman",
-      bio: `
-        <p>Brother Mark S. Tillman is a native of New Orleans, Louisiana, and a proud alumnus of Dillard University, where he earned his Bachelor of Science in Computer Science in 1988 — initiated into Alpha Phi Alpha through Beta Phi Chapter.</p>
-        <p>He built a distinguished career in information technology, serving as a Technology Consultant and Lead Offering Engineer at Hewlett-Packard (via the acquisition of Electronic Data Systems), where he led a global team designing, building, and testing enterprise server platform solutions. He was also chair of HP's diversity employee-network group and a member of the Black Data Processing Association (BDPA).</p>
-        <p>Within Alpha Phi Alpha, Brother Tillman accumulated over 20 years of membership in Gamma Lambda Chapter in Detroit, Michigan — serving as a chapter officer in six administrations. He was a key contributor on the Management Information Systems Committee that introduced AlphaNET to the fraternity and guided its adoption across multiple regions.</p>
-        <p>In 2013, he was inaugurated as the <strong>34th General President of Alpha Phi Alpha Fraternity, Inc.</strong> — the first General President initiated through Beta Phi Chapter — and the first from the Midwestern Region in over 30 years. During his tenure, he represented Alpha Phi Alpha at the 50th Anniversary of the March on Washington's Let Freedom Ring Celebration, speaking ahead of Presidents Obama, Clinton, and Carter on the program.</p>
-        <p>In 2023, at the 97th General Convention, Brother Tillman was awarded <strong>The Alpha Award of Merit</strong> — the highest honor bestowed upon a member of Alpha Phi Alpha Fraternity, Inc.</p>
-        <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:10px;">
-          <a href="https://apa1906.net/general-presidents/" target="_blank" style="font-size:0.8rem; color:var(--gold); text-decoration:none; border:1px solid rgba(184,135,0,0.3); padding:5px 12px; border-radius:4px;">
-            <i class="fas fa-external-link-alt" style="margin-right:5px; font-size:0.7rem;"></i>APA General Presidents
-          </a>
-          <a href="https://issuu.com/docs/4f84d88abd684b9195cdbaa114a744cf" target="_blank" style="font-size:0.8rem; color:var(--gold); text-decoration:none; border:1px solid rgba(184,135,0,0.3); padding:5px 12px; border-radius:4px;">
-            <i class="fas fa-external-link-alt" style="margin-right:5px; font-size:0.7rem;"></i>2013 Inauguration Souvenir Booklet
-          </a>
-          <a href="https://detroitalphas.org/past-general-president-brother-mark-s-tillman-awarded-the-alpha-award-of-merit/" target="_blank" style="font-size:0.8rem; color:var(--gold); text-decoration:none; border:1px solid rgba(184,135,0,0.3); padding:5px 12px; border-radius:4px;">
-            <i class="fas fa-external-link-alt" style="margin-right:5px; font-size:0.7rem;"></i>2023 Alpha Award of Merit
-          </a>
-        </div>`
-    },
-    price: {
-      role: "Editor-in-Chief · The Sphinx Magazine (1974–1990)",
-      name: "Michael J. Price",
-      bio: `
-        <p>Brother Michael J. Price holds the distinction of being the <strong>longest-serving Editor-in-Chief of The Sphinx</strong> — the official publication of Alpha Phi Alpha Fraternity, Inc. He served in that role for 16 years, from 1974 to 1990, initiated through Beta Phi Chapter at Dillard University.</p>
-        <p><em>The Sphinx</em> is one of the longest-running publications in Black Greek-letter organization history, serving as the fraternity's official voice since 1914. It covers fraternity news, civic affairs, scholarship, and the broader Black community in America.</p>
-        <p>Brother Price's 16-year tenure spanned one of the most consequential periods in both the fraternity's history and the broader Black community — from the post-Civil Rights era through the rise of Black political and professional power in the 1980s. He was featured prominently in the Fall 1988 issue of The Sphinx alongside the fraternity's Quadrennial Report. The Summer 1983 issue (Vol. 69, No. 2) featured fellow Beta Phi brother Keith Miller on the cover — a testament to the chapter's visibility at the national level during Price's tenure.</p>
-        <p>His stewardship of the publication represents Beta Phi's tradition of producing brothers who serve the fraternity not only through chapter work, but through national institution-building.</p>
-        <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:10px;">
-          <a href="https://issuu.com/docs/588d9b4de0e54cd285904b3c0a94ec3c" target="_blank" style="font-size:0.8rem; color:var(--gold); text-decoration:none; border:1px solid rgba(184,135,0,0.3); padding:5px 12px; border-radius:4px;">
-            <i class="fas fa-external-link-alt" style="margin-right:5px; font-size:0.7rem;"></i>The Sphinx — Fall 1990 (Vol. 76)
-          </a>
-          <a href="https://issuu.com/docs/1638fae704694730a6b3ecc921d39863" target="_blank" style="font-size:0.8rem; color:var(--gold); text-decoration:none; border:1px solid rgba(184,135,0,0.3); padding:5px 12px; border-radius:4px;">
-            <i class="fas fa-external-link-alt" style="margin-right:5px; font-size:0.7rem;"></i>The Sphinx — Summer 1983 (Vol. 69)
-          </a>
-          <a href="https://issuu.com/apa1906network/docs/198807403/72" target="_blank" style="font-size:0.8rem; color:var(--gold); text-decoration:none; border:1px solid rgba(184,135,0,0.3); padding:5px 12px; border-radius:4px;">
-            <i class="fas fa-external-link-alt" style="margin-right:5px; font-size:0.7rem;"></i>The Sphinx — Fall 1988
-          </a>
-        </div>`
-    },
-    porter: {
-      role: "Mother of Beta Phi Chapter · Dillard University",
-      name: "Mrs. Shirley B. Porter",
-      bio: `
-        <p>Mrs. Shirley B. Porter is the official Mother of the Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc. — a title that speaks not only to her formal designation, but to the genuine love, care, and dedication she poured into every brother who passed through Beta Phi.</p>
-        <p>Mrs. Porter served as the former Bookstore Director of Dillard University, where her presence on campus made her a constant and steadying force in the lives of Beta Phi brothers for more than three decades. She was always present for chapter activities, always encouraging, and always a source of warmth and wisdom.</p>
-        <p>A life member of the NAACP and tireless servant of her community, Mrs. Porter embodied the values that Beta Phi holds dear — service, commitment, and love for others. She never had to show up for her "Beta Phi Boys," but she always did.</p>
-        <p>Her legacy within Beta Phi is irreplaceable. She remains in the heart of every brother who was fortunate enough to know her — remembered always as a beautiful yellow rose of inspiration.</p>`
-    }
-  };
-
-  // Open modal
-  document.querySelectorAll('[data-notable]').forEach(function(card) {
-    card.addEventListener('click', function() {
-      const key = this.getAttribute('data-notable');
-      const data = notableData[key];
-      if (!data) return;
-      document.getElementById('notableModalRole').textContent = data.role;
-      document.getElementById('notableModalName').textContent = data.name;
-      document.getElementById('notableModalText').innerHTML = data.bio;
-      document.getElementById('notableModalPhoto').innerHTML = '<i class="fas fa-user" style="font-size:4rem; color:var(--gold);"></i>';
-      document.getElementById('notableModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  // Close modal
-  function closeNotableModal() {
-    document.getElementById('notableModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('notableModalClose').addEventListener('click', closeNotableModal);
-  document.getElementById('notableModal').addEventListener('click', function(e) {
-    if (e.target === this) closeNotableModal();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeNotableModal();
-  });
 </script>
 </body>
 </html>
