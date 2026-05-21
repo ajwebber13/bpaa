@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Members | Beta Phi Alumni Association</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="main.css" />
+<style>
+
+/* ── LOGIN GATE ── */
+#login-gate {
+  position: fixed;
+  inset: 0;
+  background: var(--black, #0a0a0a);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.login-box {
+  width: 100%;
+  max-width: 420px;
+}
+.login-shield {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(184,135,0,0.1);
+  border: 1px solid rgba(184,135,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--gold, #b48700);
+  margin: 0 auto 1.5rem;
+}
+.login-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+.login-sub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.04em;
+}
+.login-field {
+  margin-bottom: 1rem;
+}
+.login-field label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  display: block;
+  margin-bottom: 6px;
+}
+.login-field input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.login-field input:focus {
+  border-color: rgba(184,135,0,0.5);
+}
+.login-error {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: #e05c5c;
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 1.2rem;
+}
+.login-btn {
+  width: 100%;
+  background: var(--gold, #b48700);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 0.85rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 0.5rem;
+}
+.login-btn:hover { opacity: 0.88; }
+.login-divider {
+  width: 48px;
+  height: 1px;
+  background: rgba(184,135,0,0.3);
+  margin: 2rem auto 0;
+}
+
+/* ── MEMBERS CONTENT (hidden until login) ── */
+#members-content { display: none; }
+
+/* ── MEMBERS NAV BANNER ── */
+.members-banner {
+  background: rgba(184,135,0,0.08);
+  border-bottom: 1px solid rgba(184,135,0,0.2);
+  padding: 0.6rem 0;
+}
+.members-banner .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.members-banner-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logout-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  background: none;
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.logout-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+/* ── MEMBERS HERO ── */
+.members-hero {
+  background: var(--black, #0a0a0a);
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid rgba(184,135,0,0.15);
+}
+
+/* ── MEMBERS DASHBOARD ── */
+.members-section {
+  background: var(--black, #0a0a0a);
+  padding: 4rem 0 5rem;
+}
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+.members-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+.members-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(184,135,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--gold, #b48700);
+  font-size: 1.1rem;
+}
+.members-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.members-card p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+.members-card-link {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold, #b48700);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0.5px solid rgba(184,135,0,0.3);
+  padding: 6px 14px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.members-card-link:hover { background: rgba(184,135,0,0.08); }
+
+/* Announcement items */
+.announcement-item {
+  padding: 0.85rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+.announcement-item:last-child { border-bottom: none; }
+.announcement-date {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold, #b48700);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.announcement-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+}
+
+/* Document list */
+.doc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.55);
+}
+.doc-item:last-child { border-bottom: none; }
+.doc-item i { color: var(--gold, #b48700); font-size: 1rem; flex-shrink: 0; }
+.doc-placeholder {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.25);
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* Full-width announcement banner card */
+.announcement-card {
+  background: rgba(184,135,0,0.06);
+  border: 0.5px solid rgba(184,135,0,0.25);
+  border-left: 3px solid var(--gold, #b48700);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.announcement-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+.announcement-card p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ LOGIN GATE ══════════ -->
+<div id="login-gate">
+  <div class="login-box">
+    <div class="login-shield">ΑΦΑ</div>
+    <div class="login-title">Members Portal</div>
+    <div class="login-sub">Beta Phi Alumni Association · Private Access</div>
+
+    <div class="login-field">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter username" autocomplete="off" />
+    </div>
+    <div class="login-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" />
+    </div>
+
+    <div class="login-error" id="login-error"></div>
+    <button class="login-btn" onclick="attemptLogin()">
+      <i class="fas fa-lock" style="margin-right:8px;"></i>Sign In
+    </button>
+    <div class="login-divider"></div>
+  </div>
+</div>
+
+<!-- ══════════ MEMBERS CONTENT ══════════ -->
+<div id="members-content">
+
+  <!-- NAV -->
+  <nav class="site-nav" id="siteNav">
+    <div class="container">
+      <a href="index.html" class="nav-brand" style="text-decoration:none;">
+        <div class="nav-brand-shield">ΑΦΑ</div>
+        <div>
+          <div>BPAA</div>
+          <div class="nav-brand-sub">Beta Phi Alumni Assoc.</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="about.html">About</a>
+          <div class="nav-dropdown">
+            <a href="about.html">Our History</a>
+            <a href="about.html#charter-members">Charter Members</a>
+          </div>
+        </li>
+        <li><a href="leadership.html">Leadership</a></li>
+        <li><a href="legacy.html">Notable Brothers</a></li>
+        <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="legacy.html">Notable Brothers</a>
+      <a href="get-active.html">Get Active</a>
+    </div>
+  </nav>
+
+  <!-- MEMBERS BANNER -->
+  <div class="members-banner">
+    <div class="container">
+      <div class="members-banner-label">
+        <i class="fas fa-lock" style="font-size:0.7rem;"></i>
+        Members-Only Area · Beta Phi Alumni Association
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt" style="margin-right:5px;"></i>Sign Out
+      </button>
+    </div>
+  </div>
+
+  <!-- MEMBERS HERO -->
+  <section class="members-hero">
+    <div class="container page-hero-content">
+      <span class="section-label">Welcome, Brother</span>
+      <h1 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,5vw,3.5rem); color:#fff; font-weight:300; line-height:1.1; margin:0.5rem 0 1rem;">
+        BPAA <span style="color:var(--gold); font-style:italic;">Members Portal</span>
+      </h1>
+      <p style="font-family:'Nunito',sans-serif; color:rgba(255,255,255,0.55); font-size:1rem; max-width:540px; line-height:1.7;">
+        This area is for active members of the Beta Phi Alumni Association only. 
+        Documents, announcements, and resources shared here are private to our brotherhood.
+      </p>
+    </div>
+  </section>
+
+  <!-- MEMBERS DASHBOARD -->
+  <section class="members-section">
+    <div class="container">
+
+      <!-- Pinned Announcement -->
+      <div class="announcement-card fade-up">
+        <h4><i class="fas fa-bullhorn" style="color:var(--gold); margin-right:8px;"></i>Welcome to the BPAA Members Portal</h4>
+        <p>This portal is a work in progress. Documents, meeting minutes, and member resources will be added here as they become available. Contact the board at betaphialumniassociation@gmail.com to submit content.</p>
+      </div>
+
+      <div style="text-align:center; margin-bottom:1rem;">
+        <span class="section-label">Members Dashboard</span>
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,3.5vw,2.5rem); color:#fff; font-weight:300; margin-bottom:0.5rem;">
+          Brotherhood <span style="color:var(--gold); font-style:italic;">Resources</span>
+        </h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="members-grid">
+
+        <!-- Announcements -->
+        <div class="members-card fade-up">
+          <div class="members-card-icon"><i class="fas fa-bullhorn"></i></div>
+          <h3>Announcements</h3>
+          <div class="announcement-item">
+            <div class="announcement-date">May 2026</div>
+            <div class="announcement-text">BPAA Members Portal is now live. More content coming soon.</div>
+          </div>
+          <div class="announcement-item">
+            <div class="announcement-date">Coming Soon</div>
+            <div class="announcement-text">Board updates and member communications will be posted here.</div>
+          </div>
+        </div>
+
+        <!-- Meeting Minutes -->
+        <div class="members-card fade-up fade-up-delay-1">
+          <div class="members-card-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Meeting Minutes</h3>
+          <p>Official minutes from BPAA board and general membership meetings.</p>
+          <div class="doc-placeholder">No minutes uploaded yet. Submit to the board to have them added.</div>
+        </div>
+
+        <!-- Governing Documents -->
+        <div class="members-card fade-up fade-up-delay-2">
+          <div class="members-card-icon"><i class="fas fa-scroll"></i></div>
+          <h3>Governing Documents</h3>
+          <p>Bylaws, operating procedures, and official BPAA policies.</p>
+          <div class="doc-placeholder">Documents will be uploaded here once finalized.</div>
+        </div>
+
+        <!-- Member Forms -->
+        <div class="members-card fade-up">
+          <div class="members-card-icon"><i class="fas fa-clipboard-list"></i></div>
+          <h3>Member Forms</h3>
+          <p>Official membership forms, dues submissions, and registration documents.</p>
+          <a href="mailto:betaphialumniassociation@gmail.com?subject=Member Form Request" class="members-card-link">
+            <i class="fas fa-envelope" style="font-size:0.75rem;"></i> Request a Form
+          </a>
+        </div>
+
+        <!-- Financials -->
+        <div class="members-card fade-up fade-up-delay-1">
+          <div class="members-card-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>Financial Reports</h3>
+          <p>Treasurer updates, annual financial summaries, and scholarship fund reports.</p>
+          <div class="doc-placeholder">Reports will be posted here following board approval.</div>
+        </div>
+
+        <!-- Contact the Board -->
+        <div class="members-card fade-up fade-up-delay-2">
+          <div class="members-card-icon"><i class="fas fa-users"></i></div>
+          <h3>Contact the Board</h3>
+          <p>Reach out directly to the BPAA Board of Directors with questions, submissions, or concerns.</p>
+          <a href="mailto:betaphialumniassociation@gmail.com?subject=Member Inquiry" class="members-card-link">
+            <i class="fas fa-envelope" style="font-size:0.75rem;"></i> Email the Board
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>BPAA</h3>
+          <p>The Beta Phi Alumni Association — committed to brotherhood, leadership, and service in support of Beta Phi Chapter and Dillard University.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/bpaa_1938/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="leadership.html">Leadership</a>
+          <a href="legacy.html">Notable Brothers</a>
+          <a href="get-active.html">Get Active</a>
+        </div>
+        <div class="footer-col">
+          <h4>Membership</h4>
+          <a href="get-active.html#golden">Golden Brothers</a>
+          <a href="get-active.html#young">Young Brothers</a>
+          <a href="get-active.html#college">College Brothers</a>
+          <a href="get-active.html#forms">Member Forms</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope" style="color:var(--gold); margin-right:6px;"></i><a href="mailto:betaphialumniassociation@gmail.com" style="display:inline;">betaphialumniassociation@gmail.com</a></p>
+          <p style="margin-top:0.5rem;"><i class="fab fa-instagram" style="color:var(--gold); margin-right:6px;"></i><a href="https://www.instagram.com/bpaa_1938/" target="_blank" style="display:inline;">@bpaa_1938</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Beta Phi Alumni Association, Inc. All rights reserved.</p>
+        <p>Alpha Phi Alpha Fraternity, Inc. — Beta Phi Chapter | Est. 1938</p>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- end #members-content -->
+
+<script>
+  const VALID_USER = 'bpaa';
+  const VALID_PASS = 'betaphi1938';
+  const SESSION_KEY = 'bpaa_auth';
+
+  function attemptLogin() {
+    const user = document.getElementById('username').value.trim().toLowerCase();
+    const pass = document.getElementById('password').value;
+    const err  = document.getElementById('login-error');
+
+    if (user === VALID_USER && pass === VALID_PASS) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
+      showMembers();
+    } else {
+      err.textContent = 'Incorrect username or password. Please try again.';
+      document.getElementById('password').value = '';
+    }
+  }
+
+  function showMembers() {
+    document.getElementById('login-gate').style.display    = 'none';
+    document.getElementById('members-content').style.display = 'block';
+  }
+
+  function logout() {
+    sessionStorage.removeItem(SESSION_KEY);
+    document.getElementById('login-gate').style.display    = 'flex';
+    document.getElementById('members-content').style.display = 'none';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('login-error').textContent = '';
+  }
+
+  // Check session on load
+  if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+    showMembers();
+  }
+
+  // Allow Enter key to submit
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') attemptLogin();
+  });
+
+  // Nav toggle (runs after members-content is visible)
+  document.addEventListener('click', function(e) {
+    const toggle = document.getElementById('navToggle');
+    if (toggle && e.target.closest('#navToggle')) {
+      document.getElementById('navMobile').classList.toggle('open');
+    }
+  });
+
+  // Fade-up observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
