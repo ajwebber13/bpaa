@@ -152,6 +152,266 @@
   color: var(--gold, #b48700);
 }
 
+/* ── Notable Brothers Cards ── */
+.notable-brothers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.75rem 0 1rem;
+}
+
+/* Featured Tillman card — full width with inauguration backdrop */
+.notable-card-featured {
+  grid-column: 1 / -1;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid rgba(184,135,0,0.35);
+  min-height: 260px;
+  display: flex;
+  align-items: flex-end;
+}
+.notable-card-featured .notable-backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  filter: brightness(0.28) saturate(0.6);
+  z-index: 0;
+}
+.notable-card-featured .notable-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.5) 55%, rgba(10,10,10,0.15) 100%);
+}
+.notable-card-featured .notable-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+.notable-card-featured .notable-headshot {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid var(--gold, #b48700);
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+.notable-card-featured .notable-text .notable-role {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  opacity: 0.85;
+  margin-bottom: 3px;
+}
+.notable-card-featured .notable-text .notable-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.notable-card-featured .notable-text .notable-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* Standard notable cards (Price, Williams) */
+.notable-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.notable-card:hover { border-color: rgba(184,135,0,0.45); }
+.notable-card .notable-headshot {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 1.5px solid rgba(184,135,0,0.45);
+  flex-shrink: 0;
+}
+.notable-card .notable-ph {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(184,135,0,0.08);
+  border: 1.5px solid rgba(184,135,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(184,135,0,0.4);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.notable-card .notable-role {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  opacity: 0.8;
+  margin-bottom: 2px;
+}
+.notable-card .notable-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text, #f0ead6);
+  line-height: 1.3;
+  margin-bottom: 5px;
+}
+.notable-card .notable-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted, rgba(255,255,255,0.6));
+  line-height: 1.6;
+}
+
+/* ── Mother of Beta Phi with headshot ── */
+.porter-profile {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin: 0.5rem 0 1rem;
+  padding: 1.25rem;
+  background: rgba(255,255,255,0.02);
+  border: 0.5px solid rgba(184,135,0,0.18);
+  border-radius: 10px;
+}
+.porter-profile img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid rgba(184,135,0,0.5);
+  flex-shrink: 0;
+}
+.porter-profile .porter-ph {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(184,135,0,0.07);
+  border: 2px solid rgba(184,135,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(184,135,0,0.35);
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+.porter-profile .porter-text p {
+  margin: 0;
+  color: var(--muted, rgba(255,255,255,0.6));
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ── 85th Commemorative Journal Section ── */
+.journal-section {
+  background: var(--black);
+  padding: 4rem 0 4.5rem;
+  border-top: 1px solid rgba(184,135,0,0.15);
+}
+.journal-card {
+  max-width: 780px;
+  margin: 0 auto;
+  background: rgba(184,135,0,0.04);
+  border: 0.5px solid rgba(184,135,0,0.3);
+  border-radius: 12px;
+  padding: 2.25rem 2.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.journal-icon-wrap {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  background: rgba(184,135,0,0.1);
+  border: 0.5px solid rgba(184,135,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold, #b48700);
+  font-size: 1.8rem;
+}
+.journal-card-body .journal-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+.journal-card-body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text, #f0ead6);
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+.journal-card-body p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted, rgba(255,255,255,0.6));
+  margin: 0 0 1.1rem;
+  line-height: 1.65;
+}
+.journal-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  text-decoration: none;
+  border: 0.5px solid rgba(184,135,0,0.4);
+  padding: 8px 18px;
+  border-radius: 6px;
+  background: rgba(184,135,0,0.06);
+  transition: background 0.2s, border-color 0.2s;
+}
+.journal-view-btn:hover {
+  background: rgba(184,135,0,0.14);
+  border-color: rgba(184,135,0,0.65);
+}
+@media (max-width: 600px) {
+  .journal-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+  .notable-brothers-grid { grid-template-columns: 1fr; }
+  .notable-card-featured .notable-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .porter-profile { flex-direction: column; align-items: center; text-align: center; }
+}
+
 @media (max-width: 640px) {
   .tl-item { grid-template-columns: 20px 1fr; }
   .tl-spine { left: 10px; transform: none; }
@@ -272,9 +532,59 @@
       <p>
         The Beta Phi Chapter has produced men who have served Alpha in distinguished positions:
       </p>
-      <p>
-        <strong>Brother Michael J. Price</strong> — the longest-serving Editor of the Sphinx. <strong>Brother Joshua Williams, Jr.</strong> — a past New Orleans National Convention Chair. Most notably, <strong>Brother Mark S. Tillman</strong> — the former Midwestern Regional Vice President and the <strong>34th General President of Alpha Phi Alpha Fraternity, Inc.</strong> Brother Tillman is the first General President of Alpha initiated via Beta Phi. In 2023 at the General Convention, Brother Tillman was awarded <em>The Alpha Award of Merit</em> — the highest honor given in Alpha Phi Alpha.
-      </p>
+
+      <!-- Notable Brothers Visual Cards -->
+      <div class="notable-brothers-grid fade-up">
+
+        <!-- Mark S. Tillman — Featured Card with Inauguration Backdrop -->
+        <div class="notable-card-featured">
+          <div class="notable-backdrop" style="background-image: url('images/TillmanInaugaration.png');"></div>
+          <div class="notable-inner">
+            <img
+              src="images/TillmanHeadshot.jpg"
+              alt="Brother Mark S. Tillman"
+              class="notable-headshot"
+              onerror="this.style.display='none';"
+            />
+            <div class="notable-text">
+              <div class="notable-role">34th General President · Alpha Award of Merit · 2023</div>
+              <div class="notable-name">Brother Mark S. Tillman</div>
+              <div class="notable-desc">
+                Former Midwestern Regional Vice President and the first General President of Alpha Phi Alpha initiated through Beta Phi. In 2023, Brother Tillman received <em>The Alpha Award of Merit</em> — the highest honor in Alpha Phi Alpha Fraternity, Inc.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Michael J. Price -->
+        <!-- NOTE: Update src to the correct Price headshot file when available -->
+        <div class="notable-card">
+          <img
+            src="images/TillmanHeadshot.jpg"
+            alt="Brother Michael J. Price"
+            class="notable-headshot"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="notable-ph" style="display:none;"><i class="fas fa-user"></i></div>
+          <div>
+            <div class="notable-role">Longest-Serving Sphinx Editor</div>
+            <div class="notable-name">Brother Michael J. Price</div>
+            <div class="notable-desc">The longest-serving Editor of the Sphinx — Alpha Phi Alpha's official national publication.</div>
+          </div>
+        </div>
+
+        <!-- Joshua Williams Jr. -->
+        <div class="notable-card">
+          <div class="notable-ph"><i class="fas fa-user"></i></div>
+          <div>
+            <div class="notable-role">National Convention Chair</div>
+            <div class="notable-name">Brother Joshua Williams, Jr.</div>
+            <div class="notable-desc">Past New Orleans National Convention Chair for Alpha Phi Alpha Fraternity, Inc.</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- end notable-brothers-grid -->
 
       <h2>Era of Excellence (2011–Present)</h2>
       <p>
@@ -304,9 +614,21 @@
       </p>
 
       <h2>The Mother of Beta Phi</h2>
-      <p>
-        The Beta Phi Chapter's official mother is <strong>Mrs. Shirley B. Porter</strong>. Mrs. Porter served as former bookstore director of Dillard University and was an active supporter of all chapter activities for over three decades. A life member of the NAACP and tireless community servant, she always had time for her "Beta Phi Boys." She remains in every Beta Phi brother's heart — a beautiful yellow rose of inspiration, missed by all of her sons.
-      </p>
+
+      <!-- Shirley Porter Profile with Headshot -->
+      <div class="porter-profile fade-up">
+        <img
+          src="images/PorterHeadshot.png"
+          alt="Mrs. Shirley B. Porter — Mother of Beta Phi"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="porter-ph" style="display:none;"><i class="fas fa-user"></i></div>
+        <div class="porter-text">
+          <p>
+            The Beta Phi Chapter's official mother is <strong>Mrs. Shirley B. Porter</strong>. Mrs. Porter served as former bookstore director of Dillard University and was an active supporter of all chapter activities for over three decades. A life member of the NAACP and tireless community servant, she always had time for her "Beta Phi Boys." She remains in every Beta Phi brother's heart — a beautiful yellow rose of inspiration, missed by all of her sons.
+          </p>
+        </div>
+      </div>
 
       <h2>The Birth of BPAA</h2>
       <p>
@@ -755,6 +1077,35 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     85TH COMMEMORATIVE JOURNAL
+══════════════════════════════════════════ -->
+<section class="journal-section" id="commemorative-journal">
+  <div class="container">
+    <div class="journal-card fade-up">
+      <div class="journal-icon-wrap">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <div class="journal-card-body">
+        <div class="journal-label">Beta Phi · 85th Anniversary · 2023</div>
+        <h3>The 85th Commemorative Journal</h3>
+        <p>
+          A historic record of Beta Phi's 85 years of brotherhood, scholarship, and service at Dillard University — produced in celebration of the 85th Anniversary and the founding of the Beta Phi Alumni Association, Inc.
+        </p>
+        <a
+          href="https://drive.google.com/file/d/1-qazaqwI6QfjWsgoYxh0VffIuKarKoua/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="journal-view-btn"
+        >
+          <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i>
+          View Journal
+        </a>
+      </div>
     </div>
   </div>
 </section>
