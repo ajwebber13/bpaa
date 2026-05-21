@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 <link rel="stylesheet" href="main.css" />
 <style>
-/* ── Membership Tier Cards ── */
 .tiers-section {
   background: var(--black);
   padding: 5rem 0 6rem;
@@ -48,24 +47,6 @@
 .tier-card:hover {
   border-color: rgba(227,212,141,0.3);
   transform: translateY(-5px);
-}
-.tier-card.featured {
-  border-color: rgba(227,212,141,0.35);
-  background: #191911;
-}
-.tier-card.featured::before { transform: scaleX(1); }
-.tier-featured-tag {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  background: var(--gold);
-  color: #000;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 3px;
 }
 .tier-icon {
   width: 48px; height: 48px;
@@ -171,14 +152,6 @@
   background: var(--gold);
   color: #000;
 }
-.tier-card.featured .tier-btn {
-  background: var(--gold);
-  color: #000;
-  border-color: var(--gold);
-}
-.tier-card.featured .tier-btn:hover {
-  background: var(--gold-dark);
-}
 @media (max-width: 768px) {
   .tiers-grid { grid-template-columns: 1fr; }
 }
@@ -258,10 +231,9 @@
   </div>
 </section>
 
-<!-- MEMBERSHIP TIERS WITH PRICING -->
+<!-- MEMBERSHIP TIERS -->
 <section class="tiers-section" id="golden">
   <div class="container">
-
     <div style="text-align:center; margin-bottom:1rem;" class="fade-up">
       <span class="section-label">Annual Membership Dues</span>
       <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
@@ -295,9 +267,8 @@
         <a href="mailto:betaphialumniassociation@gmail.com?subject=Golden Brother Membership" class="tier-btn">Join as Golden Brother</a>
       </div>
 
-      <!-- BETA PHI BROTHERS (GENERAL) -->
-      <div class="tier-card featured fade-up fade-up-delay-1" id="young">
-        <span class="tier-featured-tag">General</span>
+      <!-- BETA PHI BROTHERS -->
+      <div class="tier-card fade-up fade-up-delay-1" id="young">
         <div class="tier-icon"><i class="fas fa-shield-alt"></i></div>
         <div class="tier-name">Beta Phi Brothers</div>
         <div class="tier-eligibility">All Brothers Not in Golden or Young Category</div>
@@ -354,7 +325,6 @@
         Ready to get active? Reach out directly to begin your BPAA membership or reconnect with your brotherhood.
       </p>
     </div>
-
     <div class="history-content">
       <div class="mission-box fade-up">
         <h3><i class="fas fa-envelope" style="color:var(--gold); margin-right:0.5rem;"></i>Contact Us to Get Started</h3>
@@ -370,7 +340,6 @@
           </a>
         </div>
       </div>
-
       <div class="founding-members fade-up" style="margin-top: 2rem;">
         <h3><i class="fas fa-info-circle" style="color:var(--gold); margin-right:0.5rem;"></i>What to Include in Your Message</h3>
         <ul>
