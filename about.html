@@ -10,6 +10,157 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 <link rel="stylesheet" href="main.css" />
+<style>
+/* ── Timeline styles ── */
+.timeline-section {
+  background: var(--black);
+  padding: 5rem 0 6rem;
+  border-top: 1px solid rgba(184,135,0,0.15);
+}
+.tl-body {
+  position: relative;
+  max-width: 860px;
+  margin: 3rem auto 0;
+}
+.tl-spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(184,135,0,0.2);
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: start;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.tl-item:last-child { margin-bottom: 0; }
+.tl-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+.tl-card-l { grid-column: 1; text-align: right; }
+.tl-card-r { grid-column: 3; }
+.tl-empty-l { grid-column: 1; }
+.tl-empty-r { grid-column: 3; }
+.tl-center {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 5px;
+}
+.tl-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold, #b48700);
+  flex-shrink: 0;
+  border: 2px solid var(--black, #0a0a0a);
+  outline: 1px solid var(--gold, #b48700);
+}
+.tl-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold, #b48700);
+  letter-spacing: 0.04em;
+}
+.tl-cat {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.tl-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: var(--muted, rgba(255,255,255,0.6));
+  line-height: 1.65;
+}
+.tl-badge {
+  display: inline-block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(184,135,0,0.1);
+  color: var(--gold, #b48700);
+  border: 0.5px solid rgba(184,135,0,0.3);
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* Awards grid */
+.awards-era {
+  background: var(--black);
+  padding: 0 0 5rem;
+  border-top: 1px solid rgba(184,135,0,0.1);
+}
+.awards-year-block {
+  margin-bottom: 2.5rem;
+}
+.awards-year-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold, #b48700);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.awards-year-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(184,135,0,0.2);
+}
+.awards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 6px 1.5rem;
+}
+.awards-list li {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted, rgba(255,255,255,0.6));
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.55;
+}
+.awards-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold, #b48700);
+}
+
+@media (max-width: 640px) {
+  .tl-item { grid-template-columns: 20px 1fr; }
+  .tl-spine { left: 10px; transform: none; }
+  .tl-card-l, .tl-card-r { grid-column: 2; text-align: left; }
+  .tl-empty-l, .tl-empty-r { display: none; }
+  .tl-center { grid-column: 1; padding-top: 1rem; }
+  .tl-year { font-size: 0.8rem; }
+}
+</style>
 </head>
 <body>
 
@@ -115,7 +266,7 @@
 
       <h2>Era of Excellence (2011–Present)</h2>
       <p>
-        In 2003, the chapter was recognized as the Louisiana District Chapter of the Year and the 2003 Southwestern Region Chapter of the Year under Brother Kyle Jones, with the most registered brothers at the 2003 General Convention in Detroit.
+        In 2003, the chapter was recognized as the Louisiana District Chapter of the Year and the 2003 Southwestern Region Chapter of the Year under Chapter President, Brother Kyle Jones, with the most registered brothers at the 2003 General Convention in Detroit.
       </p>
       <p>
         Since 2011, with the emergence of the line "Dawn of a New Age" on Dillard's campus, the Beta Phi Chapter has won:
@@ -153,7 +304,7 @@
       <div class="mission-box fade-up">
         <h3>"Our Mission"</h3>
         <p>
-          The mission of The Beta Phi Alumni Association, Inc. shall be to "encourage and promote the highest ideals of brotherhood, leadership, and service, while providing support and advocacy to The Beta Phi Chapter, the brothers of this Association, and to our Alma Mater, Dillard University."
+          The mission of The Beta Phi Alumni Association, Inc. shall be to "encourage and promote the highest ideals of brotherhood, scholarship, and service, while providing support and advocacy to The Beta Phi Chapter, the brothers of this Association, and to our Alma Mater, Dillard University."
         </p>
       </div>
 
@@ -165,8 +316,331 @@
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════
+     TIMELINE — KEY MILESTONES
+══════════════════════════════════════════ -->
+<section class="timeline-section" id="timeline">
+  <div class="container">
+
+    <div style="text-align:center; margin-bottom:1rem;">
+      <span class="section-label">Est. 1938 · Dillard University</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
+        88 Years of <span style="color:var(--gold); font-style:italic;">Beta Phi History</span>
+      </h2>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="tl-body">
+      <div class="tl-spine"></div>
+
+      <!-- 1938 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1938</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">The Founding</div>
+          <div class="tl-desc">Beta Phi Chapter chartered on November 11 by eight courageous men at Dillard University — the 64th House of Alpha Phi Alpha.</div>
+          <div><span class="tl-badge">Est. Nov. 11, 1938</span></div>
+        </div>
+      </div>
+
+      <!-- 1939-40 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">Academic Standard Set</div>
+          <div class="tl-desc">Mahlon Rhaney graduates first in his class; Mitchell Spellman graduates Magna Cum Laude — the first of many scholars Beta Phi would produce.</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1939–40</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 1985 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">1985</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">National Chapter of the Year</div>
+          <div class="tl-desc">Beta Phi receives the highest award in Alpha Phi Alpha at the General Convention in Atlanta under Chapter President William Washington. Also recognized as Southwestern Region and Louisiana District Chapter of the Year.</div>
+          <div style="margin-top:8px;"><span class="tl-badge">Highest Fraternity Honor</span></div>
+          <div style="margin-top:8px;">
+            <a href="https://issuu.com/docs/67835bb97159469b81464bffd332ee5e" target="_blank" style="font-family:'Nunito',sans-serif; font-size:0.75rem; color:var(--gold); text-decoration:none; display:inline-flex; align-items:center; gap:5px; border:0.5px solid rgba(184,135,0,0.3); padding:4px 10px; border-radius:4px;">
+              <i class="fas fa-external-link-alt" style="font-size:0.65rem;"></i> The Sphinx — Fall 1985 (Vol. 71)
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2003 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">Regional Excellence</div>
+          <div class="tl-desc">Under Chapter President, Brother Kyle Jones, Beta Phi is named Southwestern Region College Chapter of the Year and Louisiana District Chapter of the Year — with the most registered brothers at the General Convention in Detroit.</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2003</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 2011 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2011</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">Dawn of a New Age</div>
+          <div class="tl-desc">A historic line emerges on campus and launches an unprecedented era of excellence — beginning a streak of national, regional, and state recognition that continues to this day.</div>
+          <div><span class="tl-badge">Era of Excellence Begins</span></div>
+        </div>
+      </div>
+
+      <!-- 2013 GP -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">34th General President</div>
+          <div class="tl-desc">Brother Mark S. Tillman is inaugurated as the 34th General President of Alpha Phi Alpha — the first General President initiated through Beta Phi Chapter, and the first from the Midwestern Region in over 30 years.</div>
+          <div><span class="tl-badge">First from Beta Phi</span></div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2013</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 2013 Scholarship -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2013</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">Endowed Scholarship</div>
+          <div class="tl-desc">At the 75th Anniversary, Beta Phi becomes the first BGLO chapter at Dillard University to establish an endowed scholarship, donating over $25,000. The fund continues to grow at each anniversary milestone.</div>
+          <div><span class="tl-badge">First in BGLO History at Dillard</span></div>
+        </div>
+      </div>
+
+      <!-- 2017 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">National Recognition</div>
+          <div class="tl-desc">Beta Phi wins the National College Chapter with the Highest GPA, Southwestern Region College Chapter with the Highest GPA, and the Southwestern Region Quiz Bowl Championship.</div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2017</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="tl-item fade-up">
+        <div class="tl-empty-l"></div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2021</div></div>
+        <div class="tl-card tl-card-r">
+          <div class="tl-cat">National Highest GPA</div>
+          <div class="tl-desc">Under Chapter President Rodney Perkins, Beta Phi wins National Chapter with the Highest GPA. Brother Chad Fuselier wins National Brother with the Highest GPA — going on to become a Valedictorian of the Dillard University Class of 2022.</div>
+          <div><span class="tl-badge">National & Southwestern Region</span></div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="tl-item fade-up">
+        <div class="tl-card tl-card-l">
+          <div class="tl-cat">BPAA Founded · Award of Merit</div>
+          <div class="tl-desc">At the 85th Anniversary, brothers vote to formally establish the Beta Phi Alumni Association, Inc. That same year, Brother Mark S. Tillman receives the Alpha Award of Merit — the highest honor bestowed upon a member of Alpha Phi Alpha.</div>
+          <div><span class="tl-badge">A New Chapter Begins</span></div>
+        </div>
+        <div class="tl-center"><div class="tl-dot"></div><div class="tl-year">2023</div></div>
+        <div class="tl-empty-r"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     AWARDS & ACHIEVEMENTS — DETAILED RECORD
+══════════════════════════════════════════ -->
+<section class="awards-era">
+  <div class="container">
+
+    <div style="text-align:center; padding: 4rem 0 3rem;">
+      <span class="section-label">Complete Record</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
+        Awards & <span style="color:var(--gold); font-style:italic;">Achievements</span>
+      </h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--muted); max-width:560px; margin:1rem auto 0; font-size:0.9rem;">
+        A full record of Beta Phi's recognition at the Louisiana District, Southwestern Region, and National levels.
+      </p>
+    </div>
+
+    <!-- 2023 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2023</div>
+      <ul class="awards-list">
+        <li>1st Place at the Dillard University Yard Runners Step Show</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother with the Highest GPA</li>
+        <li>Louisiana College Brother of the Year (Bro. Benjamin Todd)</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana Scholars Bowl</li>
+      </ul>
+    </div>
+
+    <!-- 2022 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2022</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Brother of the Year (Bro. President Chad Fuselier)</li>
+        <li>Southwestern Region College Brother of the Year (Bro. Chad Fuselier)</li>
+        <li>Louisiana Region Belford V. Lawson Oratorical Competition Winner (Bro. DeAndre Bell II)</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Southwestern College Brother with the Highest GPA</li>
+        <li>Louisiana Scholar's Bowl</li>
+      </ul>
+    </div>
+
+    <!-- 2021 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2021</div>
+      <ul class="awards-list">
+        <li>National Chapter with the Highest GPA</li>
+        <li>National College Brother with the Highest GPA (Bro. Chad Fuselier)</li>
+        <li>Southwestern Region College Chapter with the Highest GPA</li>
+        <li>Southwestern Region College Brother with the Highest GPA (Bro. Chad Fuselier)</li>
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Brother of the Year (Bro. Chad Fuselier)</li>
+        <li>Louisiana Belford V. Lawson Oratorical Winner (Bro. DeAndre Bell II)</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Chad Fuselier)</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana Scholar's Bowl Winner</li>
+      </ul>
+    </div>
+
+    <!-- 2020 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2020</div>
+      <ul class="awards-list">
+        <li>Southwestern Regional College Chapter of the Year</li>
+        <li>Southwestern Regional College Brother with the Highest GPA</li>
+        <li>Southwestern Regional Debate Champions</li>
+        <li>Louisiana Chapter of the Year</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Erienne Lewis)</li>
+        <li>Louisiana College Brother of the Year (Bro. Erienne Lewis)</li>
+        <li>Louisiana Collegiate Scholars Bowl</li>
+        <li>Louisiana Hobart–Jarrett Debate Contest</li>
+        <li>Louisiana Outstanding Scrapbook</li>
+        <li>Louisiana Most Registered Brothers</li>
+      </ul>
+    </div>
+
+    <!-- 2019 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2019</div>
+      <ul class="awards-list">
+        <li>Southwestern Region Chapter with the Highest GPA</li>
+        <li>Southwestern Region Outstanding Scrapbook Award</li>
+        <li>Louisiana Debate Champions</li>
+        <li>Louisiana Best Scrapbook</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana Brother of the Year (Bro. Joseph Caldwell)</li>
+      </ul>
+    </div>
+
+    <!-- 2018 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2018</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Erienne Lewis)</li>
+        <li>Louisiana College Brother of the Year (Bro. Ron Davalon)</li>
+        <li>Louisiana College Chapter with Most Registered Brothers</li>
+      </ul>
+    </div>
+
+    <!-- 2017 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2017</div>
+      <ul class="awards-list">
+        <li>National College Chapter with the Highest GPA</li>
+        <li>Southwestern Region College Chapter with the Highest GPA</li>
+        <li>Southwestern Region Quiz Bowl Champion</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana Collegiate Scholars Bowl</li>
+        <li>Louisiana College Brother with the Highest GPA</li>
+      </ul>
+    </div>
+
+    <!-- 2016 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2016</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Hobart Jarrett Debate Contest Winner (Bro. Trevon Blair & Bro. Darren Scioneaux)</li>
+        <li>Louisiana College Chapter of the Year (Bro. Trevon Blair)</li>
+      </ul>
+    </div>
+
+    <!-- 2015 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2015</div>
+      <ul class="awards-list">
+        <li>Louisiana Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother of the Year (Bro. Chad Hudson)</li>
+        <li>Louisiana College Brother with the Highest GPA (Bro. Chad Hudson)</li>
+      </ul>
+    </div>
+
+    <!-- 2013 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2013</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter of the Year</li>
+        <li>Louisiana College Chapter with the Highest GPA</li>
+        <li>Louisiana College Brother of the Year (Bro. Jerome Bailey, Jr.)</li>
+        <li>Louisiana Belford V. Lawson Oratorical (Bro. Jerome Bailey, Jr.)</li>
+        <li>Louisiana Charles H. Wesley Brotherhood Award</li>
+        <li>Louisiana Collegiate Scholar Bowl Award</li>
+      </ul>
+    </div>
+
+    <!-- 2012 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2012</div>
+      <ul class="awards-list">
+        <li>Louisiana College Chapter with the Highest GPA</li>
+      </ul>
+    </div>
+
+    <!-- 2003 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">2003</div>
+      <ul class="awards-list">
+        <li>Southwestern Region College Chapter of the Year</li>
+        <li>Louisiana College Chapter of the Year</li>
+        <li>College Chapter with the Most Registered Brothers at General Convention in Detroit, MI</li>
+      </ul>
+    </div>
+
+    <!-- 1985 -->
+    <div class="awards-year-block fade-up">
+      <div class="awards-year-label">1985</div>
+      <ul class="awards-list">
+        <li>National College Chapter of the Year</li>
+        <li>Southwestern Region Chapter of the Year</li>
+        <li>Louisiana District College Chapter of the Year</li>
+      </ul>
+      <div style="margin-top:10px;">
+        <a href="https://issuu.com/docs/67835bb97159469b81464bffd332ee5e" target="_blank" style="font-family:'Nunito',sans-serif; font-size:0.75rem; color:var(--gold); text-decoration:none; display:inline-flex; align-items:center; gap:5px; border:0.5px solid rgba(184,135,0,0.3); padding:4px 10px; border-radius:4px;">
+          <i class="fas fa-external-link-alt" style="font-size:0.65rem;"></i> The Sphinx — Fall 1985 (Vol. 71, No. 3)
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- CHARTER MEMBERS -->
-<section class="leadership-section" id="charter-members" style="background: var(--black);">
+<section class="leadership-section" id="charter-members" style="background: var(--black); border-top: 1px solid rgba(184,135,0,0.15);">
   <div class="container">
     <div style="text-align:center; margin-bottom: 3rem;" class="fade-up">
       <span class="section-label">The 64th House of Alpha</span>
