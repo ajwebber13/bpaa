@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Beta Phi 90th Anniversary | Beta Phi Alumni Association</title>
+<meta name="description" content="Beta Phi Chapter 90th Anniversary — Fall 2028. More details coming soon." />
+<link rel="icon" type="image/png" href="images/bpaalogo.png">
+<link rel="apple-touch-icon" href="images/bpaalogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="main.css" />
+<style>
+
+/* ── Full-page hero ── */
+.anniversary-hero {
+  min-height: 100vh;
+  background: var(--black, #0a0a0a);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 1.5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background watermark */
+.anniversary-hero::before {
+  content: '90';
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18rem, 40vw, 32rem);
+  font-weight: 700;
+  color: rgba(184,135,0,0.04);
+  line-height: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+
+/* Gold top line */
+.anniversary-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, rgba(184,135,0,0.5));
+}
+
+.ann-eyebrow {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ann-eyebrow::before,
+.ann-eyebrow::after {
+  content: '';
+  width: 32px;
+  height: 0.5px;
+  background: rgba(184,135,0,0.4);
+}
+
+.ann-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(5rem, 18vw, 14rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.ann-season {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--gold, #b48700);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  margin-bottom: 2.5rem;
+}
+
+.ann-divider {
+  width: 60px;
+  height: 1px;
+  background: rgba(184,135,0,0.4);
+  margin: 0 auto 2.5rem;
+}
+
+.ann-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.ann-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.04em;
+  margin-bottom: 3.5rem;
+}
+
+/* Milestone badges */
+.ann-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+}
+.ann-badge {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 0.5px solid rgba(184,135,0,0.3);
+  color: rgba(255,255,255,0.5);
+  background: rgba(184,135,0,0.06);
+}
+.ann-badge span { color: var(--gold, #b48700); }
+
+/* Coming soon text */
+.ann-coming {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+}
+
+/* Email signup */
+.ann-notify {
+  display: flex;
+  gap: 0;
+  max-width: 440px;
+  width: 100%;
+  border: 0.5px solid rgba(184,135,0,0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto 1rem;
+}
+.ann-notify input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: none;
+  padding: 0.85rem 1.1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: #fff;
+  outline: none;
+  min-width: 0;
+}
+.ann-notify input::placeholder { color: rgba(255,255,255,0.25); }
+.ann-notify button {
+  background: var(--gold, #b48700);
+  color: #000;
+  border: none;
+  padding: 0.85rem 1.25rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.ann-notify button:hover { opacity: 0.88; }
+
+.ann-notify-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.04em;
+}
+
+/* Founded date footer strip */
+.ann-strip {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  white-space: nowrap;
+}
+
+/* Notify success */
+.notify-success {
+  display: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: var(--gold, #b48700);
+  margin-top: 0.75rem;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="siteNav">
+  <div class="container">
+    <a href="index.html" class="nav-brand" style="text-decoration:none;">
+      <div class="nav-brand-shield">ΑΦΑ</div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; letter-spacing:0.03em; line-height:1.2;">Beta Phi Alumni Association</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="about.html">About</a>
+        <div class="nav-dropdown">
+          <a href="about.html">Our History</a>
+          <a href="about.html#charter-members">Charter Members</a>
+        </div>
+      </li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li>
+        <a href="legacy.html">Notable Brothers</a>
+        <div class="nav-dropdown">
+          <a href="legacy.html">Notable Brothers</a>
+          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="active">Events</a>
+        <div class="nav-dropdown">
+          <a href="beta-phi-90th.html">Beta Phi 90th Anniversary</a>
+        </div>
+      </li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="about.html">About — History</a>
+    <a href="about.html#charter-members">About — Charter Members</a>
+    <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
+    <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+    <a href="beta-phi-90th.html">Events — 90th Anniversary</a>
+    <a href="members.html">Members</a>
+    <a href="get-active.html">Get Active</a>
+  </div>
+</nav>
+
+<!-- ANNIVERSARY HERO -->
+<section class="anniversary-hero">
+
+  <div class="ann-eyebrow">Beta Phi Chapter · Est. 1938</div>
+
+  <div class="ann-season">Fall</div>
+  <div class="ann-year">2028</div>
+
+  <div class="ann-divider"></div>
+
+  <div class="ann-title">Beta Phi 90th Anniversary</div>
+  <div class="ann-subtitle">Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc.</div>
+
+  <div class="ann-badges">
+    <div class="ann-badge">Founded <span>November 11, 1938</span></div>
+    <div class="ann-badge">Dillard University · New Orleans, LA</div>
+    <div class="ann-badge"><span>90</span> Years of Brotherhood</div>
+  </div>
+
+  <div class="ann-coming">More Details Coming Soon.</div>
+
+  <form class="ann-notify" id="notifyForm">
+    <input type="email" id="notifyEmail" placeholder="Enter your email to stay updated" />
+    <button type="submit">Notify Me</button>
+  </form>
+  <div class="ann-notify-label">We'll reach out when details are announced.</div>
+  <div class="notify-success" id="notifySuccess">
+    <i class="fas fa-check-circle"></i> You're on the list, Brother. We'll be in touch.
+  </div>
+
+  <div class="ann-strip">Beta Phi · 1938 – 2028 · 90 Years of Brotherhood · Dillard University</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Beta Phi Alumni Association</h3>
+        <p>The Beta Phi Alumni Association — committed to brotherhood, leadership, and service in support of Beta Phi Chapter and Dillard University.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61578446081453" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/bpaa_1938/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:betaphialumniassociation@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
+        <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        <a href="beta-phi-90th.html">90th Anniversary</a>
+        <a href="members.html">Members</a>
+        <a href="get-active.html">Get Active</a>
+      </div>
+      <div class="footer-col">
+        <h4>Membership</h4>
+        <a href="get-active.html#golden">Golden Brothers</a>
+        <a href="get-active.html#young">Young Brothers</a>
+        <a href="get-active.html#college">College Brothers</a>
+        <a href="get-active.html#forms">Member Forms</a>
+        <a href="directory-form.html">Directory Form</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Beta Phi Alumni Association, Inc. All rights reserved.</p>
+      <p>Alpha Phi Alpha Fraternity, Inc. — Beta Phi Chapter | Est. 1938</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navMobile').classList.toggle('open');
+  });
+
+  // Notify form — routes to BPAA email via Formspree
+  document.getElementById('notifyForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('notifyEmail').value.trim();
+    if (!email) return;
+
+    // Store locally for now — swap in Formspree endpoint when ready
+    document.getElementById('notifyForm').style.display = 'none';
+    document.querySelector('.ann-notify-label').style.display = 'none';
+    document.getElementById('notifySuccess').style.display = 'block';
+  });
+</script>
+</body>
+</html>
