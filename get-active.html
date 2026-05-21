@@ -5,11 +5,184 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Get Active | Beta Phi Alumni Association</title>
 <meta name="description" content="Join the Beta Phi Alumni Association. Support current Beta Phi brothers, Dillard University, and a lifelong brotherhood." />
+<link rel="icon" type="image/png" href="images/bpaalogo.png">
+<link rel="apple-touch-icon" href="images/bpaalogo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 <link rel="stylesheet" href="main.css" />
+<style>
+/* ── Membership Tier Cards ── */
+.tiers-section {
+  background: var(--black);
+  padding: 5rem 0 6rem;
+}
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.tier-card {
+  background: #161616;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.tier-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.tier-card:hover::before { transform: scaleX(1); }
+.tier-card:hover {
+  border-color: rgba(227,212,141,0.3);
+  transform: translateY(-5px);
+}
+.tier-card.featured {
+  border-color: rgba(227,212,141,0.35);
+  background: #191911;
+}
+.tier-card.featured::before { transform: scaleX(1); }
+.tier-featured-tag {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: var(--gold);
+  color: #000;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+}
+.tier-icon {
+  width: 48px; height: 48px;
+  background: rgba(227,212,141,0.08);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+.tier-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+.tier-eligibility {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+.tier-price-wrap {
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  padding: 1.25rem 0;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.tier-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+.tier-price-cent {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+.tier-per {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.tier-dollar {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;
+  color: var(--gold);
+  align-self: flex-start;
+  margin-top: 6px;
+}
+.tier-benefits {
+  list-style: none;
+  padding: 0; margin: 0;
+  flex: 1;
+}
+.tier-benefits li {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 0.5rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.tier-benefits li:last-child { border-bottom: none; }
+.tier-benefits li i {
+  color: var(--gold);
+  font-size: 0.75rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.tier-btn {
+  margin-top: 1.75rem;
+  display: block;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(227,212,141,0.4);
+  color: var(--gold);
+  transition: background 0.2s, color 0.2s;
+}
+.tier-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+.tier-card.featured .tier-btn {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+.tier-card.featured .tier-btn:hover {
+  background: var(--gold-dark);
+}
+@media (max-width: 768px) {
+  .tiers-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
@@ -36,6 +209,13 @@
           <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
         </div>
       </li>
+      <li>
+        <a href="#">Events</a>
+        <div class="nav-dropdown">
+          <a href="beta-phi-90th.html">Beta Phi 90th Anniversary</a>
+        </div>
+      </li>
+      <li><a href="members.html">Membership Portal</a></li>
       <li><a href="get-active.html" class="nav-cta active">Get Active</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -64,8 +244,8 @@
   </div>
 </section>
 
-<!-- MEMBERSHIP TIERS -->
-<section class="history-section">
+<!-- INTRO -->
+<section class="history-section" style="padding-bottom: 0;">
   <div class="container">
     <div class="history-content">
       <p>
@@ -78,111 +258,85 @@
   </div>
 </section>
 
-<!-- GOLDEN BROTHERS -->
-<section class="leadership-section" id="golden" style="background: var(--black);">
+<!-- MEMBERSHIP TIERS WITH PRICING -->
+<section class="tiers-section" id="golden">
   <div class="container">
-    <div style="text-align:center; margin-bottom: 3rem;" class="fade-up">
-      <span class="section-label">50+ Years of Brotherhood</span>
-      <h2 style="font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
-        Golden <span style="color:var(--gold);">Brothers</span>
+
+    <div style="text-align:center; margin-bottom:1rem;" class="fade-up">
+      <span class="section-label">Annual Membership Dues</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
+        Choose Your <span style="color:var(--gold); font-style:italic;">Membership Tier</span>
       </h2>
       <div class="gold-divider"></div>
-      <p style="color:var(--muted); max-width:600px; margin:0 auto; font-size:0.95rem;">
-        Brothers who have been members of Alpha Phi Alpha for 50 or more years. Your legacy is the foundation of everything we do.
+      <p style="color:var(--muted); max-width:580px; margin:0.5rem auto 0; font-size:0.9rem;">
+        All dues go directly toward supporting the Beta Phi Chapter and the endowed scholarship at Dillard University.
       </p>
     </div>
-    <div class="pillars-grid">
-      <div class="pillar-card fade-up">
-        <div class="pillar-number"><i class="fas fa-medal" style="color:var(--gold);"></i></div>
-        <h3>Lifetime of Service</h3>
-        <p>Golden Brothers have given decades to this fraternity and this chapter. BPAA honors that commitment with lifetime recognition and a permanent place in our history.</p>
-      </div>
-      <div class="pillar-card fade-up fade-up-delay-1">
-        <div class="pillar-number"><i class="fas fa-handshake" style="color:var(--gold);"></i></div>
-        <h3>Mentorship Role</h3>
-        <p>Golden Brothers serve as mentors and advisors to younger brothers — passing down wisdom, history, and the standards that have made Beta Phi great.</p>
-      </div>
-      <div class="pillar-card fade-up fade-up-delay-2">
-        <div class="pillar-number"><i class="fas fa-star" style="color:var(--gold);"></i></div>
-        <h3>Special Recognition</h3>
-        <p>Golden Brothers are honored at all BPAA events and anniversaries, and their profiles are preserved in the chapter's permanent historical record.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- YOUNG BROTHERS -->
-<section class="about-section" id="young">
-  <div class="container">
-    <div class="about-grid">
-      <div class="fade-up">
-        <span class="section-label">Recent Alumni</span>
-        <h2>Young <span>Brothers</span></h2>
-        <div class="gold-divider gold-divider-left"></div>
-        <p>
-          Brothers who have graduated within the last 15 years are the lifeblood of BPAA's future. Your energy, networks, and proximity to the current chapter experience make you vital to our mission.
-        </p>
-        <p>
-          Young Brothers are encouraged to get involved in mentorship programs, chapter fundraising, event planning, and service initiatives that support current Beta Phi brothers on campus.
-        </p>
-        <a href="mailto:betaphialumniassociation@gmail.com?subject=Young Brother Membership" class="btn-gold">Connect With Us</a>
-      </div>
-      <div class="about-visual">
-        <div class="about-badge fade-up">
-          <div class="about-badge-icon"><i class="fas fa-users"></i></div>
-          <div>
-            <h4>Mentorship Programs</h4>
-            <p>Pair with current college brothers to provide guidance, career advice, and professional development support.</p>
-          </div>
-        </div>
-        <div class="about-badge fade-up fade-up-delay-1">
-          <div class="about-badge-icon"><i class="fas fa-calendar-alt"></i></div>
-          <div>
-            <h4>Events & Gatherings</h4>
-            <p>Attend BPAA events, anniversary celebrations, and chapter programs that keep the brotherhood strong and connected.</p>
-          </div>
-        </div>
-        <div class="about-badge fade-up fade-up-delay-2">
-          <div class="about-badge-icon"><i class="fas fa-hand-holding-heart"></i></div>
-          <div>
-            <h4>Scholarship Support</h4>
-            <p>Contribute to the Beta Phi Endowed Scholarship at Dillard University — the first BGLO chapter scholarship at the university.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="tiers-grid">
 
-<!-- COLLEGE BROTHERS -->
-<section class="leadership-section" id="college" style="background: var(--black);">
-  <div class="container">
-    <div style="text-align:center; margin-bottom: 3rem;" class="fade-up">
-      <span class="section-label">Currently On Campus</span>
-      <h2 style="font-size:clamp(2rem,4vw,3rem); color:var(--text); font-weight:300; margin-bottom:0.5rem;">
-        College <span style="color:var(--gold);">Brothers</span>
-      </h2>
-      <div class="gold-divider"></div>
-      <p style="color:var(--muted); max-width:600px; margin:0 auto; font-size:0.95rem;">
-        Active undergraduate brothers of Beta Phi Chapter at Dillard University — you are the reason BPAA exists. We are here to support you.
-      </p>
-    </div>
-    <div class="pillars-grid">
-      <div class="pillar-card fade-up">
-        <div class="pillar-number"><i class="fas fa-graduation-cap" style="color:var(--gold);"></i></div>
-        <h3>Scholarship Support</h3>
-        <p>BPAA's endowed scholarship at Dillard provides financial support to deserving students. College brothers are the direct beneficiaries of decades of alumni giving.</p>
+      <!-- GOLDEN BROTHERS -->
+      <div class="tier-card fade-up" id="golden-card">
+        <div class="tier-icon"><i class="fas fa-medal"></i></div>
+        <div class="tier-name">Golden Brothers</div>
+        <div class="tier-eligibility">50+ Years of Alpha Membership</div>
+        <div class="tier-price-wrap">
+          <span class="tier-dollar">$</span>
+          <span class="tier-price">85</span>
+          <span class="tier-per">/ year</span>
+        </div>
+        <ul class="tier-benefits">
+          <li><i class="fas fa-check"></i>Honored at all BPAA events & anniversaries</li>
+          <li><i class="fas fa-check"></i>Permanent recognition in the chapter's historical record</li>
+          <li><i class="fas fa-check"></i>Mentorship advisory role</li>
+          <li><i class="fas fa-check"></i>Full access to BPAA Membership Portal</li>
+          <li><i class="fas fa-check"></i>Contribution toward Beta Phi endowed scholarship</li>
+        </ul>
+        <a href="mailto:betaphialumniassociation@gmail.com?subject=Golden Brother Membership" class="tier-btn">Join as Golden Brother</a>
       </div>
-      <div class="pillar-card fade-up fade-up-delay-1">
-        <div class="pillar-number"><i class="fas fa-network-wired" style="color:var(--gold);"></i></div>
-        <h3>Alumni Network</h3>
-        <p>Access a network of Beta Phi alumni spanning every professional field — from energy and education to IT, healthcare, and civic leadership.</p>
+
+      <!-- BETA PHI BROTHERS (GENERAL) -->
+      <div class="tier-card featured fade-up fade-up-delay-1" id="young">
+        <span class="tier-featured-tag">General</span>
+        <div class="tier-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="tier-name">Beta Phi Brothers</div>
+        <div class="tier-eligibility">All Brothers Not in Golden or Young Category</div>
+        <div class="tier-price-wrap">
+          <span class="tier-dollar">$</span>
+          <span class="tier-price">38</span>
+          <span class="tier-per">/ year</span>
+        </div>
+        <ul class="tier-benefits">
+          <li><i class="fas fa-check"></i>Full BPAA membership & voting rights</li>
+          <li><i class="fas fa-check"></i>Access to all BPAA events & gatherings</li>
+          <li><i class="fas fa-check"></i>Mentorship programs with college brothers</li>
+          <li><i class="fas fa-check"></i>Full access to BPAA Membership Portal</li>
+          <li><i class="fas fa-check"></i>Contribution toward Beta Phi endowed scholarship</li>
+        </ul>
+        <a href="mailto:betaphialumniassociation@gmail.com?subject=Beta Phi Brother Membership" class="tier-btn">Join as Beta Phi Brother</a>
       </div>
-      <div class="pillar-card fade-up fade-up-delay-2">
-        <div class="pillar-number"><i class="fas fa-shield-alt" style="color:var(--gold);"></i></div>
-        <h3>Chapter Support</h3>
-        <p>BPAA provides direct financial, logistical, and mentorship support to the active Beta Phi Chapter — helping brothers succeed both on campus and beyond.</p>
+
+      <!-- YOUNG BROTHERS -->
+      <div class="tier-card fade-up fade-up-delay-2" id="college">
+        <div class="tier-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="tier-name">Young Brothers</div>
+        <div class="tier-eligibility">Graduated from Dillard University Within 5 Years</div>
+        <div class="tier-price-wrap">
+          <span class="tier-dollar">$</span>
+          <span class="tier-price">19</span>
+          <span class="tier-price-cent">.38</span>
+          <span class="tier-per">/ year</span>
+        </div>
+        <ul class="tier-benefits">
+          <li><i class="fas fa-check"></i>Full BPAA membership & voting rights</li>
+          <li><i class="fas fa-check"></i>Access to all BPAA events & gatherings</li>
+          <li><i class="fas fa-check"></i>Alumni network & career development support</li>
+          <li><i class="fas fa-check"></i>Full access to BPAA Membership Portal</li>
+          <li><i class="fas fa-check"></i>Contribution toward Beta Phi endowed scholarship</li>
+        </ul>
+        <a href="mailto:betaphialumniassociation@gmail.com?subject=Young Brother Membership" class="tier-btn">Join as Young Brother</a>
       </div>
+
     </div>
   </div>
 </section>
@@ -205,14 +359,14 @@
       <div class="mission-box fade-up">
         <h3><i class="fas fa-envelope" style="color:var(--gold); margin-right:0.5rem;"></i>Contact Us to Get Started</h3>
         <p>
-          To join BPAA, submit your information, or ask questions about membership, reach out directly to the association. Our board will connect with you promptly.
+          To join BPAA, submit your dues, or ask questions about membership, reach out to the board. We will connect with you promptly and confirm your tier.
         </p>
-        <div style="margin-top: 1.25rem; display:flex; flex-wrap:wrap; gap: 1rem; align-items:center;">
+        <div style="margin-top: 1.25rem; display:flex; flex-wrap:wrap; gap: 1rem; align-items:center; justify-content:center;">
           <a href="mailto:betaphialumniassociation@gmail.com?subject=BPAA Membership Inquiry" class="btn-gold">
             <i class="fas fa-envelope" style="margin-right:6px;"></i>Email BPAA
           </a>
-          <a href="https://www.instagram.com/bpaa_1938/" target="_blank" class="btn-outline">
-            <i class="fab fa-instagram" style="margin-right:6px;"></i>@bpaa_1938
+          <a href="directory-form.html" class="btn-outline">
+            <i class="fas fa-clipboard-list" style="margin-right:6px;"></i>Complete Directory Form
           </a>
         </div>
       </div>
@@ -223,8 +377,8 @@
           <li>Your full name and initiation semester/year</li>
           <li>Your line name and number (if applicable)</li>
           <li>Current city and contact information</li>
-          <li>Your area of interest — mentorship, events, fundraising, or general membership</li>
-          <li>Any questions about BPAA membership tiers or dues</li>
+          <li>Membership tier you're joining (Golden, Beta Phi, or Young Brother)</li>
+          <li>Any questions about dues or membership benefits</li>
         </ul>
       </div>
     </div>
@@ -268,10 +422,11 @@
       </div>
       <div class="footer-col">
         <h4>Membership</h4>
-        <a href="get-active.html#golden">Golden Brothers</a>
-        <a href="get-active.html#young">Young Brothers</a>
-        <a href="get-active.html#college">College Brothers</a>
+        <a href="get-active.html#golden-card">Golden Brothers — $85</a>
+        <a href="get-active.html#young">Beta Phi Brothers — $38</a>
+        <a href="get-active.html#college">Young Brothers — $19.38</a>
         <a href="get-active.html#forms">Member Forms</a>
+        <a href="directory-form.html">Directory Form</a>
       </div>
     </div>
     <div class="footer-bottom">
