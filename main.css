@@ -629,11 +629,9 @@ a {
   color: var(--gold);
 }
 
-.about-section p {
-  color: var(--muted);
-  margin-bottom: 1.2rem;
-  font-size: 0.97rem;
-  line-height: 1.8;
+.about-section h2 em {
+  color: var(--gold);
+  font-style: italic;
 }
 
 .about-quote {
