@@ -491,6 +491,16 @@ a {
   font-family: "Nunito", sans-serif;
 }
 
+.hero-brand-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+}
+
 .home-hero h1 {
   font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 300;
@@ -563,7 +573,8 @@ a {
 
 .stats-bar .container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: center;
   divide-x: var(--border);
 }
 
@@ -592,15 +603,6 @@ a {
   letter-spacing: 0.15em;
   color: var(--muted);
   font-weight: 600;
-}
-
-@media (max-width: 640px) {
-  .stats-bar .container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stat-item:nth-child(2) {
-    border-right: none;
-  }
 }
 
 /* =========================
@@ -821,6 +823,22 @@ a {
 .btn-black:hover {
   background: #1a1a1a;
   transform: translateY(-2px);
+}
+
+/* =========================
+   BRAND MARK
+========================= */
+.brand-mark-section {
+  background: var(--black);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.brand-mark-logo {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  object-fit: contain;
 }
 
 /* =========================
