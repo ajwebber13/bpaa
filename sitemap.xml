@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/index.html</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/about.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/beta-phi-90th.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/brotherhood-spotlight.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/directory-form.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/get-active.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/leadership.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ajwebber13.github.io/bpaa/legacy.html</loc>
+    <priority>0.7</priority>
+  </url>
+</urlset>
