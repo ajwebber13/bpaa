@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resume Bank | Beta Phi Alumni Association</title>
+<meta name="description" content="Submit your resume to the Beta Phi Alumni Association Resume Bank for job referrals, mentorship, and networking within the brotherhood." />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="images/bpaalogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="main.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="siteNav">
+  <div class="container">
+    <a href="index.html" class="nav-brand" style="text-decoration:none;">
+      <img src="images/bpaalogo.png" alt="Beta Phi Alumni Association" style="height:42px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="about.html">About</a>
+        <div class="nav-dropdown">
+          <a href="about.html">Our History</a>
+          <a href="about.html#charter-members">Charter Members</a>
+        </div>
+      </li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li>
+        <a href="legacy.html">Notable Brothers</a>
+        <div class="nav-dropdown">
+          <a href="legacy.html">Notable Brothers</a>
+          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        </div>
+      </li>
+      <li>
+        <a href="#">Events</a>
+        <div class="nav-dropdown">
+          <a href="beta-phi-90th.html">Beta Phi 90th Anniversary</a>
+        </div>
+      </li>
+      <li><a href="members.html">Membership Portal</a></li>
+      <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="about.html">About — History</a>
+    <a href="about.html#charter-members">About — Charter Members</a>
+    <a href="leadership.html">Leadership</a>
+    <a href="legacy.html">Notable Brothers</a>
+    <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+    <a href="beta-phi-90th.html">Events — 90th Anniversary</a>
+    <a href="members.html">Membership Portal</a>
+    <a href="get-active.html">Get Active</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-content">
+    <span class="section-label">Brotherhood Resume Bank</span>
+    <h1>Resume <span>Bank</span></h1>
+    <p>Submit your resume so brothers across the network can find you for job referrals, mentorship, and career connections.</p>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section">
+  <div class="container">
+    <div class="form-wrap">
+
+      <p style="color:var(--muted); font-size:0.95rem; line-height:1.7; margin-bottom:2rem;">
+        The BPAA Resume Bank gives brothers a way to support each other professionally. Once submitted,
+        your resume is shared with the brotherhood network — for job referrals, mentorship opportunities,
+        and career connections. Submit or update your resume any time.
+      </p>
+
+      <div class="required-note"><span>*</span> Indicates a required field</div>
+
+      <!--
+        FORMSPREE SETUP INSTRUCTIONS:
+        1. Go to https://formspree.io and create a free account
+        2. Click "New Form" and name it "BPAA Resume Bank"
+        3. Copy your form ID (looks like: xyzabcde)
+        4. Replace YOUR_FORM_ID below with your actual form ID
+        Example: action="https://formspree.io/f/xyzabcde"
+      -->
+      <form
+        id="resumeForm"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate
+      >
+
+        <!-- BROTHER INFORMATION -->
+        <div class="form-group-label">
+          <i class="fas fa-user"></i> Brother Information
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="full_name">Full Name <span class="req">*</span></label>
+            <input type="text" id="full_name" name="full_name" placeholder="Full name" required />
+          </div>
+          <div class="form-field">
+            <label for="grad_year">Graduation Year <span class="req">*</span></label>
+            <input type="text" id="grad_year" name="grad_year" placeholder="e.g. 2015" maxlength="4" required />
+          </div>
+        </div>
+
+        <div class="form-row cols-1">
+          <div class="form-field">
+            <label for="role_industry">Current Role / Industry <span class="req">*</span></label>
+            <input type="text" id="role_industry" name="role_industry" placeholder="e.g. Software Engineer, Tech" required />
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="email@example.com" required />
+          </div>
+          <div class="form-field">
+            <label for="phone">Telephone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(504) 000-0000" />
+          </div>
+        </div>
+
+        <!-- RESUME UPLOAD -->
+        <div class="form-group-label">
+          <i class="fas fa-file-pdf"></i> Resume Upload
+        </div>
+
+        <div class="form-field">
+          <label>Upload Your Resume <span class="req">*</span></label>
+          <div class="file-upload-wrap" id="fileWrap">
+            <input
+              type="file"
+              id="resume"
+              name="resume"
+              accept="application/pdf"
+              onchange="showFileName(this)"
+              required
+            />
+            <div class="file-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="file-upload-text">
+              <strong>Click to upload</strong> or drag and drop<br>
+              PDF only · Max 5MB
+            </div>
+            <div class="file-name" id="fileName"></div>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="form-submit-row">
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit to Resume Bank
+          </button>
+          <p class="form-privacy">
+            Your resume will be shared with verified members of the Beta Phi Alumni Association network for job referrals, mentorship, and career connections. It will not be published publicly.
+          </p>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS MESSAGE (shown after submission) -->
+      <div class="form-success" id="formSuccess">
+        <i class="fas fa-check-circle"></i>
+        <h3>Resume Received</h3>
+        <p>Thank you, Brother. Your resume has been added to the BPAA Resume Bank and is now visible to the network.</p>
+        <a href="index.html" class="btn-gold" style="display:inline-block; margin-top:1.5rem;">Return Home</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Beta Phi Alumni Association</h3>
+        <p>The Beta Phi Alumni Association — committed to brotherhood, leadership, and service in support of Beta Phi Chapter and Dillard University.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61578446081453" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/bpaa_1938/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:betaphialumniassociation@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="legacy.html">Notable Brothers</a>
+        <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
+        <a href="beta-phi-90th.html">90th Anniversary</a>
+        <a href="members.html">Membership Portal</a>
+        <a href="get-active.html">Get Active</a>
+      </div>
+      <div class="footer-col">
+        <h4>Membership</h4>
+        <a href="get-active.html#golden">Golden Brothers</a>
+        <a href="get-active.html#young">Young Brothers</a>
+        <a href="get-active.html#college">College Brothers</a>
+        <a href="get-active.html#forms">Member Forms</a>
+        <a href="directory-form.html">Directory Form</a>
+        <a href="resume-bank.html">Resume Bank</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Beta Phi Alumni Association, Inc. All rights reserved.</p>
+      <p>Alpha Phi Alpha Fraternity, Inc. — Beta Phi Chapter | Est. 1938</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav toggle
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navMobile').classList.toggle('open');
+  });
+
+  // Show selected filename
+  function showFileName(input) {
+    const label = document.getElementById('fileName');
+    if (input.files && input.files[0]) {
+      label.textContent = input.files[0].name;
+      label.style.display = 'block';
+    }
+  }
+
+  // Handle Formspree AJAX submission
+  const form = document.getElementById('resumeForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = form.querySelector('.btn-submit');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    btn.disabled = true;
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit to Resume Bank';
+        btn.disabled = false;
+        alert('There was an issue submitting the form. Please try again or email us directly at betaphialumniassociation@gmail.com.');
+      }
+    } catch (err) {
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit to Resume Bank';
+      btn.disabled = false;
+      alert('Network error. Please try again or email us directly.');
+    }
+  });
+
+  // Scroll fade
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+<script src="script.js"></script>
+</body>
+</html>
