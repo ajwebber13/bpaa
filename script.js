@@ -18,6 +18,17 @@ console.log("Beta Phi Alumni Association — Est. 1938 🔱");
 // 2. Scroll Reveal (Fade Up)
 // ===============================
 (() => {
+  const revealEls = document.querySelectorAll(".fade-up");
+
+  // Immediately reveal anything already on-screen at load
+  // (fixes elements stuck above the fold, e.g. cards right below a fixed hero)
+  revealEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add("visible");
+    }
+  });
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
@@ -28,7 +39,7 @@ console.log("Beta Phi Alumni Association — Est. 1938 🔱");
     },
     { threshold: 0.12 }
   );
-  document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
+  revealEls.forEach(el => observer.observe(el));
 })();
 
 // ===============================
