@@ -461,6 +461,35 @@ a {
   opacity: 0.4;
 }
 
+/* Background photo */
+.hero-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* extra room for parallax */
+  z-index: 0;
+  background-color: var(--black);
+  background-image:
+    linear-gradient(90deg, rgba(15,15,15,0.94) 0%, rgba(15,15,15,0.82) 45%, rgba(15,15,15,0.55) 100%),
+    linear-gradient(180deg, rgba(15,15,15,0.45) 0%, rgba(15,15,15,0) 35%, rgba(15,15,15,0.95) 85%),
+    url("images/hero-brothers.jpg");
+  background-image:
+    linear-gradient(90deg, rgba(15,15,15,0.94) 0%, rgba(15,15,15,0.82) 45%, rgba(15,15,15,0.55) 100%),
+    linear-gradient(180deg, rgba(15,15,15,0.45) 0%, rgba(15,15,15,0) 35%, rgba(15,15,15,0.95) 85%),
+    image-set(url("images/hero-brothers.webp") type("image/webp"), url("images/hero-brothers.jpg") type("image/jpeg"));
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .hero-photo {
+    background-position: 55% 30%;
+  }
+}
+
 .home-hero-content {
   position: relative;
   z-index: 2;
@@ -1796,6 +1825,7 @@ a {
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  .hero-photo,
   .reveal-left,
   .reveal-right,
   .reveal-up,

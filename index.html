@@ -65,6 +65,8 @@
 
 <!-- HERO -->
 <section class="home-hero" id="homeHero">
+  <!-- Background photo -->
+  <div class="hero-photo" id="heroPhoto" aria-hidden="true"></div>
   <!-- Parallax decoration layers -->
   <div class="hero-lines" id="heroLines">
     <div class="hero-line" id="heroLine1"></div>
@@ -286,6 +288,17 @@
       .from('#heroYearBadge', { x: 40, opacity: 0, duration: 0.8 }, '-=0.6');
 
     // ── HERO: parallax on scroll ──
+    // Photo drifts up slower than the page
+    gsap.to('#heroPhoto', {
+      yPercent: -12,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#homeHero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
     // Orb drifts upward slower than scroll
     gsap.to('#heroOrb', {
       y: -180,
