@@ -2634,6 +2634,14 @@ a {
   margin-bottom: 1rem;
   min-height: 1.2rem;
 }
+.login-success {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: var(--gold, #b48700);
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 1.2rem;
+}
 .login-btn {
   width: 100%;
   background: var(--gold, #b48700);

@@ -28,21 +28,15 @@
       <img src="images/bpaalogo.png" alt="Beta Phi Alumni Association" style="height:42px; width:auto; display:block;" />
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="about.html">Our History</a><a href="about.html#charter-members">Charter Members</a></div></div></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="leadership.html">Leadership</a></li>
       <li>
-        <a href="legacy.html">Notable Brothers</a>
-        <div class="nav-dropdown">
-          <a href="legacy.html">Notable Brothers</a>
-          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
-        </div>
-      </li>
-      <li>
         <a href="#">Events</a>
-        <div class="nav-dropdown">
+        <div class="nav-dropdown"><div class="nav-dropdown-inner">
           <a href="beta-phi-90th.html">Beta Phi 90th Anniversary</a>
-        </div>
+          <a href="https://www.dillard.edu/about/administration/institutional-advancement/alumni-relations/homecoming26/" target="_blank" rel="noopener noreferrer">Homecoming 2026</a>
+        </div></div>
       </li>
       <li><a href="members.html">Membership Portal</a></li>
       <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
@@ -55,9 +49,8 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="leadership.html">Leadership</a>
-    <a href="legacy.html">Notable Brothers</a>
-    <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
     <a href="beta-phi-90th.html">Events — 90th Anniversary</a>
+    <a href="https://www.dillard.edu/about/administration/institutional-advancement/alumni-relations/homecoming26/" target="_blank" rel="noopener noreferrer">Events — Homecoming 2026</a>
     <a href="members.html">Membership Portal</a>
     <a href="get-active.html">Get Active</a>
   </div>
@@ -111,42 +104,6 @@
     </div>
   </div>
 </div>
-
-<!-- ABOUT SECTION -->
-<section class="about-section" id="aboutSection">
-  <div class="about-parallax-bg" id="aboutParallaxBg"></div>
-  <div class="container">
-    <div class="about-grid">
-      <div id="aboutLeft">
-        <span class="section-label reveal-up">Who We Are</span>
-        <h2 class="reveal-up">Built on a legacy of <em>Brotherhood.</em></h2>
-        <div class="gold-divider gold-divider-left cinematic-rule" id="aboutRule"></div>
-        <p class="reveal-up">
-          The Beta Phi Chapter of Alpha Phi Alpha Fraternity, Inc. was chartered on November 11, 1938
-          by eight courageous young men on the campus of Dillard University in New Orleans, Louisiana.
-        </p>
-        <p class="reveal-up">
-          At the 85th anniversary, college and alumni brothers voted to create the Beta Phi Alumni
-          Association — a formal body dedicated to continuing the chapter's legacy of scholarship,
-          service, and brotherhood.
-        </p>
-        <div class="about-quote reveal-up">
-          "Manly Deeds, Scholarship, and Love for All Mankind."
-        </div>
-        <a href="about.html" class="btn-gold reveal-up">Read Full History</a>
-      </div>
-      <div class="about-visual" id="aboutRight">
-        <div class="about-badge reveal-right">
-          <div class="about-badge-icon"><i class="fas fa-graduation-cap"></i></div>
-          <div>
-            <h4>Endowed Scholarship at Dillard</h4>
-            <p>First BGLO chapter at Dillard to establish an endowed scholarship. Donated $63K+ across three anniversaries.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PILLARS -->
 <section class="pillars-section" id="pillarsSection">
@@ -225,9 +182,8 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="leadership.html">Leadership</a>
-        <a href="legacy.html">Notable Brothers</a>
-        <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
         <a href="beta-phi-90th.html">90th Anniversary</a>
+        <a href="https://www.dillard.edu/about/administration/institutional-advancement/alumni-relations/homecoming26/" target="_blank" rel="noopener noreferrer">Homecoming 2026</a>
         <a href="members.html">Membership Portal</a>
         <a href="get-active.html">Get Active</a>
       </div>
@@ -388,45 +344,6 @@
         trigger: '#statsBar',
         start: 'top 85%'
       }
-    });
-
-    // ── ABOUT SECTION: parallax background ──
-    gsap.to('#aboutParallaxBg', {
-      y: 80,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#aboutSection',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
-
-    // About left column: cinematic rule draws then text reveals
-    gsap.to('#aboutRule', {
-      width: '60px',
-      duration: 0.8,
-      ease: 'power2.inOut',
-      scrollTrigger: { trigger: '#aboutSection', start: 'top 75%' }
-    });
-
-    gsap.from('#aboutLeft .reveal-up', {
-      y: 40,
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '#aboutLeft', start: 'top 78%' }
-    });
-
-    // About right badges: stagger from right
-    gsap.from('#aboutRight .reveal-right', {
-      x: 60,
-      opacity: 0,
-      duration: 0.65,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutRight', start: 'top 78%' }
     });
 
     // ── PILLARS SECTION: parallax bg + cinematic card reveals ──

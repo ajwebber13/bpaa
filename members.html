@@ -26,19 +26,21 @@
     <div class="login-sub">Beta Phi Alumni Association · Private Access</div>
 
     <div class="login-field">
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Enter username" autocomplete="off" />
-    </div>
-    <div class="login-field">
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter password" />
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="Enter your email" autocomplete="email" />
     </div>
 
     <div class="login-error" id="login-error"></div>
-    <button class="login-btn" onclick="attemptLogin()">
-      <i class="fas fa-lock" style="margin-right:8px;"></i>Sign In
+    <div class="login-success" id="login-success"></div>
+
+    <button class="login-btn" id="login-btn" onclick="sendMagicLink()">
+      <i class="fas fa-envelope" style="margin-right:8px;"></i>Email Me a Sign-In Link
     </button>
     <div class="login-divider"></div>
+    <p style="font-family:'Nunito',sans-serif; font-size:0.8rem; color:rgba(255,255,255,0.4); text-align:center; margin-top:1.25rem;">
+      New to BPAA, or didn't get an email?
+      <a href="mailto:betaphialumniassociation@gmail.com?subject=Membership Portal Access Request" style="color:var(--gold);">Request access</a>
+    </p>
   </div>
 </div>
 
@@ -53,21 +55,16 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li>
-          <a href="about.html">About</a>
-          <div class="nav-dropdown">
-            <a href="about.html">Our History</a>
-            <a href="about.html#charter-members">Charter Members</a>
-          </div>
-        </li>
+        <li><a href="about.html">About</a></li>
         <li><a href="leadership.html">Leadership</a></li>
         <li>
-        <a href="legacy.html">Notable Brothers</a>
-        <div class="nav-dropdown">
-          <a href="legacy.html">Notable Brothers</a>
-          <a href="brotherhood-spotlight.html">Brotherhood Spotlight</a>
-        </div>
-      </li>
+          <a href="#">Events</a>
+          <div class="nav-dropdown"><div class="nav-dropdown-inner">
+            <a href="beta-phi-90th.html">Beta Phi 90th Anniversary</a>
+            <a href="https://www.dillard.edu/about/administration/institutional-advancement/alumni-relations/homecoming26/" target="_blank" rel="noopener noreferrer">Homecoming 2026</a>
+          </div></div>
+        </li>
+        <li><a href="members.html">Membership Portal</a></li>
         <li><a href="get-active.html" class="nav-cta">Get Active</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -78,7 +75,9 @@
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="leadership.html">Leadership</a>
-      <a href="legacy.html">Notable Brothers</a>
+      <a href="beta-phi-90th.html">Events — 90th Anniversary</a>
+      <a href="https://www.dillard.edu/about/administration/institutional-advancement/alumni-relations/homecoming26/" target="_blank" rel="noopener noreferrer">Events — Homecoming 2026</a>
+      <a href="members.html">Membership Portal</a>
       <a href="get-active.html">Get Active</a>
     </div>
   </nav>
@@ -230,7 +229,9 @@
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
           <a href="leadership.html">Leadership</a>
-          <a href="legacy.html">Notable Brothers</a>
+          <a href="beta-phi-90th.html">90th Anniversary</a>
+          <a href="https://www.dillard.edu/about/administration/institutional-advancement/alumni-relations/homecoming26/" target="_blank" rel="noopener noreferrer">Homecoming 2026</a>
+          <a href="members.html">Membership Portal</a>
           <a href="get-active.html">Get Active</a>
         </div>
         <div class="footer-col">
@@ -255,21 +256,16 @@
 
 </div><!-- end #members-content -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const VALID_USER = 'bpaa';
-  const VALID_PASS = 'betaphi1938';
-
-  function attemptLogin() {
-    const user = document.getElementById('username').value.trim().toLowerCase();
-    const pass = document.getElementById('password').value;
-    const err  = document.getElementById('login-error');
-
-    if (user === VALID_USER && pass === VALID_PASS) {
-      showMembers();
-    } else {
-      err.textContent = 'Incorrect username or password. Please try again.';
-      document.getElementById('password').value = '';
-    }
+  // SUPABASE SETUP: replace with your project's URL and anon/public key from Project Settings > API
+  const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  let supabaseClient = null;
+  try {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } catch (e) {
+    console.warn('Supabase is not configured yet — set SUPABASE_URL and SUPABASE_ANON_KEY in members.html.');
   }
 
   function showMembers() {
@@ -277,17 +273,105 @@
     document.getElementById('members-content').style.display = 'block';
   }
 
-  function logout() {
+  function showLoginGate() {
     document.getElementById('login-gate').style.display    = 'flex';
     document.getElementById('members-content').style.display = 'none';
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-    document.getElementById('login-error').textContent = '';
   }
 
-  // Allow Enter key to submit
+  function cleanAuthTokensFromUrl() {
+    if (window.location.hash && window.location.hash.includes('access_token')) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }
+
+  async function sendMagicLink() {
+    const emailInput = document.getElementById('email');
+    const email = emailInput.value.trim();
+    const err = document.getElementById('login-error');
+    const success = document.getElementById('login-success');
+    const btn = document.getElementById('login-btn');
+
+    err.textContent = '';
+    success.textContent = '';
+
+    if (!email) {
+      err.textContent = 'Please enter your email address.';
+      return;
+    }
+
+    if (!supabaseClient) {
+      err.textContent = 'The portal is not fully set up yet. Please contact the board below.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i>Sending...';
+
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email: email,
+      options: {
+        shouldCreateUser: false,
+        emailRedirectTo: window.location.origin + window.location.pathname
+      }
+    });
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-envelope" style="margin-right:8px;"></i>Email Me a Sign-In Link';
+
+    if (error) {
+      const msg = (error.message || '').toLowerCase();
+      if (error.status === 429 || msg.includes('rate limit') || msg.includes('too many')) {
+        err.textContent = "You've requested a few links recently. Please wait a few minutes and try again.";
+      } else if (msg.includes('not allowed') || msg.includes('not found') || msg.includes('signup')) {
+        err.textContent = "That email isn't on our members list yet. Use \"Request access\" below, or contact the board.";
+      } else {
+        err.textContent = 'Something went wrong sending your link. Please try again.';
+      }
+      return;
+    }
+
+    success.textContent = "Check your email — we've sent you a sign-in link.";
+  }
+
+  async function logout() {
+    if (!supabaseClient) {
+      showLoginGate();
+      return;
+    }
+    await supabaseClient.auth.signOut();
+    showLoginGate();
+  }
+
+  (async function initAuth() {
+    cleanAuthTokensFromUrl();
+
+    if (!supabaseClient) {
+      showLoginGate();
+      return;
+    }
+
+    const { data } = await supabaseClient.auth.getSession();
+    if (data.session) {
+      showMembers();
+    } else {
+      showLoginGate();
+    }
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      cleanAuthTokensFromUrl();
+      if (session) {
+        showMembers();
+      } else {
+        showLoginGate();
+      }
+    });
+  })();
+
+  // Allow Enter key to submit from the email field
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') attemptLogin();
+    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'email') {
+      sendMagicLink();
+    }
   });
 
   // Nav toggle (runs after members-content is visible)
