@@ -98,7 +98,7 @@
   <!-- MEMBERS HERO -->
   <section class="members-hero">
     <div class="container page-hero-content">
-      <span class="section-label">Welcome, Brother</span>
+      <span class="section-label" id="welcome-name">Welcome, Brother</span>
       <h1 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,5vw,3.5rem); color:#fff; font-weight:300; line-height:1.1; margin:0.5rem 0 1rem;">
         BPAA <span style="color:var(--gold); font-style:italic;">Members Portal</span>
       </h1>
@@ -271,6 +271,24 @@
   function showMembers() {
     document.getElementById('login-gate').style.display    = 'none';
     document.getElementById('members-content').style.display = 'block';
+    loadMemberName();
+  }
+
+  async function loadMemberName() {
+    try {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      const { data, error } = await supabaseClient
+        .from('members')
+        .select('first_name')
+        .eq('id', user.id)
+        .maybeSingle();
+      if (error) throw error;
+      if (data && data.first_name) {
+        document.getElementById('welcome-name').textContent = 'Welcome, Brother ' + data.first_name;
+      }
+    } catch (e) {
+      console.warn('Could not load member name:', e);
+    }
   }
 
   function showLoginGate() {
