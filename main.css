@@ -2839,6 +2839,280 @@ a {
   margin: 0;
 }
 
+/* ── EVENTS CARD ── */
+.events-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.events-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.events-card-header h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.events-admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold, #b48700);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.events-admin-btn:hover { opacity: 0.88; }
+
+.events-month-group { margin-bottom: 1.5rem; }
+.events-month-group:last-child { margin-bottom: 0; }
+.events-month-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 0.5px solid rgba(184,135,0,0.2);
+}
+
+.event-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+.event-item:last-child { border-bottom: none; }
+.event-date-col {
+  flex-shrink: 0;
+  width: 52px;
+  text-align: center;
+  background: rgba(184,135,0,0.08);
+  border-radius: 8px;
+  padding: 0.5rem 0.25rem;
+  height: fit-content;
+}
+.event-day {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+}
+.event-daynum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+.event-main { flex: 1; min-width: 0; }
+.event-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+.event-title-row h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+.event-badge {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+  border: 0.5px solid rgba(184,135,0,0.35);
+  border-radius: 4px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+.event-meta {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.event-meta i { color: var(--gold, #b48700); font-size: 0.78rem; width: 14px; }
+.event-notes {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.55;
+  margin: 0.4rem 0 0.2rem;
+}
+.event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.event-join-btn,
+.event-gcal-link,
+.event-edit-btn,
+.event-delete-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+}
+.event-join-btn {
+  background: var(--gold, #b48700);
+  color: #000;
+  border: none;
+}
+.event-join-btn:hover { opacity: 0.88; }
+.event-gcal-link {
+  color: var(--gold, #b48700);
+  border: 0.5px solid rgba(184,135,0,0.3);
+  background: none;
+}
+.event-gcal-link:hover { background: rgba(184,135,0,0.08); }
+.event-edit-btn,
+.event-delete-btn {
+  background: none;
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+}
+.event-edit-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+.event-delete-btn:hover { color: #e05c5c; border-color: rgba(224,92,92,0.4); }
+
+.events-toggle-link {
+  display: block;
+  margin: 1.25rem auto 0;
+  background: none;
+  border: none;
+  color: var(--gold, #b48700);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem;
+}
+.events-toggle-link:hover { opacity: 0.8; }
+
+/* ── EVENT FORM MODAL ── */
+.event-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+.event-modal-box {
+  background: #151515;
+  border: 0.5px solid rgba(184,135,0,0.25);
+  border-radius: 10px;
+  padding: 1.75rem;
+  max-width: 480px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.event-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.event-modal-header h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+.event-modal-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+.event-modal-close:hover { color: #fff; }
+.event-form-error {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: #e05c5c;
+  margin-bottom: 0.75rem;
+  min-height: 1.1rem;
+}
+.event-form-row {
+  display: flex;
+  gap: 0.75rem;
+}
+.event-form-row .login-field { flex: 1; min-width: 0; }
+.login-field select,
+.login-field textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.login-field select:focus,
+.login-field textarea:focus { border-color: rgba(184,135,0,0.5); }
+.login-field textarea { resize: vertical; }
+
+@media (max-width: 600px) {
+  .event-form-row { flex-direction: column; gap: 0; }
+  .event-date-col { width: 46px; }
+  .events-card-header { flex-direction: column; align-items: flex-start; }
+  .events-admin-btn { width: 100%; justify-content: center; }
+  .event-join-btn,
+  .event-gcal-link,
+  .event-edit-btn,
+  .event-delete-btn { flex: 1 1 auto; text-align: center; }
+}
+
 /* =========================
    ANIMATIONS
 ========================= */

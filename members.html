@@ -119,6 +119,19 @@
         <p>This portal is a work in progress. Documents, meeting minutes, and member resources will be added here as they become available. Contact the board at betaphialumniassociation@gmail.com to submit content.</p>
       </div>
 
+      <!-- Upcoming Events -->
+      <div class="events-card fade-up" id="events-card">
+        <div class="events-card-header">
+          <h3><i class="fas fa-calendar-alt" style="color:var(--gold); margin-right:10px;"></i>Upcoming Meetings &amp; Events</h3>
+          <button type="button" id="add-event-btn" class="events-admin-btn" style="display:none;" onclick="openEventForm()">
+            <i class="fas fa-plus"></i> Add Event
+          </button>
+        </div>
+        <div id="events-list"></div>
+        <div id="events-empty" class="doc-placeholder" style="display:none;"></div>
+        <button type="button" id="toggle-past-events" class="events-toggle-link" onclick="togglePastEvents()">Show past events</button>
+      </div>
+
       <div style="text-align:center; margin-bottom:1rem;">
         <span class="section-label">Members Dashboard</span>
         <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,3.5vw,2.5rem); color:#fff; font-weight:300; margin-bottom:0.5rem;">
@@ -254,6 +267,73 @@
     </div>
   </footer>
 
+  <!-- Event Form Modal (admin add/edit) -->
+  <div class="event-modal" id="event-form-modal">
+    <div class="event-modal-box">
+      <div class="event-modal-header">
+        <h3 id="event-form-title">Add Event</h3>
+        <button type="button" class="event-modal-close" onclick="closeEventForm()" aria-label="Close">&times;</button>
+      </div>
+      <div class="event-form-error" id="event-form-error"></div>
+
+      <input type="hidden" id="ev-id" />
+
+      <div class="login-field">
+        <label for="ev-title">Title *</label>
+        <input type="text" id="ev-title" />
+      </div>
+
+      <div class="login-field">
+        <label for="ev-type">Type</label>
+        <select id="ev-type" onchange="toggleCommitteeField()">
+          <option value="general">General</option>
+          <option value="committee">Committee</option>
+          <option value="board">Board</option>
+          <option value="service">Service</option>
+          <option value="social">Social</option>
+        </select>
+      </div>
+
+      <div class="login-field" id="ev-committee-field" style="display:none;">
+        <label for="ev-committee">Committee</label>
+        <input type="text" id="ev-committee" />
+      </div>
+
+      <div class="login-field">
+        <label for="ev-date">Date *</label>
+        <input type="date" id="ev-date" />
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="ev-start-time">Start Time *</label>
+          <input type="time" id="ev-start-time" />
+        </div>
+        <div class="login-field">
+          <label for="ev-end-time">End Time</label>
+          <input type="time" id="ev-end-time" />
+        </div>
+      </div>
+
+      <div class="login-field">
+        <label for="ev-location">Location</label>
+        <input type="text" id="ev-location" />
+      </div>
+
+      <div class="login-field">
+        <label for="ev-meeting-link">Meeting Link</label>
+        <input type="url" id="ev-meeting-link" placeholder="https://" />
+      </div>
+
+      <div class="login-field">
+        <label for="ev-notes">Notes</label>
+        <textarea id="ev-notes" rows="3"></textarea>
+      </div>
+
+      <button type="button" class="login-btn" id="event-save-btn" onclick="saveEvent()">Save Event</button>
+    </div>
+  </div>
+
 </div><!-- end #members-content -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -268,32 +348,365 @@
     console.warn('Supabase is not configured yet — set SUPABASE_URL and SUPABASE_ANON_KEY in members.html.');
   }
 
-  function showMembers() {
+  async function showMembers() {
     document.getElementById('login-gate').style.display    = 'none';
     document.getElementById('members-content').style.display = 'block';
-    loadMemberName();
+    await loadMemberName();
+    loadEvents();
   }
+
+  let currentMemberIsAdmin = false;
 
   async function loadMemberName() {
     try {
       const { data: { user } } = await supabaseClient.auth.getUser();
       const { data, error } = await supabaseClient
         .from('members')
-        .select('first_name')
+        .select('first_name, is_admin')
         .eq('id', user.id)
         .maybeSingle();
       if (error) throw error;
       if (data && data.first_name) {
         document.getElementById('welcome-name').textContent = 'Welcome, Brother ' + data.first_name;
       }
+      currentMemberIsAdmin = !!(data && data.is_admin);
     } catch (e) {
       console.warn('Could not load member name:', e);
+      currentMemberIsAdmin = false;
     }
+    const addBtn = document.getElementById('add-event-btn');
+    if (addBtn) addBtn.style.display = currentMemberIsAdmin ? 'inline-flex' : 'none';
   }
 
   function showLoginGate() {
     document.getElementById('login-gate').style.display    = 'flex';
     document.getElementById('members-content').style.display = 'none';
+  }
+
+  // ══════════ EVENTS ══════════
+  const EVENT_TYPE_LABELS = {
+    general: 'General',
+    committee: 'Committee',
+    board: 'Board',
+    service: 'Service',
+    social: 'Social'
+  };
+
+  let showingPastEvents = false;
+
+  const chicagoMonthFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', month: 'long', year: 'numeric' });
+  const chicagoDayFmt   = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short' });
+  const chicagoDateNumFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', day: 'numeric' });
+  const chicagoTimeFmt  = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit' });
+  const chicagoDateInputFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' });
+  const chicagoTimeInputFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', hour12: false });
+
+  // Offset (in minutes) of timeZone relative to UTC, for the instant `date`.
+  function tzOffsetMinutes(date, timeZone) {
+    const utcStr = date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
+    const tzStr  = date.toLocaleString('en-US', { timeZone: timeZone, hour12: false });
+    return (new Date(tzStr).getTime() - new Date(utcStr).getTime()) / 60000;
+  }
+
+  // Combine a date input ("YYYY-MM-DD") and time input ("HH:MM") interpreted as
+  // America/Chicago local wall-clock time, and return a UTC ISO string.
+  function chicagoLocalToISO(dateStr, timeStr) {
+    if (!dateStr || !timeStr) return null;
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const [hh, mm] = timeStr.split(':').map(Number);
+    const guess = new Date(Date.UTC(y, m - 1, d, hh, mm));
+    const offset = tzOffsetMinutes(guess, 'America/Chicago');
+    return new Date(guess.getTime() - offset * 60000).toISOString();
+  }
+
+  function buildGoogleCalendarLink(ev) {
+    const start = new Date(ev.starts_at);
+    const end = ev.ends_at ? new Date(ev.ends_at) : new Date(start.getTime() + 60 * 60000);
+    const toGCalStamp = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: ev.title || '',
+      dates: toGCalStamp(start) + '/' + toGCalStamp(end),
+      details: ev.notes || '',
+      location: ev.location || ''
+    });
+    return 'https://calendar.google.com/calendar/render?' + params.toString();
+  }
+
+  function buildEventItem(ev) {
+    const start = new Date(ev.starts_at);
+    const end = ev.ends_at ? new Date(ev.ends_at) : null;
+
+    const item = document.createElement('div');
+    item.className = 'event-item';
+
+    const dateCol = document.createElement('div');
+    dateCol.className = 'event-date-col';
+    const dayEl = document.createElement('div');
+    dayEl.className = 'event-day';
+    dayEl.textContent = chicagoDayFmt.format(start);
+    const numEl = document.createElement('div');
+    numEl.className = 'event-daynum';
+    numEl.textContent = chicagoDateNumFmt.format(start);
+    dateCol.appendChild(dayEl);
+    dateCol.appendChild(numEl);
+
+    const main = document.createElement('div');
+    main.className = 'event-main';
+
+    const titleRow = document.createElement('div');
+    titleRow.className = 'event-title-row';
+    const titleEl = document.createElement('h4');
+    titleEl.textContent = ev.title || 'Untitled Event';
+    titleRow.appendChild(titleEl);
+
+    const badge = document.createElement('span');
+    badge.className = 'event-badge';
+    let badgeText = EVENT_TYPE_LABELS[ev.event_type] || ev.event_type || 'Event';
+    if (ev.event_type === 'committee' && ev.committee) badgeText += ': ' + ev.committee;
+    badge.textContent = badgeText;
+    titleRow.appendChild(badge);
+    main.appendChild(titleRow);
+
+    const timeEl = document.createElement('div');
+    timeEl.className = 'event-meta';
+    const timeIcon = document.createElement('i');
+    timeIcon.className = 'far fa-clock';
+    timeEl.appendChild(timeIcon);
+    let timeText = ' ' + chicagoTimeFmt.format(start);
+    if (end) timeText += ' – ' + chicagoTimeFmt.format(end);
+    timeText += ' CT';
+    timeEl.appendChild(document.createTextNode(timeText));
+    main.appendChild(timeEl);
+
+    if (ev.location) {
+      const locEl = document.createElement('div');
+      locEl.className = 'event-meta';
+      const locIcon = document.createElement('i');
+      locIcon.className = 'fas fa-map-marker-alt';
+      locEl.appendChild(locIcon);
+      locEl.appendChild(document.createTextNode(' ' + ev.location));
+      main.appendChild(locEl);
+    }
+
+    if (ev.notes) {
+      const notesEl = document.createElement('div');
+      notesEl.className = 'event-notes';
+      notesEl.textContent = ev.notes;
+      main.appendChild(notesEl);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'event-actions';
+
+    if (ev.meeting_link && ev.meeting_link.startsWith('https://')) {
+      const joinLink = document.createElement('a');
+      joinLink.className = 'event-join-btn';
+      joinLink.href = ev.meeting_link;
+      joinLink.target = '_blank';
+      joinLink.rel = 'noopener noreferrer';
+      joinLink.textContent = 'Join meeting';
+      actions.appendChild(joinLink);
+    }
+
+    const gcalLink = document.createElement('a');
+    gcalLink.className = 'event-gcal-link';
+    gcalLink.href = buildGoogleCalendarLink(ev);
+    gcalLink.target = '_blank';
+    gcalLink.rel = 'noopener noreferrer';
+    gcalLink.textContent = 'Add to Google Calendar';
+    actions.appendChild(gcalLink);
+
+    if (currentMemberIsAdmin) {
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'event-edit-btn';
+      editBtn.textContent = 'Edit';
+      editBtn.addEventListener('click', () => openEventForm(ev));
+      actions.appendChild(editBtn);
+
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'event-delete-btn';
+      delBtn.textContent = 'Delete';
+      delBtn.addEventListener('click', () => deleteEvent(ev.id));
+      actions.appendChild(delBtn);
+    }
+
+    main.appendChild(actions);
+    item.appendChild(dateCol);
+    item.appendChild(main);
+    return item;
+  }
+
+  function renderEventGroups(events, container) {
+    const groups = new Map();
+    events.forEach(ev => {
+      const key = chicagoMonthFmt.format(new Date(ev.starts_at));
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(ev);
+    });
+
+    groups.forEach((groupEvents, monthLabel) => {
+      const groupEl = document.createElement('div');
+      groupEl.className = 'events-month-group';
+
+      const labelEl = document.createElement('div');
+      labelEl.className = 'events-month-label';
+      labelEl.textContent = monthLabel;
+      groupEl.appendChild(labelEl);
+
+      groupEvents.forEach(ev => groupEl.appendChild(buildEventItem(ev)));
+      container.appendChild(groupEl);
+    });
+  }
+
+  async function loadEvents() {
+    const list = document.getElementById('events-list');
+    const empty = document.getElementById('events-empty');
+    const toggleBtn = document.getElementById('toggle-past-events');
+    if (!list || !empty) return;
+
+    list.textContent = '';
+    empty.style.display = 'none';
+
+    if (!supabaseClient) {
+      empty.textContent = 'Events are not available right now.';
+      empty.style.display = 'block';
+      return;
+    }
+
+    try {
+      const nowISO = new Date().toISOString();
+      let query = supabaseClient.from('events').select('*');
+      if (showingPastEvents) {
+        const ninetyDaysAgoISO = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+        query = query.lt('starts_at', nowISO).gte('starts_at', ninetyDaysAgoISO).order('starts_at', { ascending: false });
+      } else {
+        query = query.gte('starts_at', nowISO).order('starts_at', { ascending: true });
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+
+      const events = data || [];
+      if (events.length === 0) {
+        empty.textContent = showingPastEvents ? 'No events in the last 90 days.' : 'No upcoming events posted yet.';
+        empty.style.display = 'block';
+      } else {
+        renderEventGroups(events, list);
+      }
+    } catch (e) {
+      console.warn('Could not load events:', e);
+      empty.textContent = 'Could not load events right now. Please try again later.';
+      empty.style.display = 'block';
+    }
+
+    if (toggleBtn) toggleBtn.textContent = showingPastEvents ? 'Show upcoming events' : 'Show past events';
+  }
+
+  function togglePastEvents() {
+    showingPastEvents = !showingPastEvents;
+    loadEvents();
+  }
+
+  function toggleCommitteeField() {
+    const type = document.getElementById('ev-type').value;
+    document.getElementById('ev-committee-field').style.display = (type === 'committee') ? 'block' : 'none';
+  }
+
+  function openEventForm(ev) {
+    const modal = document.getElementById('event-form-modal');
+    document.getElementById('event-form-error').textContent = '';
+    document.getElementById('event-form-title').textContent = ev ? 'Edit Event' : 'Add Event';
+    document.getElementById('ev-id').value = ev ? ev.id : '';
+    document.getElementById('ev-title').value = ev ? (ev.title || '') : '';
+    document.getElementById('ev-type').value = ev ? (ev.event_type || 'general') : 'general';
+    document.getElementById('ev-committee').value = ev ? (ev.committee || '') : '';
+    document.getElementById('ev-location').value = ev ? (ev.location || '') : '';
+    document.getElementById('ev-meeting-link').value = ev ? (ev.meeting_link || '') : '';
+    document.getElementById('ev-notes').value = ev ? (ev.notes || '') : '';
+
+    if (ev && ev.starts_at) {
+      const start = new Date(ev.starts_at);
+      document.getElementById('ev-date').value = chicagoDateInputFmt.format(start);
+      document.getElementById('ev-start-time').value = chicagoTimeInputFmt.format(start);
+    } else {
+      document.getElementById('ev-date').value = '';
+      document.getElementById('ev-start-time').value = '';
+    }
+    document.getElementById('ev-end-time').value = (ev && ev.ends_at) ? chicagoTimeInputFmt.format(new Date(ev.ends_at)) : '';
+
+    toggleCommitteeField();
+    modal.style.display = 'flex';
+  }
+
+  function closeEventForm() {
+    document.getElementById('event-form-modal').style.display = 'none';
+  }
+
+  async function saveEvent() {
+    const errorEl = document.getElementById('event-form-error');
+    errorEl.textContent = '';
+
+    if (!supabaseClient) {
+      errorEl.textContent = 'The portal is not fully set up yet.';
+      return;
+    }
+
+    const id = document.getElementById('ev-id').value;
+    const title = document.getElementById('ev-title').value.trim();
+    const eventType = document.getElementById('ev-type').value;
+    const committee = document.getElementById('ev-committee').value.trim();
+    const dateStr = document.getElementById('ev-date').value;
+    const startTimeStr = document.getElementById('ev-start-time').value;
+    const endTimeStr = document.getElementById('ev-end-time').value;
+    const location = document.getElementById('ev-location').value.trim();
+    const meetingLink = document.getElementById('ev-meeting-link').value.trim();
+    const notes = document.getElementById('ev-notes').value.trim();
+
+    if (!title) { errorEl.textContent = 'Title is required.'; return; }
+    if (!dateStr) { errorEl.textContent = 'Date is required.'; return; }
+    if (!startTimeStr) { errorEl.textContent = 'Start time is required.'; return; }
+    if (meetingLink && !meetingLink.startsWith('https://')) {
+      errorEl.textContent = 'Meeting link must start with https://';
+      return;
+    }
+
+    const payload = {
+      title: title,
+      event_type: eventType,
+      committee: eventType === 'committee' ? (committee || null) : null,
+      starts_at: chicagoLocalToISO(dateStr, startTimeStr),
+      ends_at: endTimeStr ? chicagoLocalToISO(dateStr, endTimeStr) : null,
+      location: location || null,
+      meeting_link: meetingLink || null,
+      notes: notes || null
+    };
+
+    try {
+      const { error } = id
+        ? await supabaseClient.from('events').update(payload).eq('id', id)
+        : await supabaseClient.from('events').insert(payload);
+      if (error) throw error;
+      closeEventForm();
+      loadEvents();
+    } catch (e) {
+      console.warn('Could not save event:', e);
+      errorEl.textContent = 'Could not save the event. Please try again.';
+    }
+  }
+
+  async function deleteEvent(id) {
+    if (!window.confirm('Delete this event?')) return;
+    try {
+      const { error } = await supabaseClient.from('events').delete().eq('id', id);
+      if (error) throw error;
+      loadEvents();
+    } catch (e) {
+      console.warn('Could not delete event:', e);
+      window.alert('Could not delete the event. Please try again.');
+    }
   }
 
   function cleanAuthTokensFromUrl() {
