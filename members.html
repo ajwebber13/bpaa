@@ -422,11 +422,21 @@
       </div>
 
       <div class="login-field">
-        <label for="ev-date">Date *</label>
-        <input type="date" id="ev-date" />
+        <label for="ev-date">Start Date *</label>
+        <input type="date" id="ev-date" onchange="updateRepeatLabels()" />
       </div>
 
-      <div class="event-form-row">
+      <div class="login-field">
+        <label for="ev-end-date">End Date</label>
+        <input type="date" id="ev-end-date" />
+      </div>
+
+      <div class="form-checkbox-row">
+        <input type="checkbox" id="ev-all-day" onchange="toggleAllDay()" />
+        <label for="ev-all-day">All day</label>
+      </div>
+
+      <div class="event-form-row" id="ev-time-row">
         <div class="login-field">
           <label for="ev-start-time">Start Time *</label>
           <input type="time" id="ev-start-time" />
@@ -435,6 +445,21 @@
           <label for="ev-end-time">End Time</label>
           <input type="time" id="ev-end-time" />
         </div>
+      </div>
+
+      <div class="login-field" id="ev-repeat-field">
+        <label for="ev-repeat">Repeat</label>
+        <select id="ev-repeat" onchange="toggleRepeatUntilField()">
+          <option value="none">Does not repeat</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly-weekday" id="ev-repeat-monthly-weekday">Monthly (same weekday)</option>
+          <option value="monthly-date" id="ev-repeat-monthly-date">Monthly (same date)</option>
+        </select>
+      </div>
+
+      <div class="login-field" id="ev-repeat-until-field" style="display:none;">
+        <label for="ev-repeat-until">Repeat Until *</label>
+        <input type="date" id="ev-repeat-until" />
       </div>
 
       <div class="login-field">
@@ -453,6 +478,22 @@
       </div>
 
       <button type="button" class="login-btn" id="event-save-btn" onclick="saveEvent()">Save Event</button>
+    </div>
+  </div>
+
+  <!-- Delete Event Confirm Modal -->
+  <div class="event-modal" id="delete-event-modal">
+    <div class="event-modal-box">
+      <div class="event-modal-header">
+        <h3>Delete Event</h3>
+        <button type="button" class="event-modal-close" onclick="closeDeleteEventModal()" aria-label="Close">&times;</button>
+      </div>
+      <p class="delete-confirm-text" id="delete-confirm-text">Delete this event?</p>
+      <div class="delete-confirm-actions">
+        <button type="button" class="login-btn" id="delete-this-btn" onclick="confirmDeleteEvent('this')">Delete</button>
+        <button type="button" class="events-admin-btn" id="delete-series-btn" style="display:none;" onclick="confirmDeleteEvent('series')">Whole series</button>
+        <button type="button" class="event-edit-btn" onclick="closeDeleteEventModal()">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -755,6 +796,7 @@
   };
 
   const chicagoMonthFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', month: 'long', year: 'numeric' });
+  const chicagoMonthDayFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric' });
   const chicagoDayFmt   = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short' });
   const chicagoDateNumFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', day: 'numeric' });
   const chicagoTimeFmt  = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit' });
@@ -779,23 +821,70 @@
     return new Date(guess.getTime() - offset * 60000).toISOString();
   }
 
+  function chicagoDateStr(d) {
+    return chicagoDateInputFmt.format(d);
+  }
+
+  // Chicago-local calendar-day range an event covers, as "YYYY-MM-DD" strings.
+  function eventDayRange(ev) {
+    const startStr = chicagoDateStr(new Date(ev.starts_at));
+    const endStr = ev.ends_at ? chicagoDateStr(new Date(ev.ends_at)) : startStr;
+    return { startStr, endStr };
+  }
+
+  function ymdStr(year, monthIndex, day) {
+    return `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  function addDaysToDateStr(dateStr, days) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d + days));
+    return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}-${String(dt.getUTCDate()).padStart(2, '0')}`;
+  }
+
   function buildGoogleCalendarLink(ev) {
     const start = new Date(ev.starts_at);
-    const end = ev.ends_at ? new Date(ev.ends_at) : new Date(start.getTime() + 60 * 60000);
-    const toGCalStamp = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    const params = new URLSearchParams({
-      action: 'TEMPLATE',
-      text: ev.title || '',
-      dates: toGCalStamp(start) + '/' + toGCalStamp(end),
-      details: ev.notes || '',
-      location: ev.location || ''
-    });
-    return 'https://calendar.google.com/calendar/render?' + params.toString();
+    const params = { action: 'TEMPLATE', text: ev.title || '', details: ev.notes || '', location: ev.location || '' };
+
+    if (ev.all_day) {
+      const { startStr, endStr } = eventDayRange(ev);
+      const exclusiveEndStr = addDaysToDateStr(endStr, 1).replace(/-/g, '');
+      params.dates = startStr.replace(/-/g, '') + '/' + exclusiveEndStr;
+    } else {
+      const end = ev.ends_at ? new Date(ev.ends_at) : new Date(start.getTime() + 60 * 60000);
+      const toGCalStamp = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+      params.dates = toGCalStamp(start) + '/' + toGCalStamp(end);
+    }
+
+    return 'https://calendar.google.com/calendar/render?' + new URLSearchParams(params).toString();
+  }
+
+  function formatEventTimeLine(ev) {
+    const start = new Date(ev.starts_at);
+    const end = ev.ends_at ? new Date(ev.ends_at) : null;
+    const { startStr, endStr } = eventDayRange(ev);
+    const multiDay = startStr !== endStr;
+
+    if (ev.all_day) {
+      if (!multiDay) return 'All day';
+      return 'All day · ' + chicagoMonthDayFmt.format(start) + ' – ' + chicagoMonthDayFmt.format(end || start);
+    }
+
+    if (multiDay) {
+      const endPart = end
+        ? chicagoMonthDayFmt.format(end) + ', ' + chicagoTimeFmt.format(end)
+        : chicagoMonthDayFmt.format(start);
+      return chicagoMonthDayFmt.format(start) + ', ' + chicagoTimeFmt.format(start) + ' – ' + endPart + ' CT';
+    }
+
+    let t = chicagoTimeFmt.format(start);
+    if (end) t += ' – ' + chicagoTimeFmt.format(end);
+    t += ' CT';
+    return t;
   }
 
   function buildEventItem(ev) {
     const start = new Date(ev.starts_at);
-    const end = ev.ends_at ? new Date(ev.ends_at) : null;
 
     const item = document.createElement('div');
     item.className = 'event-item';
@@ -826,6 +915,17 @@
     if (ev.event_type === 'committee' && ev.committee) badgeText += ': ' + ev.committee;
     badge.textContent = badgeText;
     titleRow.appendChild(badge);
+
+    if (ev.series_id) {
+      const repeatsTag = document.createElement('span');
+      repeatsTag.className = 'event-repeats-tag';
+      const repeatIcon = document.createElement('i');
+      repeatIcon.className = 'fas fa-redo';
+      repeatsTag.appendChild(repeatIcon);
+      repeatsTag.appendChild(document.createTextNode(' Repeats'));
+      titleRow.appendChild(repeatsTag);
+    }
+
     main.appendChild(titleRow);
 
     const timeEl = document.createElement('div');
@@ -833,10 +933,7 @@
     const timeIcon = document.createElement('i');
     timeIcon.className = 'far fa-clock';
     timeEl.appendChild(timeIcon);
-    let timeText = ' ' + chicagoTimeFmt.format(start);
-    if (end) timeText += ' – ' + chicagoTimeFmt.format(end);
-    timeText += ' CT';
-    timeEl.appendChild(document.createTextNode(timeText));
+    timeEl.appendChild(document.createTextNode(' ' + formatEventTimeLine(ev)));
     main.appendChild(timeEl);
 
     if (ev.location) {
@@ -889,7 +986,7 @@
       delBtn.type = 'button';
       delBtn.className = 'event-delete-btn';
       delBtn.textContent = 'Delete';
-      delBtn.addEventListener('click', () => deleteEvent(ev.id));
+      delBtn.addEventListener('click', () => deleteEvent(ev));
       actions.appendChild(delBtn);
     }
 
@@ -986,16 +1083,18 @@
       const startISO = chicagoLocalToISO(startStr, '00:00');
       const endISO = chicagoLocalToISO(endStr, '00:00');
 
+      // Catch events that overlap this month even if they started earlier
+      // or end later (multi-day events spanning a month boundary).
       const { data, error } = await supabaseClient
         .from('events')
         .select('*')
-        .gte('starts_at', startISO)
         .lt('starts_at', endISO)
+        .or(`ends_at.gte.${startISO},and(ends_at.is.null,starts_at.gte.${startISO})`)
         .order('starts_at', { ascending: true });
       if (error) throw error;
       calMonthEvents = data || [];
     } catch (e) {
-      console.warn('Could not load calendar events:', e);
+      console.warn('Could not load calendar events:', e.message || e);
       calMonthEvents = [];
     }
 
@@ -1015,7 +1114,6 @@
     const firstWeekday = new Date(Date.UTC(calYear, calMonth, 1)).getUTCDay();
     const totalDays = daysInMonth(calYear, calMonth);
     const t = chicagoTodayParts();
-    const eventDays = new Set(calMonthEvents.map(ev => chicagoDateNumFmt.format(new Date(ev.starts_at))));
 
     for (let i = 0; i < firstWeekday; i++) {
       const blank = document.createElement('div');
@@ -1034,7 +1132,7 @@
       num.textContent = String(day);
       cell.appendChild(num);
 
-      if (eventDays.has(String(day))) {
+      if (eventsForDay(day).length > 0) {
         const dot = document.createElement('span');
         dot.className = 'cal-day-dot';
         cell.appendChild(dot);
@@ -1045,8 +1143,13 @@
     }
   }
 
+  // Every event whose day range (inclusive) covers this day of the displayed month.
   function eventsForDay(day) {
-    return calMonthEvents.filter(ev => chicagoDateNumFmt.format(new Date(ev.starts_at)) === String(day));
+    const dateStr = ymdStr(calYear, calMonth, day);
+    return calMonthEvents.filter(ev => {
+      const { startStr, endStr } = eventDayRange(ev);
+      return dateStr >= startStr && dateStr <= endStr;
+    });
   }
 
   function renderDayPanel() {
@@ -1093,11 +1196,12 @@
     try {
       const nowISO = new Date().toISOString();
       const ninetyDaysAgoISO = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+      // "Past" = its effective end (ends_at, or starts_at when there's no end) has passed.
       const { data, error } = await supabaseClient
         .from('events')
         .select('*')
-        .lt('starts_at', nowISO)
-        .gte('starts_at', ninetyDaysAgoISO)
+        .or(`ends_at.lt.${nowISO},and(ends_at.is.null,starts_at.lt.${nowISO})`)
+        .or(`ends_at.gte.${ninetyDaysAgoISO},and(ends_at.is.null,starts_at.gte.${ninetyDaysAgoISO})`)
         .order('starts_at', { ascending: false });
       if (error) throw error;
 
@@ -1109,7 +1213,7 @@
         renderEventGroups(events, container);
       }
     } catch (e) {
-      console.warn('Could not load past events:', e);
+      console.warn('Could not load past events:', e.message || e);
       emptyEl.textContent = 'Could not load past events right now.';
       emptyEl.style.display = 'block';
     }
@@ -1145,6 +1249,117 @@
     document.getElementById('ev-committee-field').style.display = (type === 'committee') ? 'block' : 'none';
   }
 
+  function toggleAllDay() {
+    const allDay = document.getElementById('ev-all-day').checked;
+    document.getElementById('ev-time-row').style.display = allDay ? 'none' : 'flex';
+  }
+
+  function toggleRepeatUntilField() {
+    const repeat = document.getElementById('ev-repeat').value;
+    document.getElementById('ev-repeat-until-field').style.display = (repeat === 'none') ? 'none' : 'block';
+  }
+
+  function ordinal(n) {
+    const rem100 = n % 100;
+    if (rem100 >= 11 && rem100 <= 13) return n + 'th';
+    switch (n % 10) {
+      case 1: return n + 'st';
+      case 2: return n + 'nd';
+      case 3: return n + 'rd';
+      default: return n + 'th';
+    }
+  }
+
+  // Which weekday, and which occurrence (1st..5th) of that weekday within its month.
+  function nthWeekdayOfMonth(dateStr) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const weekdayIdx = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+    return { weekdayIdx, n: Math.ceil(d / 7) };
+  }
+
+  // The date of the Nth given weekday in (year, month), or null if that month has no such occurrence.
+  function nthWeekdayDateOfMonth(year, month, weekdayIdx, n) {
+    const firstWeekday = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
+    const day = 1 + ((weekdayIdx - firstWeekday + 7) % 7) + (n - 1) * 7;
+    if (day > daysInMonth(year, month - 1)) return null;
+    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  function updateRepeatLabels() {
+    const dateStr = document.getElementById('ev-date').value;
+    const weekdayOption = document.getElementById('ev-repeat-monthly-weekday');
+    const dateOption = document.getElementById('ev-repeat-monthly-date');
+    if (!dateStr) {
+      weekdayOption.textContent = 'Monthly (same weekday)';
+      dateOption.textContent = 'Monthly (same date)';
+      return;
+    }
+    const day = Number(dateStr.split('-')[2]);
+    const { weekdayIdx, n } = nthWeekdayOfMonth(dateStr);
+    weekdayOption.textContent = `Monthly on the ${ordinal(n)} ${WEEKDAY_FULL[weekdayIdx]}`;
+    dateOption.textContent = `Monthly on the ${ordinal(day)}`;
+  }
+
+  // Occurrence date generators. Each returns an array of "YYYY-MM-DD" strings,
+  // generously bounded so a bad "until" date can't hang the browser — the real
+  // 52-occurrence cap is enforced by the caller.
+  function generateWeeklyOccurrences(startDateStr, untilStr) {
+    const dates = [];
+    let cur = startDateStr;
+    while (cur <= untilStr && dates.length < 400) {
+      dates.push(cur);
+      cur = addDaysToDateStr(cur, 7);
+    }
+    return dates;
+  }
+
+  function generateMonthlySameDateOccurrences(startDateStr, untilStr) {
+    const day = Number(startDateStr.split('-')[2]);
+    const dates = [];
+    let [y, m] = startDateStr.split('-').map(Number);
+    while (dates.length < 400) {
+      const monthStartStr = `${y}-${String(m).padStart(2, '0')}-01`;
+      if (monthStartStr > untilStr) break;
+      if (day <= daysInMonth(y, m - 1)) {
+        const candidate = `${y}-${String(m).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        if (candidate >= startDateStr && candidate <= untilStr) dates.push(candidate);
+      }
+      m += 1;
+      if (m > 12) { m = 1; y += 1; }
+    }
+    return dates;
+  }
+
+  function generateMonthlySameWeekdayOccurrences(startDateStr, untilStr) {
+    const { weekdayIdx, n } = nthWeekdayOfMonth(startDateStr);
+    const dates = [];
+    let [y, m] = startDateStr.split('-').map(Number);
+    while (dates.length < 400) {
+      const monthStartStr = `${y}-${String(m).padStart(2, '0')}-01`;
+      if (monthStartStr > untilStr) break;
+      const candidate = nthWeekdayDateOfMonth(y, m, weekdayIdx, n);
+      if (candidate && candidate >= startDateStr && candidate <= untilStr) dates.push(candidate);
+      m += 1;
+      if (m > 12) { m = 1; y += 1; }
+    }
+    return dates;
+  }
+
+  // Build starts_at/ends_at for one occurrence (America/Chicago local time).
+  function buildTimestamps(startDateStr, endDateStr, allDay, startTimeStr, endTimeStr) {
+    const effectiveEndDate = endDateStr || startDateStr;
+    if (allDay) {
+      return {
+        starts_at: chicagoLocalToISO(startDateStr, '00:00'),
+        ends_at: chicagoLocalToISO(effectiveEndDate, '23:59')
+      };
+    }
+    return {
+      starts_at: chicagoLocalToISO(startDateStr, startTimeStr),
+      ends_at: endTimeStr ? chicagoLocalToISO(effectiveEndDate, endTimeStr) : null
+    };
+  }
+
   function openEventForm(ev) {
     const modal = document.getElementById('event-form-modal');
     document.getElementById('event-form-error').textContent = '';
@@ -1157,17 +1372,35 @@
     document.getElementById('ev-meeting-link').value = ev ? (ev.meeting_link || '') : '';
     document.getElementById('ev-notes').value = ev ? (ev.notes || '') : '';
 
+    const allDay = !!(ev && ev.all_day);
+    document.getElementById('ev-all-day').checked = allDay;
+
     if (ev && ev.starts_at) {
       const start = new Date(ev.starts_at);
-      document.getElementById('ev-date').value = chicagoDateInputFmt.format(start);
-      document.getElementById('ev-start-time').value = chicagoTimeInputFmt.format(start);
+      const end = ev.ends_at ? new Date(ev.ends_at) : null;
+      const startDateStr = chicagoDateInputFmt.format(start);
+      const endDateStr = end ? chicagoDateInputFmt.format(end) : startDateStr;
+
+      document.getElementById('ev-date').value = startDateStr;
+      document.getElementById('ev-end-date').value = (endDateStr !== startDateStr) ? endDateStr : '';
+      document.getElementById('ev-start-time').value = allDay ? '' : chicagoTimeInputFmt.format(start);
+      document.getElementById('ev-end-time').value = (allDay || !end) ? '' : chicagoTimeInputFmt.format(end);
     } else {
       document.getElementById('ev-date').value = '';
+      document.getElementById('ev-end-date').value = '';
       document.getElementById('ev-start-time').value = '';
+      document.getElementById('ev-end-time').value = '';
     }
-    document.getElementById('ev-end-time').value = (ev && ev.ends_at) ? chicagoTimeInputFmt.format(new Date(ev.ends_at)) : '';
+
+    // Repeat only applies when creating a brand-new event.
+    document.getElementById('ev-repeat-field').style.display = ev ? 'none' : 'block';
+    document.getElementById('ev-repeat').value = 'none';
+    document.getElementById('ev-repeat-until').value = '';
+    toggleRepeatUntilField();
 
     toggleCommitteeField();
+    toggleAllDay();
+    updateRepeatLabels();
     modal.style.display = 'flex';
   }
 
@@ -1188,53 +1421,125 @@
     const title = document.getElementById('ev-title').value.trim();
     const eventType = document.getElementById('ev-type').value;
     const committee = document.getElementById('ev-committee').value.trim();
-    const dateStr = document.getElementById('ev-date').value;
+    const startDateStr = document.getElementById('ev-date').value;
+    const endDateStr = document.getElementById('ev-end-date').value;
+    const allDay = document.getElementById('ev-all-day').checked;
     const startTimeStr = document.getElementById('ev-start-time').value;
     const endTimeStr = document.getElementById('ev-end-time').value;
     const location = document.getElementById('ev-location').value.trim();
     const meetingLink = document.getElementById('ev-meeting-link').value.trim();
     const notes = document.getElementById('ev-notes').value.trim();
+    const repeat = id ? 'none' : document.getElementById('ev-repeat').value;
+    const repeatUntilStr = document.getElementById('ev-repeat-until').value;
 
     if (!title) { errorEl.textContent = 'Title is required.'; return; }
-    if (!dateStr) { errorEl.textContent = 'Date is required.'; return; }
-    if (!startTimeStr) { errorEl.textContent = 'Start time is required.'; return; }
+    if (!startDateStr) { errorEl.textContent = 'Start date is required.'; return; }
+    if (endDateStr && endDateStr < startDateStr) { errorEl.textContent = 'End date must be on or after start date.'; return; }
+    if (!allDay && !startTimeStr) { errorEl.textContent = 'Start time is required.'; return; }
     if (meetingLink && !meetingLink.startsWith('https://')) {
       errorEl.textContent = 'Meeting link must start with https://';
       return;
     }
 
-    const payload = {
+    const hasDifferentEndDate = !!(endDateStr && endDateStr !== startDateStr);
+    if (repeat !== 'none') {
+      if (hasDifferentEndDate) {
+        errorEl.textContent = 'Repeat cannot be combined with a different end date.';
+        return;
+      }
+      if (!repeatUntilStr) {
+        errorEl.textContent = 'Repeat until date is required.';
+        return;
+      }
+      if (repeatUntilStr < startDateStr) {
+        errorEl.textContent = 'Repeat until date must be on or after the start date.';
+        return;
+      }
+    }
+
+    const basePayload = {
       title: title,
       event_type: eventType,
       committee: eventType === 'committee' ? (committee || null) : null,
-      starts_at: chicagoLocalToISO(dateStr, startTimeStr),
-      ends_at: endTimeStr ? chicagoLocalToISO(dateStr, endTimeStr) : null,
+      all_day: allDay,
       location: location || null,
       meeting_link: meetingLink || null,
       notes: notes || null
     };
 
     try {
-      const { error } = id
-        ? await supabaseClient.from('events').update(payload).eq('id', id)
-        : await supabaseClient.from('events').insert(payload);
-      if (error) throw error;
+      if (repeat === 'none') {
+        const { starts_at, ends_at } = buildTimestamps(startDateStr, endDateStr, allDay, startTimeStr, endTimeStr);
+        const payload = Object.assign({}, basePayload, { starts_at, ends_at });
+        if (!id) payload.series_id = null;
+
+        const { error } = id
+          ? await supabaseClient.from('events').update(payload).eq('id', id)
+          : await supabaseClient.from('events').insert(payload);
+        if (error) throw error;
+      } else {
+        let occurrenceDates;
+        if (repeat === 'weekly') occurrenceDates = generateWeeklyOccurrences(startDateStr, repeatUntilStr);
+        else if (repeat === 'monthly-weekday') occurrenceDates = generateMonthlySameWeekdayOccurrences(startDateStr, repeatUntilStr);
+        else occurrenceDates = generateMonthlySameDateOccurrences(startDateStr, repeatUntilStr);
+
+        if (occurrenceDates.length === 0) {
+          errorEl.textContent = 'No occurrences fall in that repeat range. Please check the dates.';
+          return;
+        }
+        if (occurrenceDates.length > 52) {
+          errorEl.textContent = `That repeat would create ${occurrenceDates.length} events, which is more than the 52 allowed. Please choose a shorter repeat range.`;
+          return;
+        }
+
+        const seriesId = crypto.randomUUID();
+        const rows = occurrenceDates.map(dateStr => {
+          const { starts_at, ends_at } = buildTimestamps(dateStr, '', allDay, startTimeStr, endTimeStr);
+          return Object.assign({}, basePayload, { starts_at, ends_at, series_id: seriesId });
+        });
+
+        const { error } = await supabaseClient.from('events').insert(rows);
+        if (error) throw error;
+      }
+
       closeEventForm();
       loadCalendarMonth();
     } catch (e) {
-      console.warn('Could not save event:', e);
+      console.warn('Could not save event:', e.message || e);
       errorEl.textContent = 'Could not save the event. Please try again.';
     }
   }
 
-  async function deleteEvent(id) {
-    if (!window.confirm('Delete this event?')) return;
+  let pendingDeleteEvent = null;
+
+  function deleteEvent(ev) {
+    pendingDeleteEvent = ev;
+    const isSeries = !!ev.series_id;
+    document.getElementById('delete-confirm-text').textContent = isSeries
+      ? 'Delete just this event, or the whole series?'
+      : 'Delete this event?';
+    document.getElementById('delete-series-btn').style.display = isSeries ? 'inline-flex' : 'none';
+    document.getElementById('delete-this-btn').textContent = isSeries ? 'This event' : 'Delete';
+    document.getElementById('delete-event-modal').style.display = 'flex';
+  }
+
+  function closeDeleteEventModal() {
+    document.getElementById('delete-event-modal').style.display = 'none';
+    pendingDeleteEvent = null;
+  }
+
+  async function confirmDeleteEvent(scope) {
+    if (!pendingDeleteEvent) return;
+    const ev = pendingDeleteEvent;
+    closeDeleteEventModal();
     try {
-      const { error } = await supabaseClient.from('events').delete().eq('id', id);
+      const { error } = scope === 'series'
+        ? await supabaseClient.from('events').delete().eq('series_id', ev.series_id)
+        : await supabaseClient.from('events').delete().eq('id', ev.id);
       if (error) throw error;
       loadCalendarMonth();
     } catch (e) {
-      console.warn('Could not delete event:', e);
+      console.warn('Could not delete event:', e.message || e);
       window.alert('Could not delete the event. Please try again.');
     }
   }
