@@ -1523,17 +1523,20 @@
     }
 
     const title = document.getElementById('nl-title').value.trim();
-    const issueNumber = document.getElementById('nl-issue-number').value.trim();
+    const issueNumberRaw = document.getElementById('nl-issue-number').value.trim();
     const dateStr = document.getElementById('nl-date').value;
     const file = document.getElementById('nl-file').files[0];
 
+    const issueDigits = issueNumberRaw.replace(/\D/g, '');
+
     if (!title) { errorEl.textContent = 'Title is required.'; return; }
-    if (!issueNumber) { errorEl.textContent = 'Issue number is required.'; return; }
+    if (!issueDigits) { errorEl.textContent = 'Issue number must be a number, like 1.'; return; }
     if (!dateStr) { errorEl.textContent = 'Date is required.'; return; }
     if (!file) { errorEl.textContent = 'Please choose a PDF file.'; return; }
     if (file.type !== 'application/pdf') { errorEl.textContent = 'Only PDF files are accepted.'; return; }
     if (file.size > 15 * 1024 * 1024) { errorEl.textContent = 'File must be 15 MB or smaller.'; return; }
 
+    const issueNumber = parseInt(issueDigits, 10);
     const filePath = `issue-${String(issueNumber).padStart(2, '0')}.pdf`;
 
     try {
@@ -1553,7 +1556,7 @@
       closeNewsletterForm();
       loadNewsletters();
     } catch (e) {
-      console.warn('Could not upload newsletter issue:', e);
+      console.warn('Could not upload newsletter issue:', e.message || e);
       errorEl.textContent = 'Could not upload the issue. Please try again.';
     }
   }
