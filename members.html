@@ -113,23 +113,47 @@
   <section class="members-section">
     <div class="container">
 
-      <!-- Pinned Announcement -->
-      <div class="announcement-card fade-up">
-        <h4><i class="fas fa-bullhorn" style="color:var(--gold); margin-right:8px;"></i>Welcome to the BPAA Members Portal</h4>
-        <p>This portal is a work in progress. Documents, meeting minutes, and member resources will be added here as they become available. Contact the board at betaphialumniassociation@gmail.com to submit content.</p>
+      <!-- Finish Your Profile Banner -->
+      <div class="profile-banner" id="profile-banner" style="display:none;">
+        <div class="profile-banner-text">
+          <i class="fas fa-user-edit" style="margin-right:8px;"></i>Finish your member profile
+        </div>
+        <button type="button" class="events-admin-btn" onclick="openProfileForm()">Complete Profile</button>
       </div>
 
-      <!-- Upcoming Events -->
-      <div class="events-card fade-up" id="events-card">
+      <!-- Brotherhood Calendar -->
+      <div class="cal-card fade-up" id="calendar-card">
         <div class="events-card-header">
-          <h3><i class="fas fa-calendar-alt" style="color:var(--gold); margin-right:10px;"></i>Upcoming Meetings &amp; Events</h3>
-          <button type="button" id="add-event-btn" class="events-admin-btn" style="display:none;" onclick="openEventForm()">
-            <i class="fas fa-plus"></i> Add Event
-          </button>
+          <h3><i class="fas fa-calendar-alt" style="color:var(--gold); margin-right:10px;"></i>Brotherhood Calendar</h3>
         </div>
-        <div id="events-list"></div>
-        <div id="events-empty" class="doc-placeholder" style="display:none;"></div>
-        <button type="button" id="toggle-past-events" class="events-toggle-link" onclick="togglePastEvents()">Show past events</button>
+        <div class="cal-wrap">
+          <div class="cal-left" id="cal-left-panel">
+            <div class="cal-selected-day">
+              <div>
+                <div class="cal-selected-weekday" id="cal-sel-weekday">—</div>
+                <div class="cal-selected-daynum" id="cal-sel-daynum">—</div>
+              </div>
+            </div>
+            <div id="cal-day-events"></div>
+            <div id="cal-day-empty" class="doc-placeholder" style="display:none;"></div>
+            <button type="button" class="events-toggle-link" id="cal-past-toggle" onclick="toggleCalPastEvents()">See past events</button>
+            <button type="button" id="add-event-btn" class="events-admin-btn cal-create-btn" style="display:none;" onclick="openEventForm()">
+              <i class="fas fa-plus"></i> Create an Event
+            </button>
+          </div>
+          <div class="cal-right">
+            <div class="cal-year-nav">
+              <button type="button" class="cal-year-arrow" onclick="changeCalYear(-1)" aria-label="Previous year"><i class="fas fa-chevron-left"></i></button>
+              <span id="cal-year-label">—</span>
+              <button type="button" class="cal-year-arrow" onclick="changeCalYear(1)" aria-label="Next year"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="cal-month-tabs" id="cal-month-tabs"></div>
+            <div class="cal-weekday-row">
+              <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+        </div>
       </div>
 
       <div style="text-align:center; margin-bottom:1rem;">
@@ -143,17 +167,14 @@
       <div class="members-grid">
 
         <!-- Announcements -->
-        <div class="members-card fade-up">
+        <div class="members-card fade-up" id="announcements-card">
           <div class="members-card-icon"><i class="fas fa-bullhorn"></i></div>
           <h3>Announcements</h3>
-          <div class="announcement-item">
-            <div class="announcement-date">May 2026</div>
-            <div class="announcement-text">BPAA Members Portal is now live. More content coming soon.</div>
-          </div>
-          <div class="announcement-item">
-            <div class="announcement-date">Coming Soon</div>
-            <div class="announcement-text">Board updates and member communications will be posted here.</div>
-          </div>
+          <div id="announcements-list"></div>
+          <div id="announcements-empty" class="doc-placeholder" style="display:none;"></div>
+          <button type="button" id="post-announcement-btn" class="events-admin-btn" style="display:none; margin-top:0.75rem;" onclick="openAnnouncementForm()">
+            <i class="fas fa-plus"></i> Post Announcement
+          </button>
         </div>
 
         <!-- Meeting Minutes -->
@@ -172,14 +193,17 @@
           <div class="doc-placeholder">Documents will be uploaded here once finalized.</div>
         </div>
 
-        <!-- Member Forms -->
+        <!-- Member Forms / Profile -->
         <div class="members-card fade-up">
-          <div class="members-card-icon"><i class="fas fa-clipboard-list"></i></div>
+          <div class="members-card-icon"><i class="fas fa-id-card"></i></div>
           <h3>Member Forms</h3>
-          <p>Official membership forms, dues submissions, and registration documents.</p>
-          <a href="mailto:betaphialumniassociation@gmail.com?subject=Member Form Request" class="members-card-link">
-            <i class="fas fa-envelope" style="font-size:0.75rem;"></i> Request a Form
-          </a>
+          <p>Keep your contact details, line information, and photo up to date in the BPAA member directory.</p>
+          <button type="button" class="members-card-link" onclick="openProfileForm()">
+            <i class="fas fa-user-edit" style="font-size:0.75rem;"></i> Complete Your Profile
+          </button>
+          <button type="button" id="member-roster-btn" class="members-card-link" style="display:none; margin-top:0.6rem;" onclick="openRoster()">
+            <i class="fas fa-users" style="font-size:0.75rem;"></i> Member Roster
+          </button>
         </div>
 
         <!-- Resume Bank -->
@@ -192,15 +216,25 @@
           </a>
         </div>
 
-        <!-- Brotherhood Chat -->
-        <!-- DISCORD SETUP: replace YOUR_INVITE_CODE below with the real private server invite link -->
+        <!-- Join the Brotherhood -->
         <div class="members-card fade-up fade-up-delay-2">
-          <div class="members-card-icon"><i class="fab fa-discord"></i></div>
-          <h3>Join the Brotherhood Chat</h3>
-          <p>Connect with brothers in real time — organized by committee.</p>
-          <a href="https://discord.gg/YOUR_INVITE_CODE" target="_blank" rel="noopener" class="members-card-link">
-            <i class="fab fa-discord" style="font-size:0.75rem;"></i> Join on Discord
+          <div class="members-card-icon"><i class="fab fa-facebook-f"></i></div>
+          <h3>Join the Brotherhood</h3>
+          <p>Connect with brothers in our private Facebook community.</p>
+          <a href="#" id="facebook-group-link" target="_blank" rel="noopener noreferrer" class="members-card-link">
+            <i class="fab fa-facebook-f" style="font-size:0.75rem;"></i> Join on Facebook
           </a>
+        </div>
+
+        <!-- The Flagpole Newsletter -->
+        <div class="members-card fade-up" id="newsletter-card">
+          <div class="members-card-icon"><i class="fas fa-newspaper"></i></div>
+          <h3>The Flagpole Newsletter</h3>
+          <div id="newsletter-list"></div>
+          <div id="newsletter-empty" class="doc-placeholder" style="display:none;"></div>
+          <button type="button" id="upload-newsletter-btn" class="events-admin-btn" style="display:none; margin-top:0.75rem;" onclick="openNewsletterForm()">
+            <i class="fas fa-upload"></i> Upload Issue
+          </button>
         </div>
 
         <!-- Financials -->
@@ -222,6 +256,94 @@
         </div>
 
       </div>
+
+      <!-- Annual Dues -->
+      <div class="dues-card fade-up" id="dues-card">
+        <div class="events-card-header">
+          <h3><i class="fas fa-hand-holding-usd" style="color:var(--gold); margin-right:10px;"></i>Annual Membership Dues</h3>
+        </div>
+        <div style="text-align:center; margin-bottom:0.5rem;">
+          <span class="section-label">Membership</span>
+          <h4 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,3vw,2rem); color:#fff; font-weight:300; margin:0.35rem 0;">
+            Choose Your <span style="color:var(--gold); font-style:italic;">Membership Tier</span>
+          </h4>
+          <p style="font-family:'Nunito',sans-serif; color:rgba(255,255,255,0.5); font-size:0.85rem; max-width:560px; margin:0.5rem auto 0;">
+            All dues go directly toward supporting the Beta Phi Chapter and the endowed scholarship at Dillard University.
+          </p>
+        </div>
+
+        <div class="tiers-grid">
+
+          <!-- GOLDEN BROTHERS -->
+          <div class="tier-card">
+            <div class="tier-icon"><i class="fas fa-medal"></i></div>
+            <div class="tier-name">Golden Brothers</div>
+            <div class="tier-eligibility">50+ Years of Alpha Membership</div>
+            <div class="tier-price-wrap">
+              <span class="tier-dollar">$</span>
+              <span class="tier-price">85</span>
+              <span class="tier-per">/ year</span>
+            </div>
+            <ul class="tier-benefits">
+              <li><i class="fas fa-check"></i>Honored at all BPAA events & anniversaries</li>
+              <li><i class="fas fa-check"></i>Permanent recognition in the chapter's historical record</li>
+              <li><i class="fas fa-check"></i>Mentorship advisory role</li>
+              <li><i class="fas fa-check"></i>Full access to BPAA Membership Portal</li>
+              <li><i class="fas fa-check"></i>Contribution toward Beta Phi endowed scholarship</li>
+            </ul>
+            <a href="#" id="tier-btn-golden" class="tier-btn">Join as Golden Brother</a>
+          </div>
+
+          <!-- BETA PHI BROTHERS -->
+          <div class="tier-card">
+            <div class="tier-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="tier-name">Beta Phi Brothers</div>
+            <div class="tier-eligibility">All Brothers Not in Golden or Young Category</div>
+            <div class="tier-price-wrap">
+              <span class="tier-dollar">$</span>
+              <span class="tier-price">138</span>
+              <span class="tier-per">/ year</span>
+            </div>
+            <ul class="tier-benefits">
+              <li><i class="fas fa-check"></i>Full BPAA membership & voting rights</li>
+              <li><i class="fas fa-check"></i>Access to all BPAA events & gatherings</li>
+              <li><i class="fas fa-check"></i>Mentorship programs with college brothers</li>
+              <li><i class="fas fa-check"></i>Full access to BPAA Membership Portal</li>
+              <li><i class="fas fa-check"></i>Contribution toward Beta Phi endowed scholarship</li>
+            </ul>
+            <a href="#" id="tier-btn-brother" class="tier-btn">Join as Beta Phi Brother</a>
+          </div>
+
+          <!-- YOUNG BROTHERS -->
+          <div class="tier-card">
+            <div class="tier-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="tier-name">Young Brothers</div>
+            <div class="tier-eligibility">Graduated from Dillard University Within 5 Years</div>
+            <div class="tier-price-wrap">
+              <span class="tier-dollar">$</span>
+              <span class="tier-price">19</span>
+              <span class="tier-price-cent">.38</span>
+              <span class="tier-per">/ year</span>
+            </div>
+            <ul class="tier-benefits">
+              <li><i class="fas fa-check"></i>Full BPAA membership & voting rights</li>
+              <li><i class="fas fa-check"></i>Access to all BPAA events & gatherings</li>
+              <li><i class="fas fa-check"></i>Alumni network & career development support</li>
+              <li><i class="fas fa-check"></i>Full access to BPAA Membership Portal</li>
+              <li><i class="fas fa-check"></i>Contribution toward Beta Phi endowed scholarship</li>
+            </ul>
+            <a href="#" id="tier-btn-young" class="tier-btn">Join as Young Brother</a>
+          </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top:1.5rem;">
+          <a href="#" id="dues-manage-link" class="members-card-link" style="display:none;">
+            <i class="fas fa-cog" style="font-size:0.75rem;"></i> Manage or cancel auto-renewal
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -334,6 +456,191 @@
     </div>
   </div>
 
+  <!-- Announcement Form Modal (admin add/edit) -->
+  <div class="event-modal" id="announcement-form-modal">
+    <div class="event-modal-box">
+      <div class="event-modal-header">
+        <h3 id="announcement-form-title">Post Announcement</h3>
+        <button type="button" class="event-modal-close" onclick="closeAnnouncementForm()" aria-label="Close">&times;</button>
+      </div>
+      <div class="event-form-error" id="announcement-form-error"></div>
+
+      <input type="hidden" id="ann-id" />
+
+      <div class="login-field">
+        <label for="ann-title">Title *</label>
+        <input type="text" id="ann-title" />
+      </div>
+
+      <div class="login-field">
+        <label for="ann-body">Body *</label>
+        <textarea id="ann-body" rows="4"></textarea>
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="ann-link-url">Link URL</label>
+          <input type="url" id="ann-link-url" placeholder="https://" />
+        </div>
+        <div class="login-field">
+          <label for="ann-link-label">Link Label</label>
+          <input type="text" id="ann-link-label" placeholder="Learn more" />
+        </div>
+      </div>
+
+      <div class="form-checkbox-row">
+        <input type="checkbox" id="ann-pinned" />
+        <label for="ann-pinned">Pin this announcement to the top</label>
+      </div>
+
+      <div class="login-field">
+        <label for="ann-expires">Expires On (optional)</label>
+        <input type="date" id="ann-expires" />
+      </div>
+
+      <button type="button" class="login-btn" onclick="saveAnnouncement()">Save Announcement</button>
+    </div>
+  </div>
+
+  <!-- Newsletter Upload Modal (admin) -->
+  <div class="event-modal" id="newsletter-form-modal">
+    <div class="event-modal-box">
+      <div class="event-modal-header">
+        <h3>Upload Newsletter Issue</h3>
+        <button type="button" class="event-modal-close" onclick="closeNewsletterForm()" aria-label="Close">&times;</button>
+      </div>
+      <div class="event-form-error" id="newsletter-form-error"></div>
+
+      <div class="login-field">
+        <label for="nl-title">Title *</label>
+        <input type="text" id="nl-title" placeholder="The Flagpole — October 2026" />
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="nl-issue-number">Issue Number *</label>
+          <input type="text" id="nl-issue-number" inputmode="numeric" />
+        </div>
+        <div class="login-field">
+          <label for="nl-date">Date *</label>
+          <input type="date" id="nl-date" />
+        </div>
+      </div>
+
+      <div class="login-field">
+        <label for="nl-file">PDF File (max 15 MB) *</label>
+        <input type="file" id="nl-file" accept="application/pdf" />
+      </div>
+
+      <button type="button" class="login-btn" onclick="saveNewsletter()">Upload Issue</button>
+    </div>
+  </div>
+
+  <!-- Member Profile Form Modal -->
+  <div class="event-modal" id="profile-form-modal">
+    <div class="event-modal-box">
+      <div class="event-modal-header">
+        <h3>Your Member Profile</h3>
+        <button type="button" class="event-modal-close" onclick="closeProfileForm()" aria-label="Close">&times;</button>
+      </div>
+      <div class="event-form-error" id="profile-form-error"></div>
+
+      <div class="profile-avatar-row">
+        <img id="profile-avatar-preview" class="profile-avatar-preview" alt="" style="visibility:hidden;" />
+        <div class="login-field" style="flex:1; margin-bottom:0;">
+          <label for="pf-avatar">Profile Photo (JPG/PNG/WEBP, max 5 MB)</label>
+          <input type="file" id="pf-avatar" accept="image/jpeg,image/png,image/webp" />
+        </div>
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="pf-first-name">First Name</label>
+          <input type="text" id="pf-first-name" />
+        </div>
+        <div class="login-field">
+          <label for="pf-last-name">Last Name</label>
+          <input type="text" id="pf-last-name" />
+        </div>
+      </div>
+
+      <div class="login-field">
+        <label for="pf-email">Email</label>
+        <input type="email" id="pf-email" disabled />
+      </div>
+
+      <div class="login-field">
+        <label for="pf-address">Mailing Address</label>
+        <input type="text" id="pf-address" />
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="pf-city">City</label>
+          <input type="text" id="pf-city" />
+        </div>
+        <div class="login-field">
+          <label for="pf-state">State</label>
+          <input type="text" id="pf-state" maxlength="2" style="text-transform:uppercase;" />
+        </div>
+        <div class="login-field">
+          <label for="pf-zip">Zip Code</label>
+          <input type="text" id="pf-zip" maxlength="5" inputmode="numeric" />
+        </div>
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="pf-initiation-year">Initiation Year</label>
+          <input type="text" id="pf-initiation-year" maxlength="4" inputmode="numeric" />
+        </div>
+        <div class="login-field">
+          <label for="pf-grad-year">Dillard Graduation Year</label>
+          <input type="text" id="pf-grad-year" maxlength="4" inputmode="numeric" />
+        </div>
+      </div>
+
+      <div class="login-field">
+        <label for="pf-line-name">Line Name</label>
+        <input type="text" id="pf-line-name" />
+      </div>
+
+      <div class="event-form-row">
+        <div class="login-field">
+          <label for="pf-occupation">Occupation</label>
+          <input type="text" id="pf-occupation" />
+        </div>
+        <div class="login-field">
+          <label for="pf-phone">Phone</label>
+          <input type="tel" id="pf-phone" />
+        </div>
+      </div>
+
+      <button type="button" class="login-btn" onclick="saveProfile()">Save Profile</button>
+    </div>
+  </div>
+
+  <!-- Member Roster Modal (admin) -->
+  <div class="event-modal" id="roster-modal">
+    <div class="event-modal-box roster-modal-box">
+      <div class="event-modal-header">
+        <h3>Member Roster</h3>
+        <button type="button" class="event-modal-close" onclick="closeRoster()" aria-label="Close">&times;</button>
+      </div>
+      <button type="button" class="events-admin-btn" style="margin-bottom:1rem;" onclick="exportRosterCSV()">
+        <i class="fas fa-file-csv"></i> Export CSV
+      </button>
+      <div class="roster-table-wrap">
+        <table class="roster-table" id="roster-table">
+          <thead>
+            <tr><th>Name</th><th>Line</th><th>Init. Year</th><th>Email</th><th>Phone</th><th>Profile</th></tr>
+          </thead>
+          <tbody id="roster-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div><!-- end #members-content -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -348,40 +655,95 @@
     console.warn('Supabase is not configured yet — set SUPABASE_URL and SUPABASE_ANON_KEY in members.html.');
   }
 
+  // Static links that never need a Supabase round-trip.
+  const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61578446081453';
+  const DUES_LINKS = { golden: '', brother: '', young: '' };
+  const DUES_MANAGE_URL = '';
+
   async function showMembers() {
     document.getElementById('login-gate').style.display    = 'none';
     document.getElementById('members-content').style.display = 'block';
     await loadMemberName();
-    loadEvents();
+    loadAnnouncements();
+    loadNewsletters();
+    initCalendar();
+    checkProfileBanner();
   }
 
+  let currentMember = null;
+  let currentMemberAuthEmail = '';
   let currentMemberIsAdmin = false;
 
   async function loadMemberName() {
     try {
       const { data: { user } } = await supabaseClient.auth.getUser();
+      currentMemberAuthEmail = user ? (user.email || '') : '';
       const { data, error } = await supabaseClient
         .from('members')
-        .select('first_name, is_admin')
+        .select('*')
         .eq('id', user.id)
         .maybeSingle();
       if (error) throw error;
-      if (data && data.first_name) {
-        document.getElementById('welcome-name').textContent = 'Welcome, Brother ' + data.first_name;
+      currentMember = data || null;
+      if (currentMember && currentMember.first_name) {
+        document.getElementById('welcome-name').textContent = 'Welcome, Brother ' + currentMember.first_name;
       }
-      currentMemberIsAdmin = !!(data && data.is_admin);
+      currentMemberIsAdmin = !!(currentMember && currentMember.is_admin);
     } catch (e) {
-      console.warn('Could not load member name:', e);
+      console.warn('Could not load member profile:', e);
+      currentMember = null;
       currentMemberIsAdmin = false;
     }
-    const addBtn = document.getElementById('add-event-btn');
-    if (addBtn) addBtn.style.display = currentMemberIsAdmin ? 'inline-flex' : 'none';
+    [
+      'add-event-btn',
+      'post-announcement-btn',
+      'upload-newsletter-btn',
+      'member-roster-btn'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = currentMemberIsAdmin ? 'inline-flex' : 'none';
+    });
   }
 
   function showLoginGate() {
     document.getElementById('login-gate').style.display    = 'flex';
     document.getElementById('members-content').style.display = 'none';
   }
+
+  function initStaticLinks() {
+    const fbLink = document.getElementById('facebook-group-link');
+    if (fbLink) fbLink.href = FACEBOOK_URL;
+
+    const tierMap = { golden: 'tier-btn-golden', brother: 'tier-btn-brother', young: 'tier-btn-young' };
+    Object.keys(tierMap).forEach(key => {
+      const btn = document.getElementById(tierMap[key]);
+      if (!btn) return;
+      const url = DUES_LINKS[key];
+      if (url) {
+        btn.href = url;
+        btn.target = '_blank';
+        btn.rel = 'noopener noreferrer';
+      } else {
+        btn.removeAttribute('href');
+        btn.classList.add('tier-btn-disabled');
+        btn.setAttribute('aria-disabled', 'true');
+        btn.textContent = 'Coming Soon';
+      }
+    });
+
+    const manageLink = document.getElementById('dues-manage-link');
+    if (manageLink) {
+      if (DUES_MANAGE_URL) {
+        manageLink.href = DUES_MANAGE_URL;
+        manageLink.target = '_blank';
+        manageLink.rel = 'noopener noreferrer';
+        manageLink.style.display = 'inline-flex';
+      } else {
+        manageLink.style.display = 'none';
+      }
+    }
+  }
+  initStaticLinks();
 
   // ══════════ EVENTS ══════════
   const EVENT_TYPE_LABELS = {
@@ -391,8 +753,6 @@
     service: 'Service',
     social: 'Social'
   };
-
-  let showingPastEvents = false;
 
   const chicagoMonthFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', month: 'long', year: 'numeric' });
   const chicagoDayFmt   = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short' });
@@ -561,53 +921,223 @@
     });
   }
 
-  async function loadEvents() {
-    const list = document.getElementById('events-list');
-    const empty = document.getElementById('events-empty');
-    const toggleBtn = document.getElementById('toggle-past-events');
-    if (!list || !empty) return;
+  // ══════════ CALENDAR ══════════
+  const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const WEEKDAY_FULL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-    list.textContent = '';
-    empty.style.display = 'none';
+  let calYear, calMonth, selectedDay;
+  let calMonthEvents = [];
+  let calShowingPast = false;
+
+  function chicagoTodayParts() {
+    const [y, m, d] = chicagoDateInputFmt.format(new Date()).split('-').map(Number);
+    return { year: y, month: m - 1, day: d };
+  }
+
+  function daysInMonth(year, monthIndex) {
+    return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+  }
+
+  function initCalendar() {
+    const t = chicagoTodayParts();
+    calYear = t.year;
+    calMonth = t.month;
+    selectedDay = t.day;
+    calShowingPast = false;
+    buildMonthTabs();
+    loadCalendarMonth();
+  }
+
+  function buildMonthTabs() {
+    const wrap = document.getElementById('cal-month-tabs');
+    if (!wrap) return;
+    wrap.textContent = '';
+    MONTH_NAMES.forEach((name, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-month-tab';
+      btn.textContent = name;
+      btn.addEventListener('click', () => selectCalMonth(idx));
+      wrap.appendChild(btn);
+    });
+  }
+
+  function updateMonthTabsActive() {
+    document.querySelectorAll('.cal-month-tab').forEach((btn, idx) => {
+      btn.classList.toggle('active', idx === calMonth);
+    });
+  }
+
+  async function loadCalendarMonth() {
+    selectedDay = Math.min(selectedDay, daysInMonth(calYear, calMonth));
 
     if (!supabaseClient) {
-      empty.textContent = 'Events are not available right now.';
-      empty.style.display = 'block';
+      calMonthEvents = [];
+      renderCalendarGrid();
+      renderDayPanel();
       return;
     }
 
     try {
-      const nowISO = new Date().toISOString();
-      let query = supabaseClient.from('events').select('*');
-      if (showingPastEvents) {
-        const ninetyDaysAgoISO = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
-        query = query.lt('starts_at', nowISO).gte('starts_at', ninetyDaysAgoISO).order('starts_at', { ascending: false });
-      } else {
-        query = query.gte('starts_at', nowISO).order('starts_at', { ascending: true });
+      const startStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-01`;
+      const nextMonth = calMonth === 11 ? 0 : calMonth + 1;
+      const nextYear = calMonth === 11 ? calYear + 1 : calYear;
+      const endStr = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-01`;
+      const startISO = chicagoLocalToISO(startStr, '00:00');
+      const endISO = chicagoLocalToISO(endStr, '00:00');
+
+      const { data, error } = await supabaseClient
+        .from('events')
+        .select('*')
+        .gte('starts_at', startISO)
+        .lt('starts_at', endISO)
+        .order('starts_at', { ascending: true });
+      if (error) throw error;
+      calMonthEvents = data || [];
+    } catch (e) {
+      console.warn('Could not load calendar events:', e);
+      calMonthEvents = [];
+    }
+
+    renderCalendarGrid();
+    renderDayPanel();
+  }
+
+  function renderCalendarGrid() {
+    const yearLabel = document.getElementById('cal-year-label');
+    if (yearLabel) yearLabel.textContent = String(calYear);
+    updateMonthTabsActive();
+
+    const grid = document.getElementById('cal-grid');
+    if (!grid) return;
+    grid.textContent = '';
+
+    const firstWeekday = new Date(Date.UTC(calYear, calMonth, 1)).getUTCDay();
+    const totalDays = daysInMonth(calYear, calMonth);
+    const t = chicagoTodayParts();
+    const eventDays = new Set(calMonthEvents.map(ev => chicagoDateNumFmt.format(new Date(ev.starts_at))));
+
+    for (let i = 0; i < firstWeekday; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'cal-day-cell cal-day-empty';
+      grid.appendChild(blank);
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'cal-day-cell';
+      if (t.year === calYear && t.month === calMonth && t.day === day) cell.classList.add('cal-day-today');
+      if (!calShowingPast && day === selectedDay) cell.classList.add('cal-day-selected');
+
+      const num = document.createElement('span');
+      num.textContent = String(day);
+      cell.appendChild(num);
+
+      if (eventDays.has(String(day))) {
+        const dot = document.createElement('span');
+        dot.className = 'cal-day-dot';
+        cell.appendChild(dot);
       }
 
-      const { data, error } = await query;
+      cell.addEventListener('click', () => selectCalDay(day));
+      grid.appendChild(cell);
+    }
+  }
+
+  function eventsForDay(day) {
+    return calMonthEvents.filter(ev => chicagoDateNumFmt.format(new Date(ev.starts_at)) === String(day));
+  }
+
+  function renderDayPanel() {
+    const dayEventsContainer = document.getElementById('cal-day-events');
+    const emptyEl = document.getElementById('cal-day-empty');
+    const selDayWrap = document.querySelector('.cal-selected-day');
+    const toggleBtn = document.getElementById('cal-past-toggle');
+    if (!dayEventsContainer || !emptyEl) return;
+
+    dayEventsContainer.textContent = '';
+    emptyEl.style.display = 'none';
+
+    if (calShowingPast) {
+      if (selDayWrap) selDayWrap.style.display = 'none';
+      if (toggleBtn) toggleBtn.textContent = 'Back to calendar';
+      loadPastEventsPanel(dayEventsContainer, emptyEl);
+      return;
+    }
+
+    if (selDayWrap) selDayWrap.style.display = 'flex';
+    if (toggleBtn) toggleBtn.textContent = 'See past events';
+
+    const dateForLabel = new Date(Date.UTC(calYear, calMonth, selectedDay, 12));
+    const weekdayEl = document.getElementById('cal-sel-weekday');
+    const daynumEl = document.getElementById('cal-sel-daynum');
+    if (weekdayEl) weekdayEl.textContent = WEEKDAY_FULL[dateForLabel.getUTCDay()];
+    if (daynumEl) daynumEl.textContent = String(selectedDay);
+
+    const dayEvents = eventsForDay(selectedDay);
+    if (dayEvents.length === 0) {
+      emptyEl.textContent = 'No events on this day.';
+      emptyEl.style.display = 'block';
+    } else {
+      dayEvents.forEach(ev => dayEventsContainer.appendChild(buildEventItem(ev)));
+    }
+  }
+
+  async function loadPastEventsPanel(container, emptyEl) {
+    if (!supabaseClient) {
+      emptyEl.textContent = 'Events are not available right now.';
+      emptyEl.style.display = 'block';
+      return;
+    }
+    try {
+      const nowISO = new Date().toISOString();
+      const ninetyDaysAgoISO = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+      const { data, error } = await supabaseClient
+        .from('events')
+        .select('*')
+        .lt('starts_at', nowISO)
+        .gte('starts_at', ninetyDaysAgoISO)
+        .order('starts_at', { ascending: false });
       if (error) throw error;
 
       const events = data || [];
       if (events.length === 0) {
-        empty.textContent = showingPastEvents ? 'No events in the last 90 days.' : 'No upcoming events posted yet.';
-        empty.style.display = 'block';
+        emptyEl.textContent = 'No events in the last 90 days.';
+        emptyEl.style.display = 'block';
       } else {
-        renderEventGroups(events, list);
+        renderEventGroups(events, container);
       }
     } catch (e) {
-      console.warn('Could not load events:', e);
-      empty.textContent = 'Could not load events right now. Please try again later.';
-      empty.style.display = 'block';
+      console.warn('Could not load past events:', e);
+      emptyEl.textContent = 'Could not load past events right now.';
+      emptyEl.style.display = 'block';
     }
-
-    if (toggleBtn) toggleBtn.textContent = showingPastEvents ? 'Show upcoming events' : 'Show past events';
   }
 
-  function togglePastEvents() {
-    showingPastEvents = !showingPastEvents;
-    loadEvents();
+  function changeCalYear(delta) {
+    calYear += delta;
+    calShowingPast = false;
+    loadCalendarMonth();
+  }
+
+  function selectCalMonth(idx) {
+    calMonth = idx;
+    calShowingPast = false;
+    loadCalendarMonth();
+  }
+
+  function selectCalDay(day) {
+    selectedDay = day;
+    calShowingPast = false;
+    renderCalendarGrid();
+    renderDayPanel();
+  }
+
+  function toggleCalPastEvents() {
+    calShowingPast = !calShowingPast;
+    renderCalendarGrid();
+    renderDayPanel();
   }
 
   function toggleCommitteeField() {
@@ -690,7 +1220,7 @@
         : await supabaseClient.from('events').insert(payload);
       if (error) throw error;
       closeEventForm();
-      loadEvents();
+      loadCalendarMonth();
     } catch (e) {
       console.warn('Could not save event:', e);
       errorEl.textContent = 'Could not save the event. Please try again.';
@@ -702,11 +1232,561 @@
     try {
       const { error } = await supabaseClient.from('events').delete().eq('id', id);
       if (error) throw error;
-      loadEvents();
+      loadCalendarMonth();
     } catch (e) {
       console.warn('Could not delete event:', e);
       window.alert('Could not delete the event. Please try again.');
     }
+  }
+
+  function formatPlainDate(dateStr) {
+    if (!dateStr) return '';
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d, 12));
+    return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(dt);
+  }
+
+  // ══════════ ANNOUNCEMENTS ══════════
+  function buildAnnouncementItem(a) {
+    const item = document.createElement('div');
+    item.className = 'announcement-item';
+
+    const dateRow = document.createElement('div');
+    dateRow.className = 'announcement-date';
+    dateRow.textContent = formatPlainDate((a.created_at || '').slice(0, 10)) + (a.pinned ? ' · PINNED' : '');
+    item.appendChild(dateRow);
+
+    const titleEl = document.createElement('div');
+    titleEl.className = 'announcement-title';
+    titleEl.textContent = a.title || '';
+    item.appendChild(titleEl);
+
+    const textEl = document.createElement('div');
+    textEl.className = 'announcement-text';
+    textEl.textContent = a.body || '';
+    item.appendChild(textEl);
+
+    if (a.link_url && a.link_url.startsWith('https://')) {
+      const link = document.createElement('a');
+      link.className = 'announcement-link';
+      link.href = a.link_url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = a.link_label || 'Learn more';
+      item.appendChild(link);
+    }
+
+    if (currentMemberIsAdmin) {
+      const actions = document.createElement('div');
+      actions.className = 'announcement-admin-actions';
+
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'event-edit-btn';
+      editBtn.textContent = 'Edit';
+      editBtn.addEventListener('click', () => openAnnouncementForm(a));
+      actions.appendChild(editBtn);
+
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'event-delete-btn';
+      delBtn.textContent = 'Delete';
+      delBtn.addEventListener('click', () => deleteAnnouncement(a.id));
+      actions.appendChild(delBtn);
+
+      item.appendChild(actions);
+    }
+
+    return item;
+  }
+
+  async function loadAnnouncements() {
+    const list = document.getElementById('announcements-list');
+    const empty = document.getElementById('announcements-empty');
+    if (!list || !empty) return;
+
+    list.textContent = '';
+    empty.style.display = 'none';
+
+    if (!supabaseClient) {
+      empty.textContent = 'Announcements are not available right now.';
+      empty.style.display = 'block';
+      return;
+    }
+
+    try {
+      const nowISO = new Date().toISOString();
+      const { data, error } = await supabaseClient
+        .from('announcements')
+        .select('*')
+        .or(`expires_at.is.null,expires_at.gt.${nowISO}`)
+        .order('pinned', { ascending: false })
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+
+      const announcements = data || [];
+      if (announcements.length === 0) {
+        empty.textContent = 'No announcements posted yet.';
+        empty.style.display = 'block';
+      } else {
+        announcements.forEach(a => list.appendChild(buildAnnouncementItem(a)));
+      }
+    } catch (e) {
+      console.warn('Could not load announcements:', e);
+      empty.textContent = 'Could not load announcements right now.';
+      empty.style.display = 'block';
+    }
+  }
+
+  function openAnnouncementForm(a) {
+    document.getElementById('announcement-form-error').textContent = '';
+    document.getElementById('announcement-form-title').textContent = a ? 'Edit Announcement' : 'Post Announcement';
+    document.getElementById('ann-id').value = a ? a.id : '';
+    document.getElementById('ann-title').value = a ? (a.title || '') : '';
+    document.getElementById('ann-body').value = a ? (a.body || '') : '';
+    document.getElementById('ann-link-url').value = a ? (a.link_url || '') : '';
+    document.getElementById('ann-link-label').value = a ? (a.link_label || '') : '';
+    document.getElementById('ann-pinned').checked = !!(a && a.pinned);
+    document.getElementById('ann-expires').value = a && a.expires_at ? a.expires_at.slice(0, 10) : '';
+    document.getElementById('announcement-form-modal').style.display = 'flex';
+  }
+
+  function closeAnnouncementForm() {
+    document.getElementById('announcement-form-modal').style.display = 'none';
+  }
+
+  async function saveAnnouncement() {
+    const errorEl = document.getElementById('announcement-form-error');
+    errorEl.textContent = '';
+
+    if (!supabaseClient) {
+      errorEl.textContent = 'The portal is not fully set up yet.';
+      return;
+    }
+
+    const id = document.getElementById('ann-id').value;
+    const title = document.getElementById('ann-title').value.trim();
+    const body = document.getElementById('ann-body').value.trim();
+    const linkUrl = document.getElementById('ann-link-url').value.trim();
+    const linkLabel = document.getElementById('ann-link-label').value.trim();
+    const pinned = document.getElementById('ann-pinned').checked;
+    const expiresStr = document.getElementById('ann-expires').value;
+
+    if (!title) { errorEl.textContent = 'Title is required.'; return; }
+    if (!body) { errorEl.textContent = 'Body is required.'; return; }
+    if (linkUrl && !linkUrl.startsWith('https://')) {
+      errorEl.textContent = 'Link URL must start with https://';
+      return;
+    }
+
+    const payload = {
+      title: title,
+      body: body,
+      link_url: linkUrl || null,
+      link_label: linkUrl ? (linkLabel || null) : null,
+      pinned: pinned,
+      expires_at: expiresStr ? chicagoLocalToISO(expiresStr, '23:59') : null
+    };
+
+    try {
+      const { error } = id
+        ? await supabaseClient.from('announcements').update(payload).eq('id', id)
+        : await supabaseClient.from('announcements').insert(payload);
+      if (error) throw error;
+      closeAnnouncementForm();
+      loadAnnouncements();
+    } catch (e) {
+      console.warn('Could not save announcement:', e);
+      errorEl.textContent = 'Could not save the announcement. Please try again.';
+    }
+  }
+
+  async function deleteAnnouncement(id) {
+    if (!window.confirm('Delete this announcement?')) return;
+    try {
+      const { error } = await supabaseClient.from('announcements').delete().eq('id', id);
+      if (error) throw error;
+      loadAnnouncements();
+    } catch (e) {
+      console.warn('Could not delete announcement:', e);
+      window.alert('Could not delete the announcement. Please try again.');
+    }
+  }
+
+  // ══════════ NEWSLETTER ══════════
+  function buildNewsletterItem(n) {
+    const item = document.createElement('div');
+    item.className = 'newsletter-item';
+
+    const info = document.createElement('div');
+    info.className = 'newsletter-info';
+    const titleEl = document.createElement('div');
+    titleEl.className = 'newsletter-title';
+    titleEl.textContent = n.title || ('Issue ' + (n.issue_number || ''));
+    const dateEl = document.createElement('div');
+    dateEl.className = 'newsletter-date';
+    dateEl.textContent = formatPlainDate(n.published_on);
+    info.appendChild(titleEl);
+    info.appendChild(dateEl);
+    item.appendChild(info);
+
+    const actions = document.createElement('div');
+    actions.className = 'newsletter-actions';
+
+    const readBtn = document.createElement('button');
+    readBtn.type = 'button';
+    readBtn.className = 'members-card-link';
+    readBtn.textContent = 'Read Issue';
+    readBtn.addEventListener('click', () => openNewsletterIssue(n.file_path));
+    actions.appendChild(readBtn);
+
+    if (currentMemberIsAdmin) {
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'event-delete-btn';
+      delBtn.textContent = 'Delete';
+      delBtn.addEventListener('click', () => deleteNewsletter(n.id, n.file_path));
+      actions.appendChild(delBtn);
+    }
+
+    item.appendChild(actions);
+    return item;
+  }
+
+  async function loadNewsletters() {
+    const list = document.getElementById('newsletter-list');
+    const empty = document.getElementById('newsletter-empty');
+    if (!list || !empty) return;
+
+    list.textContent = '';
+    empty.style.display = 'none';
+
+    if (!supabaseClient) {
+      empty.textContent = 'Newsletter issues are not available right now.';
+      empty.style.display = 'block';
+      return;
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('newsletters')
+        .select('*')
+        .order('published_on', { ascending: false });
+      if (error) throw error;
+
+      const issues = data || [];
+      if (issues.length === 0) {
+        empty.textContent = 'No issues posted yet.';
+        empty.style.display = 'block';
+      } else {
+        issues.forEach(n => list.appendChild(buildNewsletterItem(n)));
+      }
+    } catch (e) {
+      console.warn('Could not load newsletters:', e);
+      empty.textContent = 'Could not load newsletter issues right now.';
+      empty.style.display = 'block';
+    }
+  }
+
+  async function openNewsletterIssue(filePath) {
+    if (!supabaseClient || !filePath) return;
+    try {
+      const { data, error } = await supabaseClient.storage.from('newsletters').createSignedUrl(filePath, 3600);
+      if (error) throw error;
+      window.open(data.signedUrl, '_blank', 'noopener');
+    } catch (e) {
+      console.warn('Could not open newsletter issue:', e);
+      window.alert('Could not open this issue right now. Please try again later.');
+    }
+  }
+
+  function openNewsletterForm() {
+    document.getElementById('newsletter-form-error').textContent = '';
+    document.getElementById('nl-title').value = '';
+    document.getElementById('nl-issue-number').value = '';
+    document.getElementById('nl-date').value = '';
+    document.getElementById('nl-file').value = '';
+    document.getElementById('newsletter-form-modal').style.display = 'flex';
+  }
+
+  function closeNewsletterForm() {
+    document.getElementById('newsletter-form-modal').style.display = 'none';
+  }
+
+  async function saveNewsletter() {
+    const errorEl = document.getElementById('newsletter-form-error');
+    errorEl.textContent = '';
+
+    if (!supabaseClient) {
+      errorEl.textContent = 'The portal is not fully set up yet.';
+      return;
+    }
+
+    const title = document.getElementById('nl-title').value.trim();
+    const issueNumber = document.getElementById('nl-issue-number').value.trim();
+    const dateStr = document.getElementById('nl-date').value;
+    const file = document.getElementById('nl-file').files[0];
+
+    if (!title) { errorEl.textContent = 'Title is required.'; return; }
+    if (!issueNumber) { errorEl.textContent = 'Issue number is required.'; return; }
+    if (!dateStr) { errorEl.textContent = 'Date is required.'; return; }
+    if (!file) { errorEl.textContent = 'Please choose a PDF file.'; return; }
+    if (file.type !== 'application/pdf') { errorEl.textContent = 'Only PDF files are accepted.'; return; }
+    if (file.size > 15 * 1024 * 1024) { errorEl.textContent = 'File must be 15 MB or smaller.'; return; }
+
+    const filePath = `issue-${String(issueNumber).padStart(2, '0')}.pdf`;
+
+    try {
+      const { error: uploadError } = await supabaseClient.storage
+        .from('newsletters')
+        .upload(filePath, file, { upsert: true, contentType: 'application/pdf' });
+      if (uploadError) throw uploadError;
+
+      const { error: insertError } = await supabaseClient.from('newsletters').insert({
+        title: title,
+        issue_number: issueNumber,
+        published_on: dateStr,
+        file_path: filePath
+      });
+      if (insertError) throw insertError;
+
+      closeNewsletterForm();
+      loadNewsletters();
+    } catch (e) {
+      console.warn('Could not upload newsletter issue:', e);
+      errorEl.textContent = 'Could not upload the issue. Please try again.';
+    }
+  }
+
+  async function deleteNewsletter(id, filePath) {
+    if (!window.confirm('Delete this newsletter issue?')) return;
+    try {
+      if (filePath) {
+        const { error: removeError } = await supabaseClient.storage.from('newsletters').remove([filePath]);
+        if (removeError) console.warn('Could not remove newsletter file:', removeError);
+      }
+      const { error } = await supabaseClient.from('newsletters').delete().eq('id', id);
+      if (error) throw error;
+      loadNewsletters();
+    } catch (e) {
+      console.warn('Could not delete newsletter:', e);
+      window.alert('Could not delete this issue. Please try again.');
+    }
+  }
+
+  // ══════════ MEMBER PROFILE ══════════
+  function checkProfileBanner() {
+    const banner = document.getElementById('profile-banner');
+    if (!banner) return;
+    banner.style.display = (currentMember && !currentMember.profile_completed_at) ? 'flex' : 'none';
+  }
+
+  async function openProfileForm() {
+    const errorEl = document.getElementById('profile-form-error');
+    if (errorEl) errorEl.textContent = '';
+    const m = currentMember || {};
+
+    document.getElementById('pf-first-name').value = m.first_name || '';
+    document.getElementById('pf-last-name').value = m.last_name || '';
+    document.getElementById('pf-email').value = currentMemberAuthEmail || '';
+    document.getElementById('pf-address').value = m.mailing_address || '';
+    document.getElementById('pf-city').value = m.city || '';
+    document.getElementById('pf-state').value = m.state || '';
+    document.getElementById('pf-zip').value = m.zip_code || '';
+    document.getElementById('pf-initiation-year').value = m.initiation_year || '';
+    document.getElementById('pf-grad-year').value = m.dillard_grad_year || '';
+    document.getElementById('pf-line-name').value = m.line_name || '';
+    document.getElementById('pf-occupation').value = m.occupation || '';
+    document.getElementById('pf-phone').value = m.phone || '';
+    document.getElementById('pf-avatar').value = '';
+
+    const preview = document.getElementById('profile-avatar-preview');
+    preview.removeAttribute('src');
+    preview.style.visibility = 'hidden';
+    if (m.avatar_path && supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient.storage.from('avatars').createSignedUrl(m.avatar_path, 3600);
+        if (!error && data) {
+          preview.src = data.signedUrl;
+          preview.style.visibility = 'visible';
+        }
+      } catch (e) {
+        console.warn('Could not load avatar preview:', e);
+      }
+    }
+
+    document.getElementById('profile-form-modal').style.display = 'flex';
+  }
+
+  function closeProfileForm() {
+    document.getElementById('profile-form-modal').style.display = 'none';
+  }
+
+  async function saveProfile() {
+    const errorEl = document.getElementById('profile-form-error');
+    errorEl.textContent = '';
+
+    if (!supabaseClient || !currentMember) {
+      errorEl.textContent = 'The portal is not fully set up yet.';
+      return;
+    }
+
+    const firstName = document.getElementById('pf-first-name').value.trim();
+    const lastName = document.getElementById('pf-last-name').value.trim();
+    const address = document.getElementById('pf-address').value.trim();
+    const city = document.getElementById('pf-city').value.trim();
+    const state = document.getElementById('pf-state').value.trim().toUpperCase();
+    const zip = document.getElementById('pf-zip').value.trim();
+    const initiationYear = document.getElementById('pf-initiation-year').value.trim();
+    const gradYear = document.getElementById('pf-grad-year').value.trim();
+    const lineName = document.getElementById('pf-line-name').value.trim();
+    const occupation = document.getElementById('pf-occupation').value.trim();
+    const phone = document.getElementById('pf-phone').value.trim();
+    const avatarFile = document.getElementById('pf-avatar').files[0];
+
+    const currentYear = new Date().getFullYear();
+    if (zip && !/^\d{5}$/.test(zip)) {
+      errorEl.textContent = 'Zip code must be exactly 5 digits.';
+      return;
+    }
+    if (initiationYear && (!/^\d{4}$/.test(initiationYear) || Number(initiationYear) < 1938 || Number(initiationYear) > currentYear)) {
+      errorEl.textContent = `Initiation year must be a 4-digit year between 1938 and ${currentYear}.`;
+      return;
+    }
+    if (gradYear && (!/^\d{4}$/.test(gradYear) || Number(gradYear) < 1938 || Number(gradYear) > currentYear)) {
+      errorEl.textContent = `Graduation year must be a 4-digit year between 1938 and ${currentYear}.`;
+      return;
+    }
+
+    let avatarPath = currentMember.avatar_path || null;
+
+    if (avatarFile) {
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(avatarFile.type)) {
+        errorEl.textContent = 'Photo must be a JPG, PNG, or WEBP image.';
+        return;
+      }
+      if (avatarFile.size > 5 * 1024 * 1024) {
+        errorEl.textContent = 'Photo must be 5 MB or smaller.';
+        return;
+      }
+      const ext = avatarFile.type === 'image/png' ? 'png' : (avatarFile.type === 'image/webp' ? 'webp' : 'jpg');
+      const newPath = `${currentMember.id}/avatar.${ext}`;
+      try {
+        const { error: uploadError } = await supabaseClient.storage
+          .from('avatars')
+          .upload(newPath, avatarFile, { upsert: true, contentType: avatarFile.type });
+        if (uploadError) throw uploadError;
+        avatarPath = newPath;
+      } catch (e) {
+        console.warn('Could not upload profile photo:', e);
+        errorEl.textContent = 'Could not upload your photo. Please try again.';
+        return;
+      }
+    }
+
+    const payload = {
+      first_name: firstName || null,
+      last_name: lastName || null,
+      mailing_address: address || null,
+      city: city || null,
+      state: state || null,
+      zip_code: zip || null,
+      initiation_year: initiationYear ? Number(initiationYear) : null,
+      line_name: lineName || null,
+      occupation: occupation || null,
+      phone: phone || null,
+      dillard_grad_year: gradYear ? Number(gradYear) : null,
+      avatar_path: avatarPath,
+      profile_completed_at: new Date().toISOString()
+    };
+
+    try {
+      const { error } = await supabaseClient.from('members').update(payload).eq('id', currentMember.id);
+      if (error) throw error;
+      currentMember = Object.assign({}, currentMember, payload);
+      if (firstName) document.getElementById('welcome-name').textContent = 'Welcome, Brother ' + firstName;
+      closeProfileForm();
+      checkProfileBanner();
+    } catch (e) {
+      console.warn('Could not save profile:', e);
+      errorEl.textContent = 'Could not save your profile. Please try again.';
+    }
+  }
+
+  // ══════════ MEMBER ROSTER (admin) ══════════
+  let rosterData = [];
+
+  function buildRosterRow(m) {
+    const row = document.createElement('tr');
+    const name = [m.first_name, m.last_name].filter(Boolean).join(' ') || '—';
+    [name, m.line_name || '—', m.initiation_year || '—', m.email || '—', m.phone || '—', m.profile_completed_at ? 'Y' : 'N']
+      .forEach(val => {
+        const td = document.createElement('td');
+        td.textContent = val;
+        row.appendChild(td);
+      });
+    return row;
+  }
+
+  async function openRoster() {
+    document.getElementById('roster-modal').style.display = 'flex';
+    const tbody = document.getElementById('roster-tbody');
+    tbody.textContent = '';
+    rosterData = [];
+
+    if (!supabaseClient) return;
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('members')
+        .select('first_name, last_name, line_name, initiation_year, email, phone, profile_completed_at')
+        .order('last_name', { ascending: true });
+      if (error) throw error;
+      rosterData = data || [];
+      if (rosterData.length === 0) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 6;
+        cell.textContent = 'No members found.';
+        row.appendChild(cell);
+        tbody.appendChild(row);
+      } else {
+        rosterData.forEach(m => tbody.appendChild(buildRosterRow(m)));
+      }
+    } catch (e) {
+      console.warn('Could not load member roster:', e);
+      const row = document.createElement('tr');
+      const cell = document.createElement('td');
+      cell.colSpan = 6;
+      cell.textContent = 'Could not load the roster right now.';
+      row.appendChild(cell);
+      tbody.appendChild(row);
+    }
+  }
+
+  function closeRoster() {
+    document.getElementById('roster-modal').style.display = 'none';
+  }
+
+  function exportRosterCSV() {
+    if (!rosterData.length) { window.alert('No roster data to export.'); return; }
+    const headers = ['First Name', 'Last Name', 'Line Name', 'Initiation Year', 'Email', 'Phone', 'Profile Complete'];
+    const rows = rosterData.map(m => [
+      m.first_name || '', m.last_name || '', m.line_name || '', m.initiation_year || '',
+      m.email || '', m.phone || '', m.profile_completed_at ? 'Y' : 'N'
+    ]);
+    const csvEscape = v => '"' + String(v).replace(/"/g, '""') + '"';
+    const csv = [headers, ...rows].map(r => r.map(csvEscape).join(',')).join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'bpaa-member-roster.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   function cleanAuthTokensFromUrl() {

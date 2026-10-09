@@ -2772,6 +2772,12 @@ a {
   transition: background 0.2s;
 }
 .members-card-link:hover { background: rgba(184,135,0,0.08); }
+button.members-card-link {
+  background: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
 /* Announcement items */
 .announcement-item {
@@ -3102,6 +3108,302 @@ a {
 .login-field textarea:focus { border-color: rgba(184,135,0,0.5); }
 .login-field textarea { resize: vertical; }
 
+.form-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.form-checkbox-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold, #b48700);
+  cursor: pointer;
+}
+.form-checkbox-row label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* ── PROFILE BANNER ── */
+.profile-banner {
+  background: rgba(184,135,0,0.12);
+  border: 0.5px solid rgba(184,135,0,0.35);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.profile-banner-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gold, #b48700);
+}
+
+/* ── ANNOUNCEMENTS (dynamic) ── */
+.announcement-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+.announcement-link {
+  display: inline-block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold, #b48700);
+  text-decoration: none;
+  margin-top: 0.35rem;
+}
+.announcement-link:hover { text-decoration: underline; }
+.announcement-admin-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+/* ── NEWSLETTER ── */
+.newsletter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+.newsletter-item:last-child { border-bottom: none; }
+.newsletter-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+.newsletter-date {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+.newsletter-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── MEMBER PROFILE FORM ── */
+.profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.profile-avatar-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(184,135,0,0.3);
+  flex-shrink: 0;
+}
+
+/* ── MEMBER ROSTER ── */
+.roster-modal-box { max-width: 900px; }
+.roster-table-wrap { overflow-x: auto; }
+.roster-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+}
+.roster-table th {
+  text-align: left;
+  color: var(--gold, #b48700);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(184,135,0,0.25);
+  white-space: nowrap;
+}
+.roster-table td {
+  padding: 8px 10px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  white-space: nowrap;
+}
+
+/* ── DUES CARD ── */
+.dues-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.dues-card .tiers-grid { margin-top: 1.5rem; }
+.tier-btn-disabled {
+  pointer-events: none;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── CALENDAR CARD ── */
+.cal-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(184,135,0,0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.cal-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.cal-left { order: 2; }
+.cal-right { order: 1; }
+.cal-selected-day {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid rgba(184,135,0,0.2);
+}
+.cal-selected-daynum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+}
+.cal-selected-weekday {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gold, #b48700);
+}
+.cal-create-btn { margin-top: 1rem; width: 100%; justify-content: center; }
+
+.cal-year-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: #fff;
+}
+.cal-year-arrow {
+  background: none;
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.cal-year-arrow:hover { border-color: var(--gold, #b48700); color: var(--gold, #b48700); }
+
+.cal-month-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+.cal-month-tab {
+  background: none;
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.55);
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cal-month-tab:hover { border-color: rgba(184,135,0,0.4); color: #fff; }
+.cal-month-tab.active {
+  background: var(--gold, #b48700);
+  color: #000;
+  border-color: var(--gold, #b48700);
+}
+
+.cal-weekday-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 4px;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-day-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  position: relative;
+  background: rgba(255,255,255,0.02);
+  transition: background 0.15s;
+}
+.cal-day-cell:hover { background: rgba(184,135,0,0.1); }
+.cal-day-cell.cal-day-empty { visibility: hidden; cursor: default; }
+.cal-day-cell.cal-day-today { border: 1px solid var(--gold, #b48700); color: #fff; font-weight: 700; }
+.cal-day-cell.cal-day-selected { background: var(--gold, #b48700); color: #000; font-weight: 700; }
+.cal-day-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold, #b48700);
+  position: absolute;
+  bottom: 5px;
+}
+.cal-day-cell.cal-day-selected .cal-day-dot { background: #000; }
+
+@media (min-width: 768px) {
+  .cal-wrap { flex-direction: row; }
+  .cal-left { order: 1; flex: 0 0 300px; }
+  .cal-right { order: 2; flex: 1; min-width: 0; }
+}
+
 @media (max-width: 600px) {
   .event-form-row { flex-direction: column; gap: 0; }
   .event-date-col { width: 46px; }
@@ -3111,6 +3413,7 @@ a {
   .event-gcal-link,
   .event-edit-btn,
   .event-delete-btn { flex: 1 1 auto; text-align: center; }
+  .newsletter-item { flex-direction: column; align-items: flex-start; }
 }
 
 /* =========================
