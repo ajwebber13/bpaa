@@ -966,6 +966,9 @@ a {
   color: #555;
   font-size: 0.78rem;
 }
+.footer-bottom .footer-credit { flex-basis: 100%; font-size: 0.7rem; color: #444; }
+.footer-bottom .footer-credit a { color: inherit; text-decoration: none; }
+.footer-bottom .footer-credit a:hover { color: var(--muted); }
 
 @media (max-width: 768px) {
   .footer-grid {
